@@ -52,7 +52,7 @@ public class Main {
         OptionSpec<Integer> optionspec6 = optionParser.accepts("proxyPort").withRequiredArg().defaultsTo("8080", new String[0]).ofType(Integer.class);
         OptionSpec<String> optionspec7 = optionParser.accepts("proxyUser").withRequiredArg();
         OptionSpec<String> optionspec8 = optionParser.accepts("proxyPass").withRequiredArg();
-        OptionSpec<String> optionspec9 = optionParser.accepts("username").withRequiredArg().defaultsTo("Player");
+        OptionSpec<String> optionspec9 = optionParser.accepts("username").withRequiredArg().defaultsTo("yuxiangll");
         OptionSpec<String> optionspec10 = optionParser.accepts("uuid").withRequiredArg();
         OptionSpec<String> optionspec11 = optionParser.accepts("accessToken").withRequiredArg().required();
         OptionSpec<String> optionspec12 = optionParser.accepts("version").withRequiredArg().required();

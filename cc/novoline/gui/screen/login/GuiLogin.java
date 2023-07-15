@@ -11,6 +11,9 @@ import cc.novoline.yuxiangll.render.shader.shaders.BackgroundShader;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.Display;
@@ -47,7 +50,6 @@ public class GuiLogin extends GuiScreen {
 
     public GuiLogin() {
         status = "Idle";
-        //TODO novoline的shader背景，这里mac用不了
         initTime = System.currentTimeMillis();
     }
 
@@ -71,17 +73,20 @@ public class GuiLogin extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         GlStateManager.disableCull();
-        //TODO novoline的shader背景，这里mac用不了
-        BackgroundShader.BACKGROUND_SHADER.startShader();
         //BackgroundShader.BACKGROUND_SHADER.startShader();
-        //shader.useShader(this.width, this.height, mouseX, mouseY, (System.currentTimeMillis() - initTime) / 1000f);
-       // GL11.glBegin(GL11.GL_QUADS);
-        //GL11.glVertex2f(-1f, -1f);
-        //GL11.glVertex2f(-1f, 1f);
-        //GL11.glVertex2f(1f, 1f);
-        //GL11.glVertex2f(1f, -1f);
-        //GL11.glEnd();
-        //GL20.glUseProgram(0);
+        GlStateManager.disableLighting();
+        GlStateManager.disableFog();
+        BackgroundShader.BACKGROUND_SHADER.startShader();
+        final Tessellator instance = Tessellator.getInstance();
+        final WorldRenderer worldRenderer = instance.getWorldRenderer();
+        worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(0, height, 0.0D).endVertex();
+        worldRenderer.pos(width, height, 0.0D).endVertex();
+        worldRenderer.pos(width, 0, 0.0D).endVertex();
+        worldRenderer.pos(0, 0, 0.0D).endVertex();
+        instance.draw();
+        BackgroundShader.BACKGROUND_SHADER.stopShader();
+
         if (launched && darkTheme && fraction != 1.0049993F) {
             fraction = 1.0049993F;
         }

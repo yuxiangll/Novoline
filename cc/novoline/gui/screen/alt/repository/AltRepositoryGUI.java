@@ -15,6 +15,7 @@ import cc.novoline.modules.visual.HUD;
 import cc.novoline.utils.java.FilteredArrayList;
 import cc.novoline.utils.minecraft.FakeEntityPlayer;
 import cc.novoline.utils.shader.GLSLSandboxShader;
+import cc.novoline.yuxiangll.render.shader.shaders.BackgroundShader;
 import com.google.common.base.Strings;
 import com.mojang.authlib.GameProfile;
 import com.thealtening.api.TheAlteningException;
@@ -24,6 +25,9 @@ import it.unimi.dsi.fastutil.objects.ObjectLists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -132,7 +136,6 @@ public class AltRepositoryGUI extends GuiScreen {
     /* constructors */
     public AltRepositoryGUI(@NonNull Novoline novoline) {
         this.novoline = novoline;
-        //TODO novoline的shader背景，这里mac用不了
         //try {
         //    this.shader = new GLSLSandboxShader("/assets/minecraft/shaders/program/novoline_menu.fsh");
         //} catch (IOException e) {
@@ -420,15 +423,21 @@ public class AltRepositoryGUI extends GuiScreen {
         try {
 
             GlStateManager.disableCull();
-            //TODO novoline的shader背景，这里mac用不了
-            //shader.useShader(this.width, this.height, mouseX, mouseY, (System.currentTimeMillis() - initTime) / 1000f);
-            GL11.glBegin(GL11.GL_QUADS);
-            GL11.glVertex2f(-1f, -1f);
-            GL11.glVertex2f(-1f, 1f);
-            GL11.glVertex2f(1f, 1f);
-            GL11.glVertex2f(1f, -1f);
-            GL11.glEnd();
-            GL20.glUseProgram(0);
+            //TODO 动不了
+
+            GlStateManager.disableLighting();
+            GlStateManager.disableFog();
+            BackgroundShader.BACKGROUND_SHADER.startShader();
+            final Tessellator instance = Tessellator.getInstance();
+            final WorldRenderer worldRenderer = instance.getWorldRenderer();
+            worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+            worldRenderer.pos(0, height, 0.0D).endVertex();
+            worldRenderer.pos(width, height, 0.0D).endVertex();
+            worldRenderer.pos(width, 0, 0.0D).endVertex();
+            worldRenderer.pos(0, 0, 0.0D).endVertex();
+            instance.draw();
+            BackgroundShader.BACKGROUND_SHADER.stopShader();
+
             final int altsCount = this.alts.size();
             final float perAlt = this.sliderHeight / this.alts.size();
 

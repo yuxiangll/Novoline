@@ -6,7 +6,11 @@ import cc.novoline.gui.screen.login.GuiLogin;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.fonts.impl.Fonts;
 import cc.novoline.utils.shader.GLSLSandboxShader;
+import cc.novoline.yuxiangll.render.shader.shaders.BackgroundShader;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -45,7 +49,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private long initTime = System.currentTimeMillis();
 
     public GuiMainMenu() {
-        //TODO novoline的shader背景，这里mac用不了
         //try {
         //    this.shader = new GLSLSandboxShader("/assets/minecraft/shaders/program/novoline_menu.fsh");
         //} catch (IOException e) {
@@ -98,16 +101,20 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             alpha--;
         }
 
-        GlStateManager.disableCull();
-        //TODO novoline的shader背景，这里mac用不了
-        //shader.useShader(this.width, this.height, mouseX, mouseY, (System.currentTimeMillis() - initTime) / 1000f);
-        GL11.glBegin(GL11.GL_QUADS);
-        GL11.glVertex2f(-1f, -1f);
-        GL11.glVertex2f(-1f, 1f);
-        GL11.glVertex2f(1f, 1f);
-        GL11.glVertex2f(1f, -1f);
-        GL11.glEnd();
-        GL20.glUseProgram(0);
+        //GlStateManager.disableCull();
+        //动不了
+        GlStateManager.disableLighting();
+        GlStateManager.disableFog();
+        BackgroundShader.BACKGROUND_SHADER.startShader();
+        final Tessellator instance = Tessellator.getInstance();
+        final WorldRenderer worldRenderer = instance.getWorldRenderer();
+        worldRenderer.begin(7, DefaultVertexFormats.POSITION);
+        worldRenderer.pos(0, height, 0.0D).endVertex();
+        worldRenderer.pos(width, height, 0.0D).endVertex();
+        worldRenderer.pos(width, 0, 0.0D).endVertex();
+        worldRenderer.pos(0, 0, 0.0D).endVertex();
+        instance.draw();
+        BackgroundShader.BACKGROUND_SHADER.stopShader();
 
         singleplayerworlds.setColor(interpolateColor(blue, blueish, fraction));
         multiplayer.setColor(interpolateColor(blue, blueish, fraction));
