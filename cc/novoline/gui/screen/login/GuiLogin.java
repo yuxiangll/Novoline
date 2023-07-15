@@ -7,7 +7,7 @@ import cc.novoline.gui.screen.login.textbox.UIDField;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.fonts.impl.Fonts;
 import cc.novoline.utils.shader.GLSLSandboxShader;
-import cc.novoline.yuxiangll.BackgroundShader;
+import cc.novoline.yuxiangll.render.shader.shaders.BackgroundShader;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
@@ -73,6 +73,7 @@ public class GuiLogin extends GuiScreen {
         GlStateManager.disableCull();
         //TODO novoline的shader背景，这里mac用不了
         BackgroundShader.BACKGROUND_SHADER.startShader();
+        //BackgroundShader.BACKGROUND_SHADER.startShader();
         //shader.useShader(this.width, this.height, mouseX, mouseY, (System.currentTimeMillis() - initTime) / 1000f);
        // GL11.glBegin(GL11.GL_QUADS);
         //GL11.glVertex2f(-1f, -1f);
@@ -178,8 +179,9 @@ public class GuiLogin extends GuiScreen {
 
             falseError = false;
         }
-
         super.drawScreen(mouseX, mouseY, partialTicks);
+        //Thread.sleep(1);
+        //BackgroundShader.BACKGROUND_SHADER.stopShader();
     }
 
     @Override

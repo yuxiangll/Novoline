@@ -1,18 +1,21 @@
-package cc.novoline.yuxiangll;
+/*
+ * LiquidBounce+ Hacked Client
+ * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge.
+ * https://github.com/WYSI-Foundation/LiquidBouncePlus/
+ */
+package cc.novoline.yuxiangll.render.shader;
 
 
-import net.minecraft.util.ResourceLocation;
+import cc.novoline.yuxiangll.ClientUtils;
+import cc.novoline.yuxiangll.MinecraftInstance;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.*;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Shader {
+public abstract class Shader extends MinecraftInstance {
     private int program;
 
     private Map<String, Integer> uniformsMap;
@@ -21,16 +24,11 @@ public abstract class Shader {
         int vertexShaderID, fragmentShaderID;
 
         try {
-            final InputStream vertexStream = new FileInputStream("/Users/yuxiang/Documents/novoline-eclipse-ready-master/assets/minecraft/yuxiangll/shaders/vertex.vert");
-                    //getClass().getResourceAsStream("/Users/yuxiang/Documents/novoline-eclipse-ready-master/assets/minecraft/yuxiangll/shaders/vertex.vert");
-            //final InputStream vertexStream = getClass().getResourceAsStream(String.valueOf(new ResourceLocation("yuxiangll/shader/vertex.vert")));
-            // getClass().getResourceAsStream("/assets/minecraft/yuxiangll/shader/vertex.vert");
-
+            final InputStream vertexStream = getClass().getResourceAsStream("/assets/minecraft/liquidbounce+/shader/vertex.vert");
             vertexShaderID = createShader(IOUtils.toString(vertexStream), ARBVertexShader.GL_VERTEX_SHADER_ARB);
             IOUtils.closeQuietly(vertexStream);
-            //final InputStream fragmentStream = getClass().getResourceAsStream("/Users/yuxiang/Documents/novoline-eclipse-ready-master/assets/minecraft/yuxiangll/shader/fragment/" + fragmentShader);
 
-            final InputStream fragmentStream = Files.newInputStream(Paths.get("/Users/yuxiang/Documents/novoline-eclipse-ready-master/assets/minecraft/yuxiangll/shader/fragment/" + fragmentShader));
+            final InputStream fragmentStream = getClass().getResourceAsStream("/assets/minecraft/liquidbounce+/shader/fragment/" + fragmentShader);
             fragmentShaderID = createShader(IOUtils.toString(fragmentStream), ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
             IOUtils.closeQuietly(fragmentStream);
         }catch(final Exception e) {
@@ -52,7 +50,7 @@ public abstract class Shader {
         ARBShaderObjects.glLinkProgramARB(program);
         ARBShaderObjects.glValidateProgramARB(program);
 
-        //ClientUtils.getLogger().info("[Shader] Successfully loaded: " + fragmentShader);
+        ClientUtils.getLogger().info("[Shader] Successfully loaded: " + fragmentShader);
     }
 
     public void init() {

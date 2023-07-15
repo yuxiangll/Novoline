@@ -361,6 +361,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         return novoline;
     }
 
+    public static Minecraft getMinecraft() {
+        return theMinecraft;
+    }
+
+
     /**
      * Used in the usage snooper.
      */
