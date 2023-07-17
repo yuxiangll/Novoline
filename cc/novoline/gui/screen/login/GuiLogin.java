@@ -7,7 +7,7 @@ import cc.novoline.gui.screen.login.textbox.UIDField;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.fonts.impl.Fonts;
 import cc.novoline.utils.shader.GLSLSandboxShader;
-import cc.novoline.yuxiangll.render.shader.shaders.BackgroundShader;
+import cc.novoline.yuxiangll.BackGround.BackGround;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
@@ -40,7 +40,7 @@ public class GuiLogin extends GuiScreen {
     public int alpha = 0;
 
     private GLSLSandboxShader shader;
-    private long initTime = System.currentTimeMillis(); // Initialize as a failsafe
+    //private long initTime = System.currentTimeMillis(); // Initialize as a failsafe
 
     private final Color blackish = new Color(20, 23, 26);
     private final Color black = new Color(40, 46, 51);
@@ -50,12 +50,21 @@ public class GuiLogin extends GuiScreen {
 
     public GuiLogin() {
         status = "Idle";
-        initTime = System.currentTimeMillis();
+        //initTime = System.currentTimeMillis();
     }
 
     @Override
     public void initGui() {
         Display.setTitle("Novoline - Not logged in");
+        Novoline.initTime = System.currentTimeMillis();
+        try {
+            backgroundShader = new BackGround("/assets/minecraft/background/mainmenu.fsh");
+        } catch (IOException var9) {
+            throw new IllegalStateException("Failed to load backgound shader", var9);
+        }
+
+
+
         buttonList.add(button);
         field = new UIDField(1, mc.fontRendererObj, (int) hWidth - 70, (int) hHeight - 35, 140, 30, "idk");
         alpha = 100;
@@ -67,25 +76,37 @@ public class GuiLogin extends GuiScreen {
     private float hWidth = 960;
     private float errorBoxHeight = 0;
 
+    private BackGround backgroundShader;
+
     HydraButton button = new HydraButton(0, (int) hWidth - 70, (int) (hHeight + 5), 140, 30, "Log In");
     UIDField field;
 
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+
+        ScaledResolution sr1 = new ScaledResolution(this.mc);
         GlStateManager.disableCull();
-        //BackgroundShader.BACKGROUND_SHADER.startShader();
-        GlStateManager.disableLighting();
-        GlStateManager.disableFog();
-        BackgroundShader.BACKGROUND_SHADER.startShader();
-        final Tessellator instance = Tessellator.getInstance();
-        final WorldRenderer worldRenderer = instance.getWorldRenderer();
-        worldRenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldRenderer.pos(0, height, 0.0D).endVertex();
-        worldRenderer.pos(width, height, 0.0D).endVertex();
-        worldRenderer.pos(width, 0, 0.0D).endVertex();
-        worldRenderer.pos(0, 0, 0.0D).endVertex();
-        instance.draw();
-        BackgroundShader.BACKGROUND_SHADER.stopShader();
+        this.backgroundShader.useShader((int) (sr1.getScaledWidth() * 2.0f), (int) (sr1.getScaledHeight() * 2.0f), (float) mouseX, (float) mouseY, (float) (System.currentTimeMillis() - Novoline.initTime) / 1000.0F);
+        GL11.glBegin(7);
+        GL11.glVertex2f(-1.0F, -1F);
+        GL11.glVertex2f(-1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, -1.0F);
+        GL11.glEnd();
+        GL20.glUseProgram(0);
+
+
+
+        //Novoline.initTime = System.currentTimeMillis();
+
+        ScaledResolution scaledResolution = new ScaledResolution(mc);
+        int scaledWidthScaled = scaledResolution.getScaledWidth();
+        int scaledHeightScaled = scaledResolution.getScaledHeight();
+
+        //this.backgroundShader.useShader((int) (hWidth / 2), (int) (hHeight / 2), (float) mouseX, (float) mouseY, (float) (System.currentTimeMillis() - Novoline.initTime) / 1000.0F);
+
+
 
         if (launched && darkTheme && fraction != 1.0049993F) {
             fraction = 1.0049993F;
@@ -114,15 +135,13 @@ public class GuiLogin extends GuiScreen {
         field.setColor(interpolateColor(white, black, fraction));
         field.setTextColor(interpolateColor(shitGray, white, fraction));
 
-        ScaledResolution scaledResolution = new ScaledResolution(mc);
+        //ScaledResolution scaledResolution = new ScaledResolution(mc);
         button.updateCoordinates(hWidth - 70, hHeight + 5);
         field.updateCoordinates(hWidth - 70, hHeight - 35);
-        int scaledWidthScaled = scaledResolution.getScaledWidth();
-        int scaledHeightScaled = scaledResolution.getScaledHeight();
+
 
         hHeight = hHeight + (scaledHeightScaled / 2 - hHeight) * 0.02f;
         hWidth = scaledWidthScaled / 2;
-
         Gui.drawRect(0, 0, scaledWidthScaled, scaledHeightScaled, new Color(0,0,0,150).getRGB());
 
         Color vis = new Color(interpolateColor(blue, blueish, fraction));
@@ -184,6 +203,8 @@ public class GuiLogin extends GuiScreen {
 
             falseError = false;
         }
+        //this.backgroundShader.useShader(scaledResolution.getScaledWidth() * 2, scaledResolution.getScaledHeight() * 2, (float) mouseX, (float) mouseY, (float) (System.currentTimeMillis() - Novoline.initTime) / 1000.0F);
+
         super.drawScreen(mouseX, mouseY, partialTicks);
         //Thread.sleep(1);
         //BackgroundShader.BACKGROUND_SHADER.stopShader();

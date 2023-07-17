@@ -51,7 +51,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer {
 
             @Override
             public void run() {
-                tryDownloadNovolineCape(niggastrudel);
+                //tryDownloadNovolineCape(niggastrudel);
             }
         });
 

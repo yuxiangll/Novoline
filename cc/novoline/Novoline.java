@@ -31,9 +31,11 @@ import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
 public final class Novoline {
+    public static long initTime;
 
     /* fields */
     private final boolean BETA = false;
+    private final boolean Special = true;
     private final boolean HOTFIX = false;
 
     private static Novoline INSTANCE;
@@ -132,7 +134,7 @@ public final class Novoline {
 
     public String getVersion() {
         String version = this.version.toCharArray()[0] != '@' ? this.version : new SimpleDateFormat("MMddyy").format(new Date());
-        return version + (BETA ? "-BETA" : "") + (HOTFIX ? "-H" : "");
+        return version + (BETA ? "-BETA" : "") + (HOTFIX ? "-H" : "")+(Special ? "-SL" : "") ;
     }
 
     public Path getDataFolder() {
@@ -156,7 +158,7 @@ public final class Novoline {
     }
 
     public void init() {
-
+        initTime = System.currentTimeMillis();
     }
 
     public String Xor(Object obj, String key) {

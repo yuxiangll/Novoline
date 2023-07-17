@@ -181,6 +181,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
         }
     }
 
+
     public void sendPacketNoEvent(Packet packetIn) {
         if (isChannelOpen()) {
             flushOutboundQueue();

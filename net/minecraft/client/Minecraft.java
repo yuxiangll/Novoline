@@ -132,6 +132,7 @@ import static org.lwjgl.opengl.Display.*;
 public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public ScheduledExecutorService niggerService;
+
     private Logger logger = LogManager.getLogger();
     private final String[] errors = {"Internal Exception: io.netty.handler.codec.DecoderException: Badly compressed packet - size of 61 is below server threshold of 256",
             "Internal Exception: io.netty.handler.codec.DecoderException: java.lang.IndexOutOfBoundsException: " +
@@ -199,6 +200,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     public WorldClient world;
     public RenderGlobal renderGlobal;
     public EntityPlayerSP player;
+    public EntityPlayerSP theplayer;
     public Minecraft gameController;
     public BlockHelper blockHelper;
     public Entity pointedEntity;
@@ -357,14 +359,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         Bootstrap.register();
     }
 
-    public Novoline getNovoline() {
-        return novoline;
-    }
-
     public static Minecraft getMinecraft() {
         return theMinecraft;
     }
 
+    public Novoline getNovoline() {
+        return novoline;
+    }
 
     /**
      * Used in the usage snooper.
@@ -598,12 +599,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.effectRenderer = new EffectRenderer(world, renderEngine);
         checkGLError("Post startup");
         this.ingameGUI = new GuiIngame(this);
-        displayGuiScreen(new GuiLogin());
 
         (this.novoline = Novoline.getInstance()).onStart();
 
         if (serverName != null) {
-            //displayGuiScreen(new GuiLogin());
             displayGuiScreen(new GuiConnecting(new GuiMainMenu(), this, serverName, serverPort));
         } else {
             displayGuiScreen(new GuiLogin());
@@ -2729,7 +2728,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     private void writeKillsults() {
         try {
-            Killsults killsults = Novoline.getInstance().getModuleManager().getModule(Killsults.class);
+            Killsults killsults =null;
+            if (Novoline.getInstance().getModuleManager().getModule(Killsults.class) != null){
+                killsults = Novoline.getInstance().getModuleManager().getModule(Killsults.class);
+            }
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(killsults.getPath().toString()));
 
             for (String string : killsults.getKillsults()) {

@@ -140,9 +140,11 @@ public final class Speed extends AbstractModule {
     public void onEnable() {
         setSuffix("Watchdog");
         checkModule(Flight.class);
+        if (mc.player != null){
+            moveSpeed = mc.player.getBaseMoveSpeed();
+            mc.player.resetLastTickDistance();
+        }
 
-        moveSpeed = mc.player.getBaseMoveSpeed();
-        mc.player.resetLastTickDistance();
     }
 
     @Override

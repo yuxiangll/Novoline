@@ -1,7 +1,10 @@
 package net.minecraft.client.gui;
 
+import cc.novoline.Novoline;
+import cc.novoline.yuxiangll.BackGround.BackGround;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.WorldSettings;
@@ -12,6 +15,8 @@ import net.minecraft.world.storage.WorldInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -38,6 +43,7 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
     private GuiButton selectButton;
     private GuiButton renameButton;
     private GuiButton recreateButton;
+    private BackGround backgroundShader;
 
     public GuiSelectWorld(GuiScreen parentScreenIn) {
         this.parentScreen = parentScreenIn;
@@ -49,7 +55,12 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
      */
     public void initGui() {
         this.field_146628_f = I18n.format("selectWorld.title");
-
+        Novoline.initTime = System.currentTimeMillis();
+        try {
+            backgroundShader = new BackGround("/assets/minecraft/background/mainmenu.fsh");
+        } catch (IOException var9) {
+            throw new IllegalStateException("Failed to load backgound shader", var9);
+        }
         try {
             this.func_146627_h();
         } catch (AnvilConverterException anvilconverterexception) {
@@ -192,6 +203,18 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback {
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        ScaledResolution sr1 = new ScaledResolution(this.mc);
+        GlStateManager.disableCull();
+        this.backgroundShader.useShader((int) (sr1.getScaledWidth() * 2.0f), (int) (sr1.getScaledHeight() * 2.0f), (float) mouseX, (float) mouseY, (float) (System.currentTimeMillis() - Novoline.initTime) / 1000.0F);
+        GL11.glBegin(7);
+        GL11.glVertex2f(-1.0F, -1F);
+        GL11.glVertex2f(-1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, -1.0F);
+        GL11.glEnd();
+        GL20.glUseProgram(0);
+
+
         this.field_146638_t.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRendererObj, this.field_146628_f, this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);

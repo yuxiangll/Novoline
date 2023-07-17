@@ -2,15 +2,11 @@ package net.minecraft.client.gui;
 
 import cc.novoline.Novoline;
 import cc.novoline.gui.button.HydraButton;
-import cc.novoline.gui.screen.login.GuiLogin;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.fonts.impl.Fonts;
 import cc.novoline.utils.shader.GLSLSandboxShader;
-import cc.novoline.yuxiangll.render.shader.shaders.BackgroundShader;
+import cc.novoline.yuxiangll.BackGround.BackGround;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -32,7 +28,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private final String path = Novoline.getInstance().getPathString() + "theme.txt";
 
 
-    //private GLSLSandboxShader shader;
+    private GLSLSandboxShader shader;
 
     private final Color blackish = new Color(20, 23, 26);
     private final Color black = new Color(40, 46, 51);
@@ -47,6 +43,20 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     HydraButton shutdown = new HydraButton(4, (int) hWidth - 70, (int) hHeight - (int) halfTotalHeight + 102, 140, 20, "Shutdown");
 
     private long initTime = System.currentTimeMillis();
+    private BackGround backgroundShader;
+
+    {
+        try {
+            //backgroundShader = new MainMenuShader("/moon.fsh");
+            //backgroundShader = new BackGround("/assets/minecraft/background/moon.fsh");
+            backgroundShader = new BackGround("/assets/minecraft/background/mainmenu.fsh");
+            //backgroundShader = new BackGround("/assets/minecraft/background/dicks.fsh");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    ;
 
     public GuiMainMenu() {
         //try {
@@ -54,7 +64,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         //} catch (IOException e) {
         //    throw new IllegalStateException("Failed to load backgound shader", e);
         //}
-        initTime = System.currentTimeMillis();
+        //initTime = System.currentTimeMillis();
     }
 
     public boolean doesGuiPauseGame() {
@@ -62,7 +72,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     }
 
     public void initGui() {
-        //mc.displayGuiScreen(new GuiLogin());
+        Novoline.initTime = System.currentTimeMillis();
         buttonList.add(singleplayerworlds);
         buttonList.add(multiplayer);
         buttonList.add(altrepository);
@@ -85,6 +95,17 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        ScaledResolution sr = new ScaledResolution(this.mc);
+        GlStateManager.disableCull();
+        this.backgroundShader.useShader((int) (sr.getScaledWidth() * 2.0f), (int) (sr.getScaledHeight() * 2.0f), (float) mouseX, (float) mouseY, (float) (System.currentTimeMillis() - Novoline.initTime) / 1000.0F);
+        GL11.glBegin(7);
+        GL11.glVertex2f(-1.0F, -1F);
+        GL11.glVertex2f(-1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, -1.0F);
+        GL11.glEnd();
+        GL20.glUseProgram(0);
+
         if (guiWasSwitched && darkTheme && fraction != 1.0049993F) {
             fraction = 1.0049993F;
         }
@@ -101,20 +122,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             alpha--;
         }
 
-        //GlStateManager.disableCull();
-        //动不了
-        GlStateManager.disableLighting();
-        GlStateManager.disableFog();
-        BackgroundShader.BACKGROUND_SHADER.startShader();
-        final Tessellator instance = Tessellator.getInstance();
-        final WorldRenderer worldRenderer = instance.getWorldRenderer();
-        worldRenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldRenderer.pos(0, height, 0.0D).endVertex();
-        worldRenderer.pos(width, height, 0.0D).endVertex();
-        worldRenderer.pos(width, 0, 0.0D).endVertex();
-        worldRenderer.pos(0, 0, 0.0D).endVertex();
-        instance.draw();
-        BackgroundShader.BACKGROUND_SHADER.stopShader();
 
         singleplayerworlds.setColor(interpolateColor(blue, blueish, fraction));
         multiplayer.setColor(interpolateColor(blue, blueish, fraction));
@@ -155,6 +162,8 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         int scaledHeightScaled = scaledResolution.getScaledHeight();
         hHeight = hHeight + (scaledHeightScaled / 2 - hHeight) * 0.02f;
         hWidth = scaledWidthScaled / 2;
+
+
 
         Gui.drawRect(0, 0, scaledWidthScaled, scaledHeightScaled, new Color(0,0,0,150).getRGB());
         RenderUtils.drawBorderedRect(

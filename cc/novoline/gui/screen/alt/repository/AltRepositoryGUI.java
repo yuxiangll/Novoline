@@ -15,7 +15,7 @@ import cc.novoline.modules.visual.HUD;
 import cc.novoline.utils.java.FilteredArrayList;
 import cc.novoline.utils.minecraft.FakeEntityPlayer;
 import cc.novoline.utils.shader.GLSLSandboxShader;
-import cc.novoline.yuxiangll.render.shader.shaders.BackgroundShader;
+import cc.novoline.yuxiangll.BackGround.BackGround;
 import com.google.common.base.Strings;
 import com.mojang.authlib.GameProfile;
 import com.thealtening.api.TheAlteningException;
@@ -24,6 +24,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectLists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -132,6 +133,7 @@ public class AltRepositoryGUI extends GuiScreen {
     /* altening */
     private TokenField apiKeyField;
     private String tokenContent = "";
+    private BackGround backgroundShader;
 
     /* constructors */
     public AltRepositoryGUI(@NonNull Novoline novoline) {
@@ -352,6 +354,12 @@ public class AltRepositoryGUI extends GuiScreen {
 
         //region Temporary values
         final TokenField oldSearchField = this.searchField;
+        Novoline.initTime = System.currentTimeMillis();
+        try {
+            backgroundShader = new BackGround("/assets/minecraft/background/mainmenu.fsh");
+        } catch (IOException var9) {
+            throw new IllegalStateException("Failed to load backgound shader", var9);
+        }
         //endregion
         //region Updating resolution-depended cached values
         final int altInfoX = this.width - PLAYER_BOX_WIDTH - HORIZONTAL_MARGIN;
@@ -421,22 +429,19 @@ public class AltRepositoryGUI extends GuiScreen {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         try {
-
+            ScaledResolution sr = new ScaledResolution(this.mc);
             GlStateManager.disableCull();
-            //TODO 动不了
+            this.backgroundShader.useShader((int) (sr.getScaledWidth() * 2.0f), (int) (sr.getScaledHeight() * 2.0f), (float) mouseX, (float) mouseY, (float) (System.currentTimeMillis() - Novoline.initTime) / 1000.0F);
+            GL11.glBegin(7);
+            GL11.glVertex2f(-1.0F, -1F);
+            GL11.glVertex2f(-1.0F, 1.0F);
+            GL11.glVertex2f(1.0F, 1.0F);
+            GL11.glVertex2f(1.0F, -1.0F);
+            GL11.glEnd();
+            GL20.glUseProgram(0);
 
-            GlStateManager.disableLighting();
-            GlStateManager.disableFog();
-            BackgroundShader.BACKGROUND_SHADER.startShader();
-            final Tessellator instance = Tessellator.getInstance();
-            final WorldRenderer worldRenderer = instance.getWorldRenderer();
-            worldRenderer.begin(7, DefaultVertexFormats.POSITION);
-            worldRenderer.pos(0, height, 0.0D).endVertex();
-            worldRenderer.pos(width, height, 0.0D).endVertex();
-            worldRenderer.pos(width, 0, 0.0D).endVertex();
-            worldRenderer.pos(0, 0, 0.0D).endVertex();
-            instance.draw();
-            BackgroundShader.BACKGROUND_SHADER.stopShader();
+            //GlStateManager.disableLighting();
+            //GlStateManager.disableFog();
 
             final int altsCount = this.alts.size();
             final float perAlt = this.sliderHeight / this.alts.size();

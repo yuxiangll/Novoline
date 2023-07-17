@@ -2,6 +2,8 @@ package net.minecraft.client.gui;
 
 import cc.novoline.Novoline;
 import cc.novoline.utils.notifications.NotificationRenderer;
+import cc.novoline.utils.shader.GLSLSandboxShader;
+import cc.novoline.yuxiangll.BackGround.BackGround;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -32,6 +34,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import tv.twitch.chat.ChatUserInfo;
 
 import java.awt.*;
@@ -93,6 +97,15 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      */
     private int touchValue;
     private URI clickedLinkURI;
+    private BackGround backgroundShader;
+
+    {
+        try {
+            backgroundShader = new BackGround("/assets/minecraft/background/mainmenu.fsh");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
@@ -465,6 +478,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      * window resizes, the buttonList is cleared beforehand.
      */
     public void initGui() {
+        Novoline.initTime = System.currentTimeMillis();
+
 /*        if (!Novoline.getInstance().isAnythingNull()) {
             Novoline.getInstance().getNotificationManager().getNotifications().clear();
         }*/
@@ -567,18 +582,28 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      * Draws the background (i is always 0 as of 1.2.2)
      */
     public void drawBackground(int tint) {
-        GlStateManager.disableLighting();
-        GlStateManager.disableFog();
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-        this.mc.getTextureManager().bindTexture(optionsBackground);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, this.height, 0.0D).tex(0.0D, (float) this.height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, this.height, 0.0D).tex((float) this.width / 32.0F, (float) this.height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(this.width, 0.0D, 0.0D).tex((float) this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
-        tessellator.draw();
+        ScaledResolution sr1 = new ScaledResolution(this.mc);
+        GlStateManager.disableCull();
+        this.backgroundShader.useShader((int) (sr1.getScaledWidth() * 2.0f), (int) (sr1.getScaledHeight() * 2.0f), (float) 12, (float) 12, (float) (System.currentTimeMillis() - Novoline.initTime) / 1000.0F);
+        GL11.glBegin(7);
+        GL11.glVertex2f(-1.0F, -1F);
+        GL11.glVertex2f(-1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, 1.0F);
+        GL11.glVertex2f(1.0F, -1.0F);
+        GL11.glEnd();
+        GL20.glUseProgram(0);
+        //GlStateManager.disableLighting();
+        //GlStateManager.disableFog();
+        //Tessellator tessellator = Tessellator.getInstance();
+        //WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        //this.mc.getTextureManager().bindTexture(optionsBackground);
+        //GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        //worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+        //worldrenderer.pos(0.0D, this.height, 0.0D).tex(0.0D, (float) this.height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
+        //worldrenderer.pos(this.width, this.height, 0.0D).tex((float) this.width / 32.0F, (float) this.height / 32.0F + (float) tint).color(64, 64, 64, 255).endVertex();
+        //worldrenderer.pos(this.width, 0.0D, 0.0D).tex((float) this.width / 32.0F, tint).color(64, 64, 64, 255).endVertex();
+        //worldrenderer.pos(0.0D, 0.0D, 0.0D).tex(0.0D, tint).color(64, 64, 64, 255).endVertex();
+        //tessellator.draw();
     }
 
     /**
