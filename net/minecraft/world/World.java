@@ -1393,6 +1393,10 @@ public abstract class World implements IBlockAccess {
             try {
 
                 // TODO: timer check
+                // ++entity.ticksExisted;
+                ++entity.ticksSinceVelocity;
+                ++entity.ticksSincePlayerVelocity;
+                // ++entity.ticksSinceTeleport;
 
                 ++entity.ticksExisted;
                 entity.onUpdate();
@@ -1563,6 +1567,8 @@ public abstract class World implements IBlockAccess {
 
             if (forceUpdate && entityIn.addedToChunk) {
                 ++entityIn.ticksExisted;
+                ++entityIn.ticksSinceVelocity;
+                ++entityIn.ticksSincePlayerVelocity;
 
                 if (entityIn.ridingEntity != null) {
                     entityIn.updateRidden();

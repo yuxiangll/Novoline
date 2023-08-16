@@ -154,6 +154,16 @@ public abstract class Entity implements ICommandSender {
      * The previous ticks distance walked multiplied by 0.6
      */
     public float prevDistanceWalkedModified;
+
+
+    /**
+     * How many ticks has this entity had ran since being alive
+     */
+    // public int ticksExisted;
+    public int ticksSinceVelocity, ticksSincePlayerVelocity;
+    // public int ticksSinceTeleport;
+
+
     /**
      * The distance walked multiplied by 0.6
      */

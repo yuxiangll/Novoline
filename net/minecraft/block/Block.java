@@ -2,6 +2,7 @@ package net.minecraft.block;
 
 import cc.novoline.Novoline;
 import cc.novoline.events.EventManager;
+import cc.novoline.events.events.BlockAABBEvent;
 import cc.novoline.events.events.CollideWithBlockEvent;
 import cc.novoline.modules.visual.XRay;
 import net.minecraft.block.material.MapColor;
@@ -1143,19 +1144,21 @@ public class Block {
      * Add all collision boxes of this Block to the list that intersect with the given mask.
      */
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
-        AxisAlignedBB axisalignedbb = this.getCollisionBoundingBox(worldIn, pos, state);
+        final AxisAlignedBB axisalignedbb = this.getCollisionBoundingBox(worldIn, pos, state);
 
-        if (collidingEntity == Minecraft.getInstance().player) {
-            final CollideWithBlockEvent e = (CollideWithBlockEvent) EventManager.call(new CollideWithBlockEvent(this, pos, axisalignedbb));
-            if (e.isCancelled()) {
-                return;
+        if (collidingEntity == Minecraft.getMinecraft().player) {
+            final BlockAABBEvent event = new BlockAABBEvent(worldIn, this, pos, axisalignedbb, mask);
+            EventManager.call(event);
+
+            if (event.isCancelled()) return;
+
+            if (event.getBoundingBox() != null && event.getMaskBoundingBox().intersectsWith(event.getBoundingBox())) {
+                list.add(event.getBoundingBox());
             }
-
-            axisalignedbb = e.getBoundingBox();
-        }
-
-        if (axisalignedbb != null && mask.intersectsWith(axisalignedbb)) {
-            list.add(axisalignedbb);
+        } else {
+            if (axisalignedbb != null && mask.intersectsWith(axisalignedbb)) {
+                list.add(axisalignedbb);
+            }
         }
     }
 

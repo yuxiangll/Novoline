@@ -12,6 +12,7 @@ import cc.novoline.gui.screen.alt.repository.credential.AlteningAltCredential;
 import cc.novoline.gui.screen.alt.repository.hypixel.HypixelProfile;
 import cc.novoline.gui.screen.alt.repository.tclient.TClient;
 import cc.novoline.modules.visual.HUD;
+import cc.novoline.utils.Microsoft.oauth.OAuth;
 import cc.novoline.utils.java.FilteredArrayList;
 import cc.novoline.utils.minecraft.FakeEntityPlayer;
 import cc.novoline.utils.shader.GLSLSandboxShader;
@@ -159,8 +160,12 @@ public class AltRepositoryGUI extends GuiScreen {
     /* methods */
     @Override
     protected void actionPerformed(GuiButton button) {
+        //region Add button
         switch (button.id) {
-            //region Add button
+            case 1145:
+                novoline.getNotificationManager().pop("Start Login", 4000, INFO);
+                OAuth.login((username, uuid, access_token, success) -> mc.session = new Session(username, uuid, access_token, "msa"));
+                break;
             case 69:
                 StringSelection selection = null;
                 try {
@@ -409,8 +414,11 @@ public class AltRepositoryGUI extends GuiScreen {
                 BUTTON_HEIGHT, 15, SFBOLD_28));
         this.buttonList.add(new RoundedButton("Remove", 1, altInfoX + BUTTON_WIDTH + 3, altInfoH + VERTICAL_MARGIN + 5,
                 BUTTON_WIDTH - 1, BUTTON_HEIGHT, 15, SFBOLD_28));
+//        this.buttonList
+//                .add(new RoundedButton("Direct Login", 2, altInfoX, altInfoH + VERTICAL_MARGIN + 5 + BUTTON_HEIGHT + 6,
+//                        PLAYER_BOX_WIDTH, BUTTON_HEIGHT, 15, SFBOLD_28));
         this.buttonList
-                .add(new RoundedButton("Direct Login", 2, altInfoX, altInfoH + VERTICAL_MARGIN + 5 + BUTTON_HEIGHT + 6,
+                .add(new RoundedButton("Microsoft Login", 1145, altInfoX, altInfoH + VERTICAL_MARGIN + 5 + BUTTON_HEIGHT + 6,
                         PLAYER_BOX_WIDTH, BUTTON_HEIGHT, 15, SFBOLD_28));
         this.buttonList
                 .add(new RoundedButton("Refresh", 3, altInfoX, altInfoH + VERTICAL_MARGIN + 5 + (BUTTON_HEIGHT + 6) * 2,

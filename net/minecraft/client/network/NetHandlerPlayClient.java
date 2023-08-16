@@ -114,7 +114,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
      * True if the client has finished downloading terrain and may spawn. Set upon receipt of S08PacketPlayerPosLook,
      * reset upon respawning
      */
-    private boolean doneLoadingTerrain;
+    public boolean doneLoadingTerrain;
     private boolean field_147308_k = false;
 
     public NetHandlerPlayClient(Minecraft mcIn, GuiScreen p_i46300_2_, NetworkManager p_i46300_3_, GameProfile p_i46300_4_) {
@@ -910,6 +910,9 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
         explosion.doExplosionB(true);
 
         if (Novoline.getInstance().getModuleManager().getModule(Velocity.class).isEnabled()) {
+            if (packetIn.func_149149_c() != 0 && packetIn.func_149144_d() != 0 && packetIn.func_149147_e() != 0) {
+                this.gameController.player.ticksSinceVelocity = 0;
+            }
             Velocity velocity = Novoline.getInstance().getModuleManager().getModule(Velocity.class);
             velocity.handleExplosion(gameController, packetIn);
         } else {

@@ -8,6 +8,7 @@ import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.util.function.Predicate;
 
 import static net.minecraft.client.gui.GuiScreen.*;
@@ -58,7 +59,7 @@ public class GuiTextField extends Gui {
      * other selection position, maybe the same as the cursor
      */
     protected int selectionEnd;
-    protected int enabledColor = 14737632;
+    protected int enabledColor = new Color(255,255,255).getRGB();
     protected int disabledColor = 7368816;
 
     /**

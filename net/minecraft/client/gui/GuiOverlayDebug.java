@@ -20,6 +20,7 @@ import net.optifine.Reflector;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -64,7 +65,7 @@ public class GuiOverlayDebug extends Gui {
                 boolean flag = true;
                 int l = 2 + j * i;
                 drawRect(1, l - 1, 2 + k + 1, l + j - 1, -1873784752);
-                this.fontRenderer.drawString(s, 2, l, 14737632);
+                this.fontRenderer.drawString(s, 2, l, new Color(255,255,255).getRGB());
             }
         }
     }
@@ -81,7 +82,7 @@ public class GuiOverlayDebug extends Gui {
                 int l = p_175239_1_.getScaledWidth() - 2 - k;
                 int i1 = 2 + j * i;
                 drawRect(l - 1, i1 - 1, l + k + 1, i1 + j - 1, -1873784752);
-                this.fontRenderer.drawString(s, l, i1, 14737632);
+                this.fontRenderer.drawString(s, l, i1, new Color(255,255,255).getRGB());
             }
         }
     }

@@ -137,6 +137,21 @@ public class S27PacketExplosion implements Packet<INetHandlerPlayClient> {
         return this.strength;
     }
 
+
+    public float func_149149_c() {
+        return this.field_149152_f;
+    }
+
+    public float func_149144_d() {
+        return this.field_149153_g;
+    }
+
+    public float func_149147_e() {
+        return this.field_149159_h;
+    }
+
+
+
     public List<BlockPos> getAffectedBlockPositions() {
         return this.affectedBlockPositions;
     }
