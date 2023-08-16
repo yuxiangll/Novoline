@@ -3,6 +3,7 @@ package net.minecraft.entity;
 import cc.novoline.Novoline;
 import cc.novoline.events.EventManager;
 import cc.novoline.events.events.StepConfirmEvent;
+import cc.novoline.events.events.StrafeEvent;
 import cc.novoline.modules.combat.HitBox;
 import cc.novoline.modules.move.Scaffold;
 import cc.novoline.modules.player.Freecam;
@@ -1106,6 +1107,24 @@ public abstract class Entity implements ICommandSender {
      * Used in both water and by flying objects
      */
     public void moveFlying(float strafe, float forward, float friction) {
+
+        boolean player = this == Minecraft.getMinecraft().player;
+        float yaw = this.rotationYaw;
+
+        if (player) {
+            final StrafeEvent event = new StrafeEvent(forward, strafe, friction, rotationYaw);
+            EventManager.call(event);
+            //Client.INSTANCE.getEventBus().handle(event);
+
+            if (event.isCancelled()) {
+                return;
+            }
+
+            forward = event.getForward();
+            strafe = event.getStrafe();
+            friction = event.getFriction();
+            yaw = event.getYaw();
+        }
         float f = strafe * strafe + forward * forward;
 
         if (f >= 1.0E-4F) {
@@ -1118,11 +1137,19 @@ public abstract class Entity implements ICommandSender {
             f = friction / f;
             strafe = strafe * f;
             forward = forward * f;
-            float f1 = MathHelper.sin(rotationYaw * (float) Math.PI / 180.0F);
-            float f2 = MathHelper.cos(rotationYaw * (float) Math.PI / 180.0F);
-            this.motionX += strafe * f2 - forward * f1;
-            this.motionZ += forward * f2 + strafe * f1;
+            float f1 = MathHelper.sin(yaw * (float) Math.PI / 180.0F);
+            float f2 = MathHelper.cos(yaw * (float) Math.PI / 180.0F);
+            this.motionX += (double) (strafe * f2 - forward * f1);
+            this.motionZ += (double) (forward * f2 + strafe * f1);
+
+//            ChatUtil.display(Math.hypot((double) (strafe * f2 - forward * f1), (double) (forward * f2 + strafe * f1)));
         }
+
+//        if (player) {
+//            final PostStrafeEvent event = new PostStrafeEvent();
+//
+//            Client.INSTANCE.getEventBus().handle(event);
+//        }
     }
 
     public int getBrightnessForRender(float partialTicks) {

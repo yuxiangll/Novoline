@@ -1,10 +1,7 @@
 package cc.novoline.modules.move;
 
 import cc.novoline.events.EventTarget;
-import cc.novoline.events.events.MotionUpdateEvent;
-import cc.novoline.events.events.MoveEvent;
-import cc.novoline.events.events.PacketEvent;
-import cc.novoline.events.events.TickUpdateEvent;
+import cc.novoline.events.events.*;
 import cc.novoline.gui.screen.setting.Manager;
 import cc.novoline.gui.screen.setting.Setting;
 import cc.novoline.gui.screen.setting.SettingType;
@@ -25,18 +22,25 @@ import net.minecraft.network.play.client.C09PacketHeldItemChange;
 import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.potion.Potion;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import viaversion.viarewind.utils.PacketUtil;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static cc.novoline.yuxiangll.MinecraftInstance.mc;
+
 public class Flight extends AbstractModule {
 
     private int tick;
+    private int ticks;
+
     private boolean wait;
     private int key;
     private short id;
     private List<Packet> listPosition = new CopyOnWriteArrayList();
     private List<Packet> listPing = new CopyOnWriteArrayList();
+    @Property("Fly-mode")
+    private final StringProperty fly_mode = PropertyFactory.createString("Karhu").acceptableValues("Karhu", "Hypixel");
 
     @Property("dmg-mode")
     private final StringProperty dmg_mode = PropertyFactory.createString("Normal").acceptableValues("Fast", "Normal");
@@ -50,37 +54,51 @@ public class Flight extends AbstractModule {
     public Flight(@NonNull ModuleManager novoline) {
         super(novoline, EnumModuleType.MOVEMENT, "Flight", "Flight");
         //   Manager.put(new Setting("FLY_DMG_MODE", "Damage", SettingType.COMBOBOX, this, dmg_mode));
-        Manager.put(new Setting("FLY_SPEED", "Speed", SettingType.SLIDER, this, speed, 0.1));
-        Manager.put(new Setting("FLY_VB", "Viewbobbing", SettingType.SLIDER, this, view_bobbing, 5.0F));
-        Manager.put(new Setting("FLY_PEARL", "Pearl boost", SettingType.CHECKBOX, this, pearl));
+        Manager.put(new Setting("Fly_Mode","Mode",SettingType.COMBOBOX,this,fly_mode));
+        Manager.put(new Setting("FLY_SPEED", "Speed", SettingType.SLIDER, this, speed, 0.1,()->fly_mode.get().equals("Hypixel")));
+        Manager.put(new Setting("FLY_VB", "Viewbobbing", SettingType.SLIDER, this, view_bobbing, 5.0F,()->fly_mode.get().equals("Hypixel")));
+        Manager.put(new Setting("FLY_PEARL", "Pearl boost", SettingType.CHECKBOX, this, pearl,()->fly_mode.get().equals("Hypixel")));
     }
 
     @Override
     public void onDisable() {
-        if (tick > 0) {
-            mc.player.motionX = 0;
-            mc.player.motionZ = 0;
-            mc.player.motionY = -0.41999998688698;
-            mc.timer.timerSpeed = 1.0F;
-        }
 
         getModule(Disabler.class).getTimer().reset();
-        wait = false;
-        tick = 0;
+
+        if (fly_mode.get().equals("Karhu")){
+            mc.player.motionX = 0;
+            mc.player.motionZ = 0;
+        }else if (fly_mode.get().equals("Hypixel")){
+            if (tick > 0) {
+                mc.player.motionX = 0;
+                mc.player.motionZ = 0;
+                mc.player.motionY = -0.41999998688698;
+                mc.timer.timerSpeed = 1.0F;
+            }
+            wait = false;
+            tick = 0;
+
+        }
     }
 
 
     @Override
     public void onEnable() {
         checkModule(Speed.class, Scaffold.class);
+        setSuffix(fly_mode.get());
 
-        if (mc.player.onGround && pearl.get() && pearlSlot() != -1) {
-            wait = true;
-            throwPearl();
-            mc.player.motionY = mc.player.getBaseMotionY();
+        if (fly_mode.get().equals("Hypixel")) {
+            if (mc.player.onGround && pearl.get() && pearlSlot() != -1) {
+                wait = true;
+                throwPearl();
+                mc.player.motionY = mc.player.getBaseMotionY();
+            }
+        }else if (fly_mode.get().equals("Karhu")){
+            ticks = 0;
+            PacketUtil.send(new C03PacketPlayer.C06PacketPlayerPosLook(mc.player.posX, mc.player.posY - 2, mc.player.posZ,
+                    mc.player.rotationYaw, mc.player.rotationPitch, false));
         }
 
-        setSuffix("Vanilla");
     }
 
     public int pearlSlot() {
@@ -106,24 +124,29 @@ public class Flight extends AbstractModule {
 
     @EventTarget
     public void onPacket(PacketEvent event) {
-        if (event.getState().equals(PacketEvent.State.INCOMING)) {
-            if (event.getPacket() instanceof S08PacketPlayerPosLook) {
-                if (wait) {
-                    wait = false;
-                } else if (tick > 3) {
-                    checkModule(getClass());
+        if (fly_mode.get().equals("Hypixel")) {
+            if (event.getState().equals(PacketEvent.State.INCOMING)) {
+                if (event.getPacket() instanceof S08PacketPlayerPosLook) {
+                    if (wait) {
+                        wait = false;
+                    } else if (tick > 3) {
+                        checkModule(getClass());
+                    }
                 }
             }
         }
+
     }
 
     @EventTarget
     public void onTick(TickUpdateEvent event) {
-        if (!wait && mc.player.isMoving()) {
-            tick++;
+        if (fly_mode.get().equals("Hypixel")) {
+            if (!wait && mc.player.isMoving()) {
+                tick++;
+            }
         }
 
-        setSuffix("Vanilla");
+        setSuffix(fly_mode.get());
     }
 
     private int getPacketsSize() {
@@ -133,25 +156,59 @@ public class Flight extends AbstractModule {
 
         return (int) (fallHeight / amp) * 2 + 2;
     }
-
     @EventTarget
-    public void onPre(MotionUpdateEvent event) {
-        if (event.getState() == MotionUpdateEvent.State.PRE) {
-            mc.player.cameraYaw = view_bobbing.get() / 1000.0F;
+    public void onStrafe(StrafeEvent event){
+        if (fly_mode.get().equals("Karhu")){
+            final float speed = 1;
+            event.setSpeed(speed);
 
-            if (mc.player.movementInput().jump()) {
-                mc.player.motionY = 1.8;
-            } else if (mc.player.movementInput().sneak()) {
-                mc.player.motionY = -1.8;
-            } else if (!mc.player.onGround) {
-                mc.player.motionY = 0.0;
-            }
         }
     }
 
     @EventTarget
+    public void onPre(MotionUpdateEvent event) {
+        if (fly_mode.get().equals("Hypixel")) {
+            if (event.getState() == MotionUpdateEvent.State.PRE) {
+                mc.player.cameraYaw = view_bobbing.get() / 1000.0F;
+
+                if (mc.player.movementInput().jump()) {
+                    mc.player.motionY = 1.8;
+                } else if (mc.player.movementInput().sneak()) {
+                    mc.player.motionY = -1.8;
+                } else if (!mc.player.onGround) {
+                    mc.player.motionY = 0.0;
+                }
+            }
+        }else if (fly_mode.get().equals("Karhu")){
+            final float speed = 1;
+
+            mc.player.motionY = -1E-10D
+                    + (mc.gameSettings.keyBindJump.isKeyDown() ? speed : 0.0D)
+                    - (mc.gameSettings.keyBindSneak.isKeyDown() ? speed : 0.0D);
+
+            if (mc.player.getDistance(mc.player.lastReportedPosX, mc.player.lastReportedPosY, mc.player.lastReportedPosZ) <= 10 - speed - 0.15) {
+                event.setCancelled(true);
+            } else {
+                ticks++;
+
+                if (ticks >= 8) {
+                    mc.player.motionX = 0;
+                    mc.player.motionZ = 0;
+
+                    toggle();
+                    //getParent().toggle();
+                }
+            }
+        }
+
+    }
+
+    @EventTarget
     public void onMove(MoveEvent event) {
-        event.setMoveSpeed(wait ? 0 : speed.get());
+        if (fly_mode.get().equals("Hypixel")) {
+            event.setMoveSpeed(wait ? 0 : speed.get());
+        }
+
     }
 
     public DoubleProperty getSpeed() {

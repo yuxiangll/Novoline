@@ -2,6 +2,7 @@ package cc.novoline.modules.combat;
 
 import cc.novoline.events.EventTarget;
 import cc.novoline.events.events.BlockAABBEvent;
+import cc.novoline.events.events.MotionUpdateEvent;
 import cc.novoline.events.events.PacketEvent;
 import cc.novoline.events.events.TickUpdateEvent;
 import cc.novoline.gui.screen.setting.Setting;
@@ -37,6 +38,9 @@ import static cc.novoline.modules.configurations.property.object.PropertyFactory
 public final class Velocity extends AbstractModule {
     @Property("mode")
     private final StringProperty velocity_mode = PropertyFactory.createString("Simple").acceptableValues("Simple", "Karhu");
+    @Property("KarhuKeepY")
+    private final BooleanProperty KarhuKeepY = booleanFalse();
+
     /* properties @off */
     @Property("alerts")
     private final BooleanProperty alerts = booleanFalse();
@@ -47,11 +51,13 @@ public final class Velocity extends AbstractModule {
     @Property("chance")
     private final IntProperty chance = createInt(100).minimum(0).maximum(100);
 
+
     /* constructors @on */
     public Velocity(@NonNull ModuleManager moduleManager) {
         super(moduleManager, "Velocity", "Velocity", Keyboard.KEY_NONE, EnumModuleType.COMBAT, "Don't take knockback");
         put(new Setting("MODE","Mode",SettingType.COMBOBOX,this,velocity_mode));
         put(new Setting("ALERTS", "Alerts", SettingType.CHECKBOX, this, alerts,()->velocity_mode.get().equals("Simple")));
+        put(new Setting("KeepY","Keep Y",SettingType.CHECKBOX,this,KarhuKeepY,()->velocity_mode.get().equals("Karhu")));
         put(new Setting("VEL_HOR", "Horizontal", SettingType.SLIDER, this, horizontal, 5,()->velocity_mode.get().equals("Simple")));
         put(new Setting("VEL_VER", "Vertical", SettingType.SLIDER, this, vertical, 5,()->velocity_mode.get().equals("Simple")));
         put(new Setting("VEL_CHANCE", "Chance", SettingType.SLIDER, this, chance, 5,()->velocity_mode.get().equals("Simple")));
@@ -68,13 +74,21 @@ public final class Velocity extends AbstractModule {
     @EventTarget
     public void onKarhuVelocity(BlockAABBEvent event){
         //if (getParent().onSwing.getValue() || getParent().onSprint.getValue() && !mc.thePlayer.isSwingInProgress) return;
-
+        if (!velocity_mode.get().equals("Karhu")) return;
         if (event.getBlock() instanceof BlockAir && mc.player.hurtTime > 0 && mc.player.ticksSinceVelocity <= 9) {
             final double x = event.getBlockPos().getX(), y = event.getBlockPos().getY(), z = event.getBlockPos().getZ();
 
             if (y == Math.floor(mc.player.posY) + 1) {
                 event.setBoundingBox(AxisAlignedBB.fromBounds(0, 0, 0, 1, 0, 1).offset(x, y, z));
             }
+        }
+    }
+    @EventTarget
+    public void onKeepY(MotionUpdateEvent event){
+        if (velocity_mode.get().equals("Karhu")&& KarhuKeepY.get() ){
+            mc.player.posY -= mc.player.posY - mc.player.lastTickPosY;
+            mc.player.lastTickPosY -= mc.player.posY - mc.player.lastTickPosY;
+            mc.player.cameraYaw = mc.player.cameraPitch = 0.1F;
         }
     }
 
