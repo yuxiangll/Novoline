@@ -1,2 +1,2 @@
-# novoline - For YolBi New
+# novoline - New
 Skid from github and fixed by yuxiangll
