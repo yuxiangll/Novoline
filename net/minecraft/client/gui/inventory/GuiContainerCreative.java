@@ -28,6 +28,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -226,7 +227,7 @@ public class GuiContainerCreative extends InventoryEffectRenderer {
             this.searchField.setMaxStringLength(15);
             this.searchField.setEnableBackgroundDrawing(false);
             this.searchField.setVisible(false);
-            this.searchField.setTextColor(16777215);
+            this.searchField.setTextColor(new Color(255,255,255).getRGB());
             int i = selectedTabIndex;
             selectedTabIndex = -1;
             this.setCurrentCreativeTab(CreativeTabs.creativeTabArray[i]);

@@ -17,6 +17,7 @@ import org.apache.commons.lang3.Validate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -68,7 +69,7 @@ public class ServerListEntryNormal implements GuiListExtended.IGuiListEntry {
         final boolean flag = this.field_148301_e.version > 47;
         final boolean flag1 = this.field_148301_e.version < 47;
         final boolean flag2 = flag || flag1;
-        this.mc.fontRendererObj.drawString(this.field_148301_e.serverName, x + 32 + 3, y + 1, 16777215);
+        this.mc.fontRendererObj.drawString(this.field_148301_e.serverName, x + 32 + 3, y + 1, new Color(255,255,255).getRGB());
         final List<String> list = this.mc.fontRendererObj.listFormattedStringToWidth(this.field_148301_e.serverMOTD, listWidth - 32 - 2);
 
         for (int i = 0; i < Math.min(list.size(), 2); ++i) {

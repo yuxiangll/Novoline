@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import com.google.common.collect.Lists;
 import net.minecraft.client.resources.I18n;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -68,11 +69,11 @@ public class GuiYesNo extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, new Color(255,255,255).getRGB());
         int i = 90;
 
         for (String s : this.field_175298_s) {
-            this.drawCenteredString(this.fontRendererObj, s, this.width / 2, i, 16777215);
+            this.drawCenteredString(this.fontRendererObj, s, this.width / 2, i, new Color(255,255,255).getRGB());
             i += this.fontRendererObj.getHeight();
         }
 

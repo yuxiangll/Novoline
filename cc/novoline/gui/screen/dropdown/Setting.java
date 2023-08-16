@@ -10,6 +10,7 @@ import cc.novoline.modules.visual.HUD;
 import cc.novoline.modules.visual.ClickGUI;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.Timer;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -24,10 +25,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static cc.novoline.Novoline.getInstance;
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_16.SF_16;
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_17.SF_17;
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_26.SF_26;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_16.SF_16;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_17.SF_17;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_26.SF_26;
 
 public class Setting {
 
@@ -36,6 +37,11 @@ public class Setting {
     public boolean opened;
     private final Timer backSpace = new Timer();
     private final Timer caretTimer = new Timer();
+    private final UFontRenderer pingFang16 = Novoline.getInstance().fontLoaders.PingFang16;
+    private final UFontRenderer pingFang17 = Novoline.getInstance().fontLoaders.PingFang17;
+    private final UFontRenderer pingFang18 = Novoline.getInstance().fontLoaders.PingFang18;
+    private final UFontRenderer pingFang26 = Novoline.getInstance().fontLoaders.PingFang26;
+
     public int height;
     public float percent = 0;
 
@@ -71,7 +77,7 @@ public class Setting {
                 percent = Math.max(0, Math.min(1, (float) (percent + (Math.max(0, Math.min(percentBar, 1)) - percent) * (0.2 / clamp))));
                 Gui.drawRect(module.tab.getPosX() + 1, y + 3, module.tab.getPosX() + 99, y + 14, new Color(0, 0, 0, 50).getRGB());
                 Gui.drawRect(module.tab.getPosX() + 1, y + 3, module.tab.getPosX() + 1 + 98 * percent, y + 14, hud.getHUDColor());
-                SF_18.drawString(setting.getDisplayName() + " " + rounded, module.tab.getPosX() + 4, y + 5.5f, 0xffffffff, true);
+                pingFang18.drawString(setting.getDisplayName() + " " + rounded, module.tab.getPosX() + 4, y + 5.5f, new Color(255,255,255).getRGB(), true);
 
                 if (this.dragging) {
                     double difference = setting.getSliderNumber().getMaximum().doubleValue() - setting.getSliderNumber().getMinimum().doubleValue();
@@ -95,15 +101,15 @@ public class Setting {
                     RenderUtils.drawCheck(module.tab.getPosX() + 91, y + 8.5f, 2, new Color(hud.getHUDColor()).brighter().getRGB());
                 }
 
-                SF_18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f,
+                pingFang18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f,
                         new Color(227, 227, 227, 255).getRGB(), true);
                 break;
 
             case COMBOBOX:
-                SF_17.drawString(setting.getDisplayName(), module.tab.getPosX() + 3, (float) (y + 6),
-                        0xffffffff, true);
-                SF_17.drawString(setting.getComboBoxValue().toUpperCase(),
-                        module.tab.getPosX() + 97 - SF_17.stringWidth(setting.getComboBoxValue().toUpperCase()), y + 7f,
+                pingFang17.drawString(setting.getDisplayName(), module.tab.getPosX() + 3, (float) (y + 6),
+                        new Color(255,255,255).getRGB(), true);
+                pingFang17.drawString(setting.getComboBoxValue().toUpperCase(),
+                        module.tab.getPosX() + 97 - pingFang17.stringWidth(setting.getComboBoxValue().toUpperCase()), y + 7f,
                         new Color(255, 255, 255, 255).getRGB(), true);
                 break;
 
@@ -118,15 +124,15 @@ public class Setting {
 
                 Gui.drawRect(module.tab.getPosX() + 1, y + 3, module.tab.getPosX() + 99, y + 14 + (opened ? h : 0), new Color(0, 0, 0, 50).getRGB());
                 String displayName = setting.getDisplayName() + (opened ? "" : "");
-                SF_18.drawString(displayName, module.tab.getPosX() + 49.5 - SF_18.stringWidth(displayName) / 2, y + 5.5f, Color.WHITE.getRGB(), true);
+                pingFang18.drawString(displayName, (float) (module.tab.getPosX() + 49.5 - pingFang18.stringWidth(displayName) / 2), y + 5.5f, Color.WHITE.getRGB(), true);
 
                 if (opened) {
                     int yS = y + 17;
 
                     for (String value : setting.getSelectBoxProperty().getAcceptableValues()) {
-                        int rgb = setting.getSelectBox().contains(value) ? 0xffffffff : new Color(174, 174, 174, 150).getRGB();
-                        SF_18.drawString(value, module.tab.getPosX() + 15, (float) (yS + 6), rgb, true);
-                        SF_26.drawString(".", module.tab.getPosX() + 9, yS, setting.getSelectBox().contains(value) ? 0xffffffff : new Color(174, 174, 174, 150).getRGB());
+                        int rgb = setting.getSelectBox().contains(value) ? new Color(255,255,255).getRGB() : new Color(174, 174, 174, 150).getRGB();
+                        pingFang18.drawString(value, module.tab.getPosX() + 15, (float) (yS + 6), rgb, true);
+                        pingFang26.drawString(".", module.tab.getPosX() + 9, yS, setting.getSelectBox().contains(value) ? new Color(255,255,255).getRGB() : new Color(174, 174, 174, 150).getRGB());
                         yS += 17;
                     }
                 }
@@ -142,12 +148,12 @@ public class Setting {
                 }
 
                 Gui.drawRect(module.tab.getPosX() + 6, y + 16, module.tab.getPosX() + 84, y + 16.5, new Color(195, 195, 195, 220).getRGB());
-                SF_16.drawString(setting.getDisplayName(), module.tab.getPosX() + 5.5f, y + 1.5f, new Color(227, 227, 227, 255).getRGB());
+                pingFang16.drawString(setting.getDisplayName(), module.tab.getPosX() + 5.5f, y + 1.5f, new Color(227, 227, 227, 255).getRGB());
 
-                if (SF_16.stringWidth(s) > 65) {
-                    SF_16.drawString(SF_16.trimStringToWidth(s, 78, true), module.tab.getPosX() + 6, y + 10, 0xFFFFFFFF);
+                if (pingFang16.stringWidth(s) > 65) {
+                    pingFang16.drawString(pingFang16.trimStringToWidth(s, 78, true), module.tab.getPosX() + 6, y + 10, new Color(255,255,255).getRGB());
                 } else {
-                    SF_16.drawString(s, module.tab.getPosX() + 6, y + 10, 0xFFFFFFFF);
+                    pingFang16.drawString(s, module.tab.getPosX() + 6, y + 10, new Color(255,255,255).getRGB());
                 }
 
                 break;
@@ -193,7 +199,7 @@ public class Setting {
                                     Color.getHSBColor(i / (float) max, hsb[1], hsb[2]).getRGB());
                         }
 
-                        SF_18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f, 0xffffffff, true);
+                        pingFang18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f, new Color(255,255,255).getRGB(), true);
 
                         Gui.drawRect(module.tab.getPosX() + 1 + setting.getSeparatorHue(), y + 3,
                                 module.tab.getPosX() + 2 + setting.getSeparatorHue(), y + 14, Color.WHITE.getRGB());
@@ -205,7 +211,7 @@ public class Setting {
                                     Color.getHSBColor(hsb[0], i / (float) max, hsb[2]).getRGB());
                         }
 
-                        SF_18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f, 0xffffffff, true);
+                        pingFang18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f, new Color(255,255,255).getRGB(), true);
 
                         Gui.drawRect(module.tab.getPosX() + 1 + setting.getSeparatorSaturation(), y + 3,
                                 module.tab.getPosX() + 2 + setting.getSeparatorSaturation(), y + 14, Color.WHITE.getRGB());
@@ -217,7 +223,7 @@ public class Setting {
                                     Color.getHSBColor(hsb[0], hsb[1], i / (float) max).getRGB());
                         }
 
-                        SF_18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f, 0xffffffff, true);
+                        pingFang18.drawString(setting.getDisplayName(), module.tab.getPosX() + 4, y + 5.5f, new Color(255,255,255).getRGB(), true);
 
                         Gui.drawRect(module.tab.getPosX() + 1 + setting.getSeparatorBrightness(), y + 3,
                                 module.tab.getPosX() + 2 + setting.getSeparatorBrightness(), y + 14, Color.WHITE.getRGB());
@@ -226,12 +232,12 @@ public class Setting {
                 break;
             case BINDABLE:
                 Gui.drawRect(module.tab.getPosX() + 1, y + 3, module.tab.getPosX() + 99, y + 14, new Color(0, 0, 0, 50).getRGB());
-                SF_18.drawString(setting.getDisplayName(), module.tab.getPosX() + 3, y + 6, 0xffffffff);
+                pingFang18.drawString(setting.getDisplayName(), module.tab.getPosX() + 3, y + 6, new Color(255,255,255).getRGB());
                 String key = "[" + (setting.isListening() ? ".." : Keyboard.getKeyName(setting.getKeyBindValue().get().getKey())) + "]";
-                SF_18.drawString(key, module.tab.getPosX() + 97.5f - SF_18.stringWidth(key), y + 5.5f, new Color(170, 170, 170).getRGB());
+                pingFang18.drawString(key, module.tab.getPosX() + 97.5f - pingFang18.stringWidth(key), y + 5.5f, new Color(170, 170, 170).getRGB());
                 break;
         }
-        // RenderUtils.drawBorderedRect(module.tab.getPosX(),y,module.tab.getPosX() + 90,y + 17,1,0xffffffff,new Color(0, 0, 0, 0).getRGB());
+        // RenderUtils.drawBorderedRect(module.tab.getPosX(),y,module.tab.getPosX() + 90,y + 17,1,new Color(255,255,255).getRGB(),new Color(0, 0, 0, 0).getRGB());
     }
 
     private int getY() {
@@ -387,7 +393,7 @@ public class Setting {
                         .getPosX() + 99 && mouseY <= y + 14;
             case BINDABLE:
                 String key = "[" + Keyboard.getKeyName(setting.getKeyBindValue().get().getKey()) + "]";
-                return mouseX >= module.tab.getPosX() + 97.5f - SF_18.stringWidth(key) && mouseX <= module.tab.getPosX() + 97.5f && mouseY >= y + 4 && mouseY <= y + 14;
+                return mouseX >= module.tab.getPosX() + 97.5f - pingFang18.stringWidth(key) && mouseX <= module.tab.getPosX() + 97.5f && mouseY >= y + 4 && mouseY <= y + 14;
             default:
                 return mouseX >= module.tab.getPosX() && mouseY >= y && mouseX <= module.tab
                         .getPosX() + 90 && mouseY <= y + 17;

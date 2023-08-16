@@ -116,7 +116,7 @@ public final class KillAura extends AbstractModule {
     @Property("visualize-range")
     private final BooleanProperty visRange = PropertyFactory.booleanFalse();
     @Property("color")
-    private final ColorProperty color = createColor(0xFFFFFFFF);
+    private final ColorProperty color = createColor(new Color(255,255,255).getRGB());
     @Property("th-x")
     private final IntProperty thx = PropertyFactory.createInt((int) screenSize.getWidth() / 4).minimum(1).maximum((int) screenSize.getWidth() / 2);
     @Property("th-y")
@@ -682,7 +682,7 @@ public final class KillAura extends AbstractModule {
             }
 
             String sizeStr = color + toDispatch.size();
-            Fonts.SF.SF_18.SF_18.drawString("Buffer size: " + sizeStr, sr.getScaledWidthStatic(mc) / 2 - 26, sr.getScaledHeightStatic(mc) / 2 + 10, 0xFFFFFF, true);
+            Novoline.getInstance().fontLoaders.PingFang18.drawString("Buffer size: " + sizeStr, sr.getScaledWidthStatic(mc) / 2 - 26, sr.getScaledHeightStatic(mc) / 2 + 10, 0xFFFFFF, true);
         }
     }
 

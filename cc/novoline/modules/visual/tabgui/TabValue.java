@@ -1,5 +1,6 @@
 package cc.novoline.modules.visual.tabgui;
 
+import cc.novoline.Novoline;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.MathHelper;
@@ -7,7 +8,7 @@ import net.minecraft.util.MathHelper;
 import java.awt.*;
 import java.text.DecimalFormat;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
 
 public final class TabValue {
 
@@ -54,8 +55,8 @@ public final class TabValue {
                                  new Color(20, 20, 20, 170).getRGB());
                 Gui.drawRect(109 + this.setting.getModule().getLongest() + this.setting.getLongestS(),y,109 + this.setting.getModule().getLongest() +
                         this.setting.getLongestS(),ey, setting.getModule().getType().getTabGUI().getColor());
-                SF_18.drawString(gay, 114 + this.setting.getModule().getLongest() + this.setting.getLongestS(),
-                        y + 3, 0xffffffff,true);
+                Novoline.getInstance().fontLoaders.PingFang18.drawString(gay, 114 + this.setting.getModule().getLongest() + this.setting.getLongestS(),
+                        y + 3, new Color(255,255,255).getRGB(),true);
                 break;
             }
             case COMBOBOX: {
@@ -64,10 +65,10 @@ public final class TabValue {
                                  new Color(20, 20, 20, 170).getRGB());
                 if(isSelected()) Gui.drawRect(109 + this.setting.getModule().getLongest() + this.setting.getLongestS(), y,
                         129 + this.setting.getModule().getLongest() + this.setting.getLongestS() + getLong(), ey, setting.getModule().getType().getTabGUI().getColor());
-                SF_18.drawString(this.value,
+                Novoline.getInstance().fontLoaders.PingFang18.drawString(this.value,
                         114 + i + this.setting.getModule().getLongest() + this.setting.getLongestS(), y + 3,
                         this.setting.getSetting().getComboBoxValue().equalsIgnoreCase(this.value) ?
-                                0xffffffff :
+                                new Color(255,255,255).getRGB() :
                                 new Color(163, 163, 163, 255).getRGB(),true);
                 break;
             }
@@ -77,10 +78,10 @@ public final class TabValue {
                                  new Color(20, 20, 20, 170).getRGB());
                 if(isSelected()) Gui.drawRect(109 + this.setting.getModule().getLongest() + this.setting.getLongestS(), y,
                         129 + this.setting.getModule().getLongest() + this.setting.getLongestS() + getLong(), ey, setting.getModule().getType().getTabGUI().getColor());
-                SF_18.drawString(this.value,
+                Novoline.getInstance().fontLoaders.PingFang18.drawString(this.value,
                          114 + i + this.setting.getModule().getLongest() + this.setting.getLongestS(), y + 3,
                         this.setting.getSetting().getSelectBoxProperty().contains(this.value) ?
-                                0xffffffff :
+                                new Color(255,255,255).getRGB() :
                                 new Color(163, 163, 163, 255).getRGB(),true);
                 break;
             }
@@ -102,12 +103,12 @@ public final class TabValue {
                     gay = rounded + "";
                 }
 
-                return SF_18.stringWidth(gay);
+                return Novoline.getInstance().fontLoaders.PingFang18.stringWidth(gay);
             }
             case COMBOBOX: {
                 for (String string : this.setting.getSetting().getComboBox().getAcceptableValues()) {
-                    if (SF_18.stringWidth(string) > longest) {
-                        longest = SF_18.stringWidth(string);
+                    if (Novoline.getInstance().fontLoaders.PingFang18.stringWidth(string) > longest) {
+                        longest = Novoline.getInstance().fontLoaders.PingFang18.stringWidth(string);
                     }
                 }
 
@@ -115,8 +116,8 @@ public final class TabValue {
             }
             case SELECTBOX: {
                 for (String string : this.setting.getSetting().getSelectBoxProperty().getAcceptableValues()) {
-                    if (SF_18.stringWidth(string) > longest) {
-                        longest = SF_18.stringWidth(string);
+                    if (Novoline.getInstance().fontLoaders.PingFang18.stringWidth(string) > longest) {
+                        longest = Novoline.getInstance().fontLoaders.PingFang18.stringWidth(string);
                     }
                 }
 

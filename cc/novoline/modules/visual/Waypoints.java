@@ -10,9 +10,8 @@ import cc.novoline.modules.ModuleManager;
 import cc.novoline.utils.RotationUtil;
 import cc.novoline.utils.ScaleUtils;
 import cc.novoline.utils.Timer;
-import cc.novoline.utils.fonts.api.FontRenderer;
-import cc.novoline.utils.fonts.impl.Fonts;
 import cc.novoline.utils.java.Checks;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import com.google.common.reflect.TypeToken;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.client.Minecraft;
@@ -46,7 +45,7 @@ public final class Waypoints extends AbstractModule {
 
     /* fields */
     private final List<Waypoint> waypoints = new ObjectArrayList<>();
-    private static FontRenderer SF_16 = Fonts.SF.SF_16.SF_16;
+    private final static UFontRenderer pingFang16 = Novoline.getInstance().fontLoaders.PingFang16;
     private static Timer tpTimer = new Timer();
 
     /* constructors */
@@ -182,7 +181,7 @@ public final class Waypoints extends AbstractModule {
                 float width = resolution.getScaledWidth() / 2F;
                 float height = resolution.getScaledHeight() / 2F;
 
-                float sizePerPixelX = SF_16.stringWidth(this.name + " " + getDistance() + "m") / 2F;
+                float sizePerPixelX = pingFang16.stringWidth(this.name + " " + getDistance() + "m") / 2F;
                 float sizePerPixelY = 15 * 0.75F;
                 float xBnd1 = width / amp + sizePerPixelX;
                 float xBnd2 = width / amp - sizePerPixelX;
@@ -192,7 +191,7 @@ public final class Waypoints extends AbstractModule {
 
 /*                if (Minecraft.getInstance().gameSettings.thirdPersonView == 0 && this.positions[0] >= xBnd2 * 2 && this.positions[0] <= xBnd1 * 2 &&
                         this.positions[1] >= yBnd1 * 2 && this.positions[1] <= yBnd2 * 2) {
-                    SF_16.drawString("Middle click to teleport!", -(SF_16.stringWidth("Middle click to teleport") / 2F), -18, 0xffffffff, true);
+                    SF_16.drawString("Middle click to teleport!", -(SF_16.stringWidth("Middle click to teleport") / 2F), -18, new Color(255,255,255).getRGB(), true);
                     if (Mouse.isButtonDown(2)) {
                         if (tpTimer.delay(1000)) {
                             String command = Minecraft.getInstance().isSingleplayer() ? "/tp" : ".tp";
@@ -205,16 +204,16 @@ public final class Waypoints extends AbstractModule {
 
                 translate(0.0D, -2.5D, 0.0D);
                 disableDepth();
-                drawRect(-(SF_16.stringWidth(this.name + " " + getDistance() + "m") / 2) - 2, -5,
-                        SF_16.stringWidth(this.name + " " + getDistance() + "m") / 2 + 2, 10,
+                drawRect(-(pingFang16.stringWidth(this.name + " " + getDistance() + "m") / 2) - 2, -5,
+                        pingFang16.stringWidth(this.name + " " + getDistance() + "m") / 2 + 2, 10,
                         new Color(0, 0, 0, 100).getRGB());
-                drawRect(-(SF_16.stringWidth(this.name + " " + getDistance() + "m") / 2) - 2, -6,
-                        SF_16.stringWidth(this.name + " " + getDistance() + "m") / 2 + 2, -5,
+                drawRect(-(pingFang16.stringWidth(this.name + " " + getDistance() + "m") / 2) - 2, -6,
+                        pingFang16.stringWidth(this.name + " " + getDistance() + "m") / 2 + 2, -5,
                         requireNonNull(
                                 Novoline.getInstance().getModuleManager().getModule(HUD.class).getColor())
                                 .getRGB());
-                SF_16.drawString(this.name + " " + GRAY + getDistance() + "m",
-                        -(SF_16.stringWidth(this.name + " " + getDistance() + "m") / 2F), 0, 0xffffffff);
+                pingFang16.drawString(this.name + " " + GRAY + getDistance() + "m",
+                        -(pingFang16.stringWidth(this.name + " " + getDistance() + "m") / 2F), 0, new Color(255,255,255).getRGB());
                 enableDepth();
                 glPopMatrix();
             }

@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_20.SF_20;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_20.SF_20;
 import static cc.novoline.utils.notifications.NotificationType.ERROR;
 
 public class ConfigTab extends Tab {
@@ -36,7 +36,7 @@ public class ConfigTab extends Tab {
 		h+=1;
 		if(!opened) h = 0;
 		Gui.drawRect(getPosX() - 1, getPosY(), getPosX() + 101, getPosY() + 15 + h, new Color(29, 29, 29, 255).getRGB());
-		SF_20.drawString("Configs", getPosX() + 4, getPosY() + 4, 0xffffffff, true);
+		Novoline.getInstance().fontLoaders.PingFang20.drawString("Configs", getPosX() + 4, getPosY() + 4, new Color(255,255,255).getRGB(), true);
 
 		if(opened) {
 			configs.forEach(config -> config.drawScreen(mouseX, mouseY));

@@ -21,6 +21,7 @@ import cc.novoline.modules.configurations.property.object.StringProperty;
 import cc.novoline.modules.player.Freecam;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.Timer;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -215,7 +216,7 @@ public final class Nametags extends AbstractModule {
             float yBnd2 = height / amp + sizePerPixelY;
 
 /*            if (mc.gameSettings.thirdPersonView == 0 && this.positions[0] >= xBnd2 * 2 && this.positions[0] <= xBnd1 * 2 && this.positions[1] >= yBnd1 * 2 && this.positions[1] <= yBnd2 * 2) {
-                SFBOLD_20.drawString("Middle click to teleport!", -(SFBOLD_20.stringWidth("Middle click to teleport") / 2F), -getYOffset() - 18, 0xffffffff, true);
+                SFBOLD_20.drawString("Middle click to teleport!", -(SFBOLD_20.stringWidth("Middle click to teleport") / 2F), -getYOffset() - 18, new Color(255,255,255).getRGB(), true);
 
                 if (Mouse.isButtonDown(2)) {
                     if (tpTimer.delay(1000)) {
@@ -239,7 +240,7 @@ public final class Nametags extends AbstractModule {
                 renderArmor((EntityPlayer) this.entity);
             }
 
-            drawString(content, -contentWidth - n, -getYOffset() - 5, 16777215);
+            drawString(content, -contentWidth - n, -getYOffset() - 5, new Color(255,255,255).getRGB());
             drawString(health, contentWidth - n, -getYOffset() - 5, getHealthColor());
 
             if (additions.contains("Health") && getModule(Nametags.class).getHealthType().equalsIgnoreCase("Bar")) {
@@ -358,7 +359,7 @@ public final class Nametags extends AbstractModule {
             GlStateManager.enableDepth();
             GlStateManager.scale(0.7, 0.7, 0.7);
             Minecraft.getInstance().getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
-            Minecraft.getInstance().getRenderItem().renderItemOverlaysCR(SFBOLD_18, stack, x, (int) y);
+            Minecraft.getInstance().getRenderItem().renderItemOverlaysCR((UFontRenderer) SFBOLD_18, stack, x, (int) y);
             Minecraft.getInstance().getRenderItem().zLevel = 0.0f;
 
             RenderHelper.disableStandardItemLighting();

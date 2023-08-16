@@ -328,7 +328,7 @@ public class GuiChat extends GuiScreen {
 
                     ScaleUtils.scale(mc);
                     RenderUtils.drawBorderedRect(aura.getThx().get(), aura.getThy().get() - 1.5f, aura.getThx().get() + getLength(aura.shouldAttack() || aura.shouldBlock() ? (EntityPlayer) aura.getTarget() : mc.player),
-                            aura.getThy().get() + 37.5, 2, 0xffffffff, new Color(0, 0, 0, 150).getRGB());
+                            aura.getThy().get() + 37.5, 2, new Color(255,255,255).getRGB(), new Color(0, 0, 0, 150).getRGB());
                 }
             }
         }
@@ -343,7 +343,7 @@ public class GuiChat extends GuiScreen {
                 int y = hud.getInvy().get();
                 Gui.drawRect(x, y, x + 167, y + 73, new Color(29, 29, 29, 255).getRGB());
                 Gui.drawRect(x + 1, y + 13, x + 166, y + 72, new Color(40, 40, 40, 255).getRGB());
-                mc.fontRendererCrack.drawString("Your Inventory", x + 3, y + 3, 0xffffffff, true);
+                mc.fontRendererCrack.drawString("Your Inventory", x + 3, y + 3, new Color(255,255,255).getRGB(), true);
 
                 boolean hasStacks = false;
                 for (int i1 = 9; i1 < mc.player.inventoryContainer.inventorySlots.size() - 9; ++i1) {
@@ -352,13 +352,13 @@ public class GuiChat extends GuiScreen {
                     int i = slot.xDisplayPosition;
                     int j = slot.yDisplayPosition;
                     mc.getRenderItem().renderItemAndEffectIntoGUI(slot.getStack(), x + i - 4, y + j - 68);
-                    mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererCrack, slot.getStack(), x + i - 4, y + j - 68, null);
+                    mc.getRenderItem().renderItemOverlayIntoGUIOLD(mc.fontRendererCrack, slot.getStack(), x + i - 4, y + j - 68, null);
                 }
                 if (!hasStacks) {
                     mc.fontRendererCrack.drawString("Empty...",
                             x + 167 / 2 - mc.fontRendererCrack.getStringWidth("Empty...") / 2,
                             y + 72 / 2,
-                            0xffffffff,
+                            new Color(255,255,255).getRGB(),
                             true);
                 }
                 RenderHelper.disableStandardItemLighting();
@@ -384,7 +384,7 @@ public class GuiChat extends GuiScreen {
 
                     ScaleUtils.scale(mc);
                     RenderUtils.drawBorderedRect(hud.getInvx().get(), hud.getInvy().get(), hud.getInvx().get() + 167,
-                            hud.getInvy().get() + 73, 2, 0xffffffff, new Color(0, 0, 0, 150).getRGB());
+                            hud.getInvy().get() + 73, 2, new Color(255,255,255).getRGB(), new Color(0, 0, 0, 150).getRGB());
                 }
             }
 
@@ -411,7 +411,7 @@ public class GuiChat extends GuiScreen {
 
                     ScaleUtils.scale(mc);
                     RenderUtils.drawBorderedRect(hud.getTlx().get(), hud.getTly().get() - 13, hud.getTlx().get() + hud.getTargetListWidthAndHeight()[0],
-                            hud.getTly().get() + hud.getTargetListWidthAndHeight()[1], 2, 0xffffffff, new Color(0, 0, 0, 150).getRGB());
+                            hud.getTly().get() + hud.getTargetListWidthAndHeight()[1], 2, new Color(255,255,255).getRGB(), new Color(0, 0, 0, 150).getRGB());
                 }
             }
 
@@ -441,7 +441,7 @@ public class GuiChat extends GuiScreen {
 
                 ScaleUtils.scale(mc);
                 RenderUtils.drawBorderedRect(radar.getX().get(), radar.getY().get(), radar.getX().get() + radar.getSize().get(),
-                        radar.getY().get() + radar.getSize().get(), 2, 0xffffffff, new Color(0, 0, 0, 150).getRGB());
+                        radar.getY().get() + radar.getSize().get(), 2, new Color(255,255,255).getRGB(), new Color(0, 0, 0, 150).getRGB());
             }
 
         }

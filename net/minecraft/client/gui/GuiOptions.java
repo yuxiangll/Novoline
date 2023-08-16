@@ -15,6 +15,7 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.EnumDifficulty;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
@@ -197,7 +198,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.field_146442_a, this.width / 2, 15, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_146442_a, this.width / 2, 15, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

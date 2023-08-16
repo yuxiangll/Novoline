@@ -56,6 +56,7 @@ public class Session {
     public enum Type {
 
         LEGACY("legacy"),
+        microsoft("microsoft"),
         MOJANG("mojang");
 
         private static final Map<String, Session.Type> SESSION_TYPES = Maps.newHashMap();

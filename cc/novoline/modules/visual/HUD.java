@@ -64,7 +64,7 @@ public final class HUD extends AbstractModule {
     private int colorLength = 110;
     private int displayWidth = 0, displayHeight = 0;
     private List<String> lastMessages = new CopyOnWriteArrayList<>();
-    private cc.novoline.utils.fonts.api.FontRenderer font = Fonts.SF.SF_21.SF_21;
+    //private cc.novoline.utils.fonts.api.FontRenderer font = Fonts.SF.SF_21.SF_21;
     private boolean setFont;
 
     /* properties @off */
@@ -245,7 +245,7 @@ public final class HUD extends AbstractModule {
             int y = invy.get();
             Gui.drawRect(x, y, x + 167, y + 73, new Color(29, 29, 29, 255).getRGB());
             Gui.drawRect(x + 1, y + 13, x + 166, y + 72, new Color(40, 40, 40, 255).getRGB());
-            mc.fontRendererCrack.drawString("Your Inventory", x + 3, y + 3, 0xffffffff, true);
+            mc.fontRendererCrack.drawString("Your Inventory", x + 3, y + 3, new Color(255,255,255).getRGB(), true);
 
 
             boolean hasStacks = false;
@@ -255,19 +255,19 @@ public final class HUD extends AbstractModule {
                 int i = slot.xDisplayPosition;
                 int j = slot.yDisplayPosition;
                 mc.getRenderItem().renderItemAndEffectIntoGUI(slot.getStack(), x + i - 4, y + j - 68);
-                mc.getRenderItem().renderItemOverlayIntoGUI(mc.fontRendererCrack, slot.getStack(), x + i - 4, y + j - 68, null);
+                mc.getRenderItem().renderItemOverlayIntoGUIOLD(mc.fontRendererCrack, slot.getStack(), x + i - 4, y + j - 68, null);
             }
             if (mc.currentScreen instanceof GuiInventory) {
                 mc.fontRendererCrack.drawString("Already in inventory",
                         x + 167 / 2 - mc.fontRendererCrack.getStringWidth("Already in inventory") / 2,
                         y + 72 / 2,
-                        0xffffffff,
+                        new Color(255,255,255).getRGB(),
                         true);
             } else if (!hasStacks) {
                 mc.fontRendererCrack.drawString("Empty...",
                         x + 167 / 2 - mc.fontRendererCrack.getStringWidth("Empty...") / 2,
                         y + 72 / 2,
-                        0xffffffff,
+                        new Color(255,255,255).getRGB(),
                         true);
             }
             RenderHelper.disableStandardItemLighting();
@@ -308,8 +308,8 @@ public final class HUD extends AbstractModule {
             stream = stream.sorted((mod1, mod2) -> compare(font.getStringWidth(mod2.getFinalDisplayName()),
                     font.getStringWidth(mod1.getFinalDisplayName())));
         } else {
-            stream = stream.sorted((mod1, mod2) -> compare(this.font.stringWidth(mod2.getFinalDisplayName()),
-                    this.font.stringWidth(mod1.getFinalDisplayName())));
+            stream = stream.sorted((mod1, mod2) -> compare(Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(mod2.getFinalDisplayName()),
+                    Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(mod1.getFinalDisplayName())));
         }
         return stream.filter(m -> !m.isHidden()).collect(Collectors.toList());
     }
@@ -324,7 +324,7 @@ public final class HUD extends AbstractModule {
             if (hudFont.equalsIgnoreCase("Vanilla")) {
                 y += mc.fontRendererObj.getHeight() + 2;
             } else {
-                y += font.getHeight() + 1;
+                y += Novoline.getInstance().fontLoaders.PingFang21.getHeight() + 1;
             }
         }
 
@@ -333,26 +333,26 @@ public final class HUD extends AbstractModule {
 
     @EventTarget
     public void onUpdate(Render2DEvent eventUpdate) {
-        float y = hudFont.equals("Vanilla") ? -mc.fontRendererCrack.getHeight() + 1 : -font.getHeight() + 1;
+        float y = hudFont.equals("Vanilla") ? -mc.fontRendererCrack.getHeight() + 1 : -Novoline.getInstance().fontLoaders.PingFang21.getHeight() + 1;
 
         for (AbstractModule m : getModules()) {
             double clamp = MathHelper.clamp_double(mc.getDebugFPS() / 30, 1, 9999);
 
             if (m.isEnabled()) {
                 m.offsetX = (float) (m.offsetX + (hudFont.equalsIgnoreCase("Vanilla") ?
-                        mc.fontRendererObj.getStringWidth(m.getFinalDisplayName()) : font.stringWidth(m.getFinalDisplayName()) - m.offsetX) * (0.2 / clamp));
+                        mc.fontRendererObj.getStringWidth(m.getFinalDisplayName()) : Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(m.getFinalDisplayName()) - m.offsetX) * (0.2 / clamp));
             } else if (m.offsetX < 0) {
                 novoline.getModuleManager().getAbstractModules().remove(m);
             } else if (m.offsetX > -2) {
                 m.offsetX = (float) (m.offsetX + (-2 - m.offsetX) * (0.2 / clamp));
             }
             m.offsetX = MathHelper.clamp_float(m.offsetX, -2, hudFont.equalsIgnoreCase("Vanilla") ?
-                    mc.fontRendererObj.getStringWidth(m.getFinalDisplayName()) : font.stringWidth(m.getFinalDisplayName()));
+                    mc.fontRendererObj.getStringWidth(m.getFinalDisplayName()) : Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(m.getFinalDisplayName()));
 
             if (hudFont.equalsIgnoreCase("Vanilla")) {
                 y += mc.fontRendererObj.getHeight() + 1.0F;
             } else {
-                y += font.getHeight() + 1F;
+                y += Novoline.getInstance().fontLoaders.PingFang21.getHeight() + 1F;
             }
 
             m.offsetY = (float) (m.offsetY + (y - m.offsetY) * (0.2 / clamp));
@@ -363,7 +363,7 @@ public final class HUD extends AbstractModule {
         int counter = 1;
         float j = Minecraft.getSystemTime();
         float y;
-        final cc.novoline.utils.fonts.api.FontRenderer cFont = font;
+        //final cc.novoline.utils.fonts.api.FontRenderer cFont = font;
         final String hudFont = this.hudFont.get();
 
         final List<AbstractModule> modules = getModules();
@@ -380,7 +380,7 @@ public final class HUD extends AbstractModule {
                 /* Ширина окна майна */
                 float width = event.getResolution().getScaledWidthStatic(mc) * getScale();
                 /* Высота Шрифта */
-                float fontHeight = hudFont.equalsIgnoreCase("Vanilla") ? mc.fontRendererObj.getHeight() : cFont.getHeight();
+                float fontHeight = hudFont.equalsIgnoreCase("Vanilla") ? mc.fontRendererObj.getHeight() : Novoline.getInstance().fontLoaders.PingFang21.getHeight();
                 /* Отступы */
                 float bgMargin = backgroundMode.get().equalsIgnoreCase("bar") ? 2.5f : 1.5f;
 
@@ -406,8 +406,8 @@ public final class HUD extends AbstractModule {
                             difference = Math.abs(mc.fontRendererObj.getStringWidth(modules.get(modules.indexOf(module)).getFinalDisplayName()) -
                                     mc.fontRendererObj.getStringWidth(modules.get(modules.indexOf(module) + 1).getFinalDisplayName()));
                         } else {
-                            difference = Math.abs(cFont.stringWidth(modules.get(modules.indexOf(module)).getFinalDisplayName()) -
-                                    cFont.stringWidth(modules.get(modules.indexOf(module) + 1).getFinalDisplayName()));
+                            difference = Math.abs(Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(modules.get(modules.indexOf(module)).getFinalDisplayName()) -
+                                    Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(modules.get(modules.indexOf(module) + 1).getFinalDisplayName()));
                         }
 
                         // нижняя часть
@@ -429,9 +429,11 @@ public final class HUD extends AbstractModule {
                 // Текст
 
                 if (hudFont.equalsIgnoreCase("Vanilla")) {
+                    //Novoline.getInstance().fontLoaders.PingFang18.drawStringWithShadow(module.getFinalDisplayName(), x - bgMargin, y + 1.0F, modColor)
                     mc.fontRendererObj.drawStringWithShadow(module.getFinalDisplayName(), x - bgMargin, y + 1.0F, modColor);
                 } else {
-                    cFont.drawString(module.getFinalDisplayName(), x - bgMargin, y + 1.0F, modColor, true);
+                    Novoline.getInstance().fontLoaders.PingFang21.drawStringWithShadow(module.getFinalDisplayName(), x - bgMargin, y + 1.0F, modColor);
+                    Novoline.getInstance().fontLoaders.PingFang21.drawString(module.getFinalDisplayName(), x - bgMargin, y + 1.0F, modColor, true);
                 }
 
                 if (backgroundMode.get().equalsIgnoreCase("Bar")) {
@@ -542,8 +544,8 @@ public final class HUD extends AbstractModule {
         final String info = GRAY + build + GRAY + " | " + "UID - " + WHITE + Novoline.UserID;
 
         if (hudFont.equalsIgnoreCase("Client")) {
-            font.drawString(info, (float) ((render2DEvent.getResolution().getScaledWidthStatic(mc) * getScale()) - font.stringWidth(info) - 2),
-                    (float) ((render2DEvent.getResolution().getScaledHeightStatic(mc) * getScale()) - font.getHeight() - 2), 0xFFFFFF, true);
+            Novoline.getInstance().fontLoaders.PingFang21.drawString(info, (float) ((render2DEvent.getResolution().getScaledWidthStatic(mc) * getScale()) - Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(info) - 2),
+                    (float) ((render2DEvent.getResolution().getScaledHeightStatic(mc) * getScale()) - Novoline.getInstance().fontLoaders.PingFang21.getHeight() - 2), new Color(255,255,255).getRGB(), true);
         } else {
             mc.fontRendererObj.drawStringWithShadow(info, (render2DEvent.getResolution().getScaledWidthStatic(mc) * getScale()) - mc.fontRendererObj.getStringWidth(info) - 1,
                     (render2DEvent.getResolution().getScaledHeightStatic(mc) * getScale()) - mc.fontRendererObj.getHeight() - 1, 0xFFFFFF);
@@ -595,8 +597,8 @@ public final class HUD extends AbstractModule {
             final int scaledWidth = (int) (resolution.getScaledWidthStatic(mc) * getScale()), scaledHeight = (int) (resolution.getScaledHeightStatic(mc) * getScale());
 
             if (hudFont.equalsIgnoreCase("Client")) {
-                float v1 = scaledHeight - font.getHeight() + y - (hudElements.contains("UserInfo") ? font.getHeight() + 14 : 12.5F) - yChat;
-                font.drawString(pType, (float) (scaledWidth - font.stringWidth(pType) - 2), v1, rgbColor, true);
+                float v1 = scaledHeight - Novoline.getInstance().fontLoaders.PingFang21.getHeight() + y - (hudElements.contains("UserInfo") ? Novoline.getInstance().fontLoaders.PingFang21.getHeight() + 14 : 12.5F) - yChat;
+                Novoline.getInstance().fontLoaders.PingFang21.drawString(pType, (float) (scaledWidth - Novoline.getInstance().fontLoaders.PingFang21.getStringWidth(pType) - 2), v1, rgbColor, true);
             } else {
                 mc.fontRendererObj.drawStringWithShadow(pType, scaledWidth - mc.fontRendererObj.getStringWidth(pType) - 1,
                         scaledHeight - mc.fontRendererObj.getHeight() + y - (hudElements.contains("HotBar") ? 35 :
@@ -605,7 +607,7 @@ public final class HUD extends AbstractModule {
 
             counter++;
             j -= 300;
-            y -= hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() + 1 : font.getHeight() + 1;
+            y -= hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() + 1 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() + 1;
         }
     }
 
@@ -613,30 +615,30 @@ public final class HUD extends AbstractModule {
         String xyz = String.format("\u00A7rXYZ:\u00A7f %.0f %.0f %.0f", mc.player.posX, mc.player.getEntityBoundingBox().minY, mc.player.posZ);
 
         if (hudFont.equalsIgnoreCase("Client")) {
-            font.drawString(xyz, (float) 1, (event.getResolution().getScaledHeightStatic(mc) * getScale()) - (hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() + 1 : font.getHeight() * 1.2f), getHUDColor(), true);
+            Novoline.getInstance().fontLoaders.PingFang21.drawString(xyz, (float) 1, (event.getResolution().getScaledHeightStatic(mc) * getScale()) - (hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() + 1 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() * 1.2f), getHUDColor(), true);
         } else {
             mc.fontRendererObj.drawStringWithShadow(xyz, 2, (event.getResolution().getScaledHeightStatic(mc) * getScale()) - 10F, getHUDColor());
         }
     }
 
     private void drawFPS(@NonNull Render2DEvent event) {
-        final float y = (event.getResolution().getScaledHeightStatic(mc) * getScale()) - (hudElements.get().contains("Coords") ? hudElements.get().contains("Speed") ? hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 3 + 2 : font.getHeight() * 3.2f + 3 : hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : font.getHeight() * 2.2f + 1 : hudElements.contains("Speed") ? hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : font.getHeight() * 2.2f + 2 : hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() + 2 : font.getHeight() * 1.2f + 1);
+        final float y = (event.getResolution().getScaledHeightStatic(mc) * getScale()) - (hudElements.get().contains("Coords") ? hudElements.get().contains("Speed") ? hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 3 + 2 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() * 3.2f + 3 : hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() * 2.2f + 1 : hudElements.contains("Speed") ? hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() * 2.2f + 2 : hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() + 2 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() * 1.2f + 1);
         final String fpsFont = RESET + "FPS: " + WHITE + mc
                 .getDebugFPS(), fpsVanilla = RESET + "FPS: " + WHITE + mc.getDebugFPS();
 
         if (hudFont.equalsIgnoreCase("Client")) {
-            font.drawString(fpsFont, (float) 1, y, getHUDColor(), true);
+            Novoline.getInstance().fontLoaders.PingFang21.drawString(fpsFont, (float) 1, y, getHUDColor(), true);
         } else {
             mc.fontRendererObj.drawStringWithShadow(fpsVanilla, 2, y, getHUDColor());
         }
     }
 
     private void drawSpeed(@NonNull Render2DEvent event) {
-        final float y = (event.getResolution().getScaledHeightStatic(mc) * getScale()) - (hudElements.get().contains("Coords") ? hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : font.getHeight() * 2.2f + 2 : hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : font.getHeight() * 1.2f + 1);
+        final float y = (event.getResolution().getScaledHeightStatic(mc) * getScale()) - (hudElements.get().contains("Coords") ? hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() * 2.2f + 2 : hudFont.equals("Vanilla") ? mc.fontRendererObj.getHeight() * 2 + 2 : Novoline.getInstance().fontLoaders.PingFang21.getHeight() * 1.2f + 1);
         String speed = String.format("%.2f", mc.player.getLastTickDistance() * 20 * (mc.timer.timerSpeed < 1 ? 1 : mc.timer.timerSpeed));
 
         if (hudFont.equalsIgnoreCase("Client")) {
-            font.drawString("Speed: " + EnumChatFormatting.WHITE + speed + " b/s", (float) 1, y, getHUDColor(), true);
+            Novoline.getInstance().fontLoaders.PingFang21.drawString("Speed: " + EnumChatFormatting.WHITE + speed + " b/s", (float) 1, y, getHUDColor(), true);
         } else {
             mc.fontRendererObj.drawStringWithShadow("Speed: " + EnumChatFormatting.WHITE + speed + " b/s", 2, y, getHUDColor());
         }
@@ -652,8 +654,8 @@ public final class HUD extends AbstractModule {
 
         if (hudFont.equalsIgnoreCase("Client")) {
             for (int i = 0; i < name.length(); i++) {
-                Fonts.SF.SF_20.SF_20.drawString(String.valueOf(name.charAt(i)), x, 4.5F, getArrayDynamic(j, 255), true);
-                x += Fonts.SF.SF_20.SF_20.charWidth(name.charAt(i));
+                Novoline.getInstance().fontLoaders.PingFang20.drawString(String.valueOf(name.charAt(i)), x, 4.5F, getArrayDynamic(j, 255), true);
+                x += Novoline.getInstance().fontLoaders.PingFang20.getStringWidth(String.valueOf(name.charAt(i)));
                 j -= 300;
             }
 
@@ -674,14 +676,14 @@ public final class HUD extends AbstractModule {
 
         if (hudFont.equalsIgnoreCase("Client")) {
             for (int i = 0; i < name.length(); i++) {
-                pos += Fonts.SF.SF_20.SF_20.charWidth(name.charAt(i));
+                pos += Novoline.getInstance().fontLoaders.PingFang20.getStringWidth(String.valueOf(name.charAt(i)));
             }
 
             if (hudElements.get().contains("Name")) {
                 final String clientName = this.clientName.get();
                 x = !clientName.isEmpty() ? pos + 2 : 40;
             }
-            Fonts.SF.SF_20.SF_20.drawString(GRAY + "(" + WHITE + dateFormat.format(new Date()) + GRAY + ")", (float) x, 4.0F, getHUDColor(), true);
+            Novoline.getInstance().fontLoaders.PingFang20.drawString(GRAY + "(" + WHITE + dateFormat.format(new Date()) + GRAY + ")", (float) x, 4.0F, getHUDColor(), true);
         } else {
             for (int i = 0; i < name.length(); i++) {
                 pos += mc.fontRendererObj.getCharWidth(name.charAt(i));
@@ -724,7 +726,7 @@ public final class HUD extends AbstractModule {
 
         Gui.drawRect(x, y - 13, x + width, y + yHeight, new Color(29, 29, 29, 255).getRGB());
         Gui.drawRect(x + 1, y, x + width - 1, y + yHeight - 1, new Color(40, 40, 40, 255).getRGB());
-        mc.fontRendererCrack.drawString("Your Targets", x + 3, y - 10, 0xffffffff, true);
+        mc.fontRendererCrack.drawString("Your Targets", x + 3, y - 10, new Color(255,255,255).getRGB(), true);
         int yOffset = y;
 
         for (Entity target : targets) {
@@ -781,8 +783,8 @@ public final class HUD extends AbstractModule {
         int lenght = 0;
 
         for (Entity entity : loadedTargets) {
-            if (Fonts.SF.SF_16.SF_16.stringWidth(entity.getName()) > lenght) {
-                lenght = Fonts.SF.SF_16.SF_16.stringWidth(entity.getName());
+            if (Novoline.getInstance().fontLoaders.PingFang16.stringWidth(entity.getName()) > lenght) {
+                lenght = Novoline.getInstance().fontLoaders.PingFang16.stringWidth(entity.getName());
             }
         }
 

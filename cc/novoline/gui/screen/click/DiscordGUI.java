@@ -156,12 +156,12 @@ public class DiscordGUI extends GuiScreen {
 		RenderUtils.drawFilledCircle(xCoordinate + 22, yCoordinate + 20, 15, 0xFF36393F);
 		//this.mc.getTextureManager().bindTexture(new ResourceLocation("novoline/clickgui/discord/discord.png"));
 		//drawModalRectWithCustomSizedTexture(this.xCoordinate + 7, this.yCoordinate + 5, 30, 30, 30, 30, 30, 30);
-		ICONFONT_35.drawString("?",xCoordinate + 14,yCoordinate + 14,0xffffffff);
+		ICONFONT_35.drawString("?",xCoordinate + 14,yCoordinate + 14,new Color(255,255,255).getRGB());
 
 
 		if(isDiscord(mouseX, mouseY)) {
 			drawRoundedRect(xCoordinate - SFTHIN_16.stringWidth("Discord Server") - 12, yCoordinate + 14, SFTHIN_16.stringWidth("Discord Server") + 7, 10, 5, 0xFF2F2F2F);
-			SFTHIN_16.drawString("Discord Server", xCoordinate - SFTHIN_16.stringWidth("Discord Server") - 10, yCoordinate + 16, 0xFFFFFFFF);
+			SFTHIN_16.drawString("Discord Server", xCoordinate - SFTHIN_16.stringWidth("Discord Server") - 10, yCoordinate + 16, new Color(255,255,255).getRGB());
 		}
 
 		super.drawScreen(mouseX, mouseY, partialTicks);

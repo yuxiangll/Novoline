@@ -6,6 +6,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.optifine.*;
 import net.shadersmod.client.GuiShaders;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiVideoSettings extends GuiScreen {
@@ -150,7 +151,7 @@ public class GuiVideoSettings extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 15, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 15, new Color(255,255,255).getRGB());
         String s = Config.getVersion();
         String s1 = "HD_U";
 

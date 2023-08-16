@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -313,7 +314,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback {
         this.hoveringText = null;
         this.drawDefaultBackground();
         this.serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.title"), this.width / 2, 20, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("multiplayer.title"), this.width / 2, 20, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         if (this.hoveringText != null) {

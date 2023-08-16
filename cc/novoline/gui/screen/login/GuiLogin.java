@@ -165,17 +165,17 @@ public class GuiLogin extends GuiScreen {
 
         //STATUS
         if (status.startsWith("Idle") || status.startsWith("Initializing") || status.startsWith("Logging")) {
-            Fonts.SF.SF_16.SF_16.drawString(status, hWidth - Fonts.SF.SF_16.SF_16.stringWidth(status) / 2, hHeight + 45, interpolateColor(new Color(150, 150, 150), white, fraction));
+            Novoline.getInstance().fontLoaders.PingFang16.drawString(status, hWidth - Novoline.getInstance().fontLoaders.PingFang16.getStringWidth(status) / 2, hHeight + 45, interpolateColor(new Color(150, 150, 150), white, fraction));
             errorBoxHeight = 0;
         } else {
             if (status.equals("Success")) {
                 errorBoxHeight = errorBoxHeight + (10 - errorBoxHeight) * 0.01f;
-                RenderUtils.drawBorderedRect(hWidth - Fonts.SF.SF_16.SF_16.stringWidth(status) / 2 - 10, errorBoxHeight, hWidth + Fonts.SF.SF_16.SF_16.stringWidth(status) / 2 + 10, errorBoxHeight + 12, 1f, new Color(170, 253, 126).getRGB(), interpolateColor(new Color(232, 255, 213), new Color(232, 255, 213).darker().darker(), fraction));
-                Fonts.SF.SF_16.SF_16.drawString(status, hWidth - Fonts.SF.SF_16.SF_16.stringWidth(status) / 2, errorBoxHeight + 7 - Fonts.SF.SF_16.SF_16.getHeight() / 2, new Color(201, 255, 167).darker().getRGB(), true);
+                RenderUtils.drawBorderedRect(hWidth - Novoline.getInstance().fontLoaders.PingFang16.getStringWidth(status) / 2 - 10, errorBoxHeight, hWidth + Novoline.getInstance().fontLoaders.PingFang16.getStringWidth(status) / 2 + 10, errorBoxHeight + 12, 1f, new Color(170, 253, 126).getRGB(), interpolateColor(new Color(232, 255, 213), new Color(232, 255, 213).darker().darker(), fraction));
+                Novoline.getInstance().fontLoaders.PingFang16.drawString(status, hWidth - Novoline.getInstance().fontLoaders.PingFang16.getStringWidth(status) / 2, errorBoxHeight + 7 - Novoline.getInstance().fontLoaders.PingFang16.getHeight() / 2, new Color(201, 255, 167).darker().getRGB(), true);
             } else {
                 errorBoxHeight = errorBoxHeight + (10 - errorBoxHeight) * 0.01f;
-                RenderUtils.drawBorderedRect(hWidth - Fonts.SF.SF_16.SF_16.stringWidth(status) / 2 - 10, errorBoxHeight, hWidth + Fonts.SF.SF_16.SF_16.stringWidth(status) / 2 + 10, errorBoxHeight + 12, 1f, 0xFFF5DAE1, interpolateColor(new Color(0xFFF8E5E8), new Color(0xFFF8E5E8).darker().darker(), fraction));
-                Fonts.SF.SF_16.SF_16.drawString(status, hWidth - Fonts.SF.SF_16.SF_16.stringWidth(status) / 2, errorBoxHeight + 7 - Fonts.SF.SF_16.SF_16.getHeight() / 2, 0XFFEB6E85, true);
+                RenderUtils.drawBorderedRect(hWidth - Novoline.getInstance().fontLoaders.PingFang16.getStringWidth(status) / 2 - 10, errorBoxHeight, hWidth + Novoline.getInstance().fontLoaders.PingFang16.getStringWidth(status) / 2 + 10, errorBoxHeight + 12, 1f, 0xFFF5DAE1, interpolateColor(new Color(0xFFF8E5E8), new Color(0xFFF8E5E8).darker().darker(), fraction));
+                Novoline.getInstance().fontLoaders.PingFang16.drawString(status, hWidth - Novoline.getInstance().fontLoaders.PingFang16.getStringWidth(status) / 2, errorBoxHeight + 7 - Novoline.getInstance().fontLoaders.PingFang16.getHeight() / 2, 0XFFEB6E85, true);
             }
         }
 
@@ -183,7 +183,7 @@ public class GuiLogin extends GuiScreen {
         field.drawTextBox();
 
         // CREDITS
-        Fonts.SF.SF_18.SF_18.drawString("made by yuxiangll", hWidth - Fonts.SF.SF_18.SF_18.stringWidth("made by gast and tasteful. protected by skidunion") / 2, scaledHeightScaled - Fonts.SF.SF_18.SF_18.getHeight() - 4, new Color(150, 150, 150).getRGB());
+        Novoline.getInstance().fontLoaders.PingFang18.drawString("made by yuxiangll", hWidth - Novoline.getInstance().fontLoaders.PingFang18.stringWidth("made by yuxiangll") / 2, scaledHeightScaled - Novoline.getInstance().fontLoaders.PingFang18.getHeight() - 4, new Color(150, 150, 150).getRGB());
 
         if (authenticated) {
             this.status = "Success";
@@ -291,7 +291,7 @@ public class GuiLogin extends GuiScreen {
         try {
             return new Color(red, green, blue, alpha).getRGB();
         } catch (Exception ex) {
-            return 0xffffffff;
+            return new Color(255,255,255).getRGB();
         }
     }
 }

@@ -18,6 +18,7 @@ import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -52,7 +53,7 @@ public class BlockTallGrass extends BlockBush implements IGrowable {
             return super.getRenderColor(state);
         } else {
             final BlockTallGrass.EnumType blocktallgrass$enumtype = state.getValue(TYPE);
-            return blocktallgrass$enumtype == BlockTallGrass.EnumType.DEAD_BUSH ? 16777215 : ColorizerGrass.getGrassColor(0.5D, 1.0D);
+            return blocktallgrass$enumtype == BlockTallGrass.EnumType.DEAD_BUSH ? new Color(255,255,255).getRGB() : ColorizerGrass.getGrassColor(0.5D, 1.0D);
         }
     }
 

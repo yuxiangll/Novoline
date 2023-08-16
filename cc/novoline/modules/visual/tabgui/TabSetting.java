@@ -1,5 +1,6 @@
 package cc.novoline.modules.visual.tabgui;
 
+import cc.novoline.Novoline;
 import cc.novoline.gui.screen.setting.Manager;
 import cc.novoline.gui.screen.setting.SettingType;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -11,7 +12,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.awt.*;
 import java.util.List;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
 import static cc.novoline.utils.fonts.impl.Fonts.SFTHIN.SFTHIN_18.SFTHIN_18;
 
 public final class TabSetting {
@@ -66,9 +67,9 @@ public final class TabSetting {
         Gui.drawRect(89 + this.module.getLongest(), y, 108 + this.module.getLongest() + getLongestS(), eY,
                 new Color(20, 20, 20, 170).getRGB());
         if(isSelected()) Gui.drawRect(89 + this.module.getLongest(), y, 108 + this.module.getLongest() + getLongestS(), eY, module.getType().getTabGUI().getColor());
-        SF_18.drawString(this.setting.getDisplayName(), 93 + i + this.module.getLongest(), y + 3, this.setting.getSettingType() == SettingType.CHECKBOX ?
-                getSetting().getCheckBoxProperty().get() ? 0xffffffff : new Color(163, 163, 163, 255).getRGB() :
-                0xffffffff,true);
+        Novoline.getInstance().fontLoaders.PingFang18.drawString(this.setting.getDisplayName(), 93 + i + this.module.getLongest(), y + 3, this.setting.getSettingType() == SettingType.CHECKBOX ?
+                getSetting().getCheckBoxProperty().get() ? new Color(255,255,255).getRGB() : new Color(163, 163, 163, 255).getRGB() :
+                new Color(255,255,255).getRGB(),true);
 
         if (isOpened()) {
             this.values.forEach(TabValue::render);

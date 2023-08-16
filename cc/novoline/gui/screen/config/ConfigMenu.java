@@ -74,16 +74,16 @@ public final class ConfigMenu {
         if (isHovered(mouseX, mouseY)) {
             if (discordGUI.isConfigsOpened()) {
                 drawRect(xCoordinate, yCoordinate + 274 - block, xCoordinate + 2, yCoordinate + 274 + block,
-                        0xFFFFFFFF);
+                        new Color(255,255,255).getRGB());
             } else {
-                drawRect(xCoordinate, yCoordinate + 269, xCoordinate + 2, yCoordinate + 279, 0xFFFFFFFF);
+                drawRect(xCoordinate, yCoordinate + 269, xCoordinate + 2, yCoordinate + 279, new Color(255,255,255).getRGB());
             }
         } else if (discordGUI.isConfigsOpened()) {
-            drawRect(xCoordinate, yCoordinate + 274 - block, xCoordinate + 2, yCoordinate + 274 + block, 0xFFFFFFFF);
+            drawRect(xCoordinate, yCoordinate + 274 - block, xCoordinate + 2, yCoordinate + 274 + block, new Color(255,255,255).getRGB());
         }
 
         RenderUtils.drawFilledCircle(xCoordinate + 22, yCoordinate + 274, 15,0xFF36393F);
-        ICONFONT_35.drawString("E", xCoordinate + 16, yCoordinate + 268, isHovered(mouseX,mouseY) ? guiColor : 0xFFFFFFFF);
+        ICONFONT_35.drawString("E", xCoordinate + 16, yCoordinate + 268, isHovered(mouseX,mouseY) ? guiColor : new Color(255,255,255).getRGB());
 
         if (discordGUI.isConfigsOpened()) {
             final boolean b = areEnabled(discordGUI);
@@ -98,8 +98,8 @@ public final class ConfigMenu {
                 drawRect(xCoordinate + 44, yCoordinate + 80, xCoordinate + 45 + 110, yCoordinate + 94, 0xFF36393E);
             }
 
-            ICONFONT_24.drawString("I", xCoordinate + 50, yCoordinate + 7, 0xFFFFFFFF);
-            SFTHIN_20.drawString("Configs", xCoordinate + 63, yCoordinate + 7, 0xFFFFFFFF);
+            ICONFONT_24.drawString("I", xCoordinate + 50, yCoordinate + 7, new Color(255,255,255).getRGB());
+            SFTHIN_20.drawString("Configs", xCoordinate + 63, yCoordinate + 7, new Color(255,255,255).getRGB());
 
             final int color = b ? 0xFF868386 : new Color(0x4E4B4E).getRGB();
 
@@ -128,9 +128,9 @@ public final class ConfigMenu {
             } else {
                 if (SFTHIN_16.stringWidth(message) > 65) {
                     SFTHIN_16.drawString(SFTHIN_16.trimStringToWidth(message, 60, true), xCoordinate + 52,
-                            yCoordinate + 102, 0xFFFFFFFF);
+                            yCoordinate + 102, new Color(255,255,255).getRGB());
                 } else {
-                    SFTHIN_16.drawString(message, xCoordinate + 52, yCoordinate + 102, 0xFFFFFFFF);
+                    SFTHIN_16.drawString(message, xCoordinate + 52, yCoordinate + 102, new Color(255,255,255).getRGB());
                 }
             }
             //endregion

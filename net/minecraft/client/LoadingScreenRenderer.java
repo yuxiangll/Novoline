@@ -11,6 +11,8 @@ import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MinecraftError;
 
+import java.awt.*;
+
 public class LoadingScreenRenderer implements IProgressUpdate {
 
     private String message = "";
@@ -165,8 +167,8 @@ public class LoadingScreenRenderer implements IProgressUpdate {
 
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                this.mc.fontRendererObj.drawStringWithShadow(this.currentlyDisplayedText, (float) ((k - this.mc.fontRendererObj.getStringWidth(this.currentlyDisplayedText)) / 2), (float) (l / 2 - 4 - 16), 16777215);
-                this.mc.fontRendererObj.drawStringWithShadow(this.message, (float) ((k - this.mc.fontRendererObj.getStringWidth(this.message)) / 2), (float) (l / 2 - 4 + 8), 16777215);
+                this.mc.fontRendererObj.drawStringWithShadow(this.currentlyDisplayedText, (float) ((k - this.mc.fontRendererObj.getStringWidth(this.currentlyDisplayedText)) / 2), (float) (l / 2 - 4 - 16), new Color(255,255,255).getRGB());
+                this.mc.fontRendererObj.drawStringWithShadow(this.message, (float) ((k - this.mc.fontRendererObj.getStringWidth(this.message)) / 2), (float) (l / 2 - 4 + 8), new Color(255,255,255).getRGB());
                 this.framebuffer.unbindFramebuffer();
 
                 if (OpenGlHelper.isFramebufferEnabled()) {

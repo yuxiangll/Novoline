@@ -1,5 +1,6 @@
 package cc.novoline.modules.visual.tabgui;
 
+import cc.novoline.Novoline;
 import cc.novoline.modules.AbstractModule;
 import cc.novoline.modules.EnumModuleType;
 import cc.novoline.modules.visual.TabGUI;
@@ -11,7 +12,7 @@ import net.minecraft.util.MathHelper;
 import java.awt.*;
 import java.util.List;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
 
 public final class TabType {
 
@@ -48,7 +49,7 @@ public final class TabType {
                 new Color(20, 20, 20,
                         170).getRGB());
         if (isSelected()) Gui.drawRect(0, y, 65, eY, new Color(tabGUI.getColor()).getRGB());
-        SF_18.drawString(name, 3 + i, (float) (y + 3), 0xffffffff,true);
+        Novoline.getInstance().fontLoaders.PingFang18.drawString(name, 3 + i, (float) (y + 3), new Color(255,255,255).getRGB(),true);
         String l = "";
         if (type.name().equalsIgnoreCase("Combat")) {
             l = "D";
@@ -63,7 +64,7 @@ public final class TabType {
         } else if (type.name().equalsIgnoreCase("Misc")) {
             l = "F";
         }
-        //ICONFONT_16.drawString(l, (float) getCoords()[0], (float) getCoords()[1], 0xffffffff);
+        //ICONFONT_16.drawString(l, (float) getCoords()[0], (float) getCoords()[1], new Color(255,255,255).getRGB());
 
         if (isOpened()) {
             this.modules.forEach(TabModule::render);

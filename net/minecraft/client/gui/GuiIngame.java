@@ -10,6 +10,7 @@ import cc.novoline.modules.visual.Crosshair;
 import cc.novoline.modules.visual.HUD;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.fonts.impl.Fonts;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import viaversion.viafabric.ViaFabric;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -44,7 +45,9 @@ import net.minecraft.world.border.WorldBorder;
 import net.optifine.Config;
 import net.optifine.CustomColors;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting;
@@ -243,10 +246,10 @@ public class GuiIngame extends Gui {
                 GlStateManager.translate((float) (i / 2), (float) (j - 68), 0.0F);
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                int i1 = 16777215;
+                int i1 = new Color(255,255,255).getRGB();
 
                 if (this.recordIsPlaying) {
-                    i1 = func_181758_c(f3 / 50.0F, 0.7F, 0.6F) & 16777215;
+                    i1 = func_181758_c(f3 / 50.0F, 0.7F, 0.6F) & new Color(255,255,255).getRGB();
                 }
 
                 this.getFontRenderer()
@@ -283,12 +286,12 @@ public class GuiIngame extends Gui {
                 int j2 = l1 << 24 & -16777216;
                 this.getFontRenderer().drawString(this.field_175201_x,
                         (float) (-this.getFontRenderer().getStringWidth(this.field_175201_x) / 2), -10.0F,
-                        16777215 | j2, true);
+                        new Color(255,255,255).getRGB() | j2, true);
                 GlStateManager.popMatrix();
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(2.0F, 2.0F, 2.0F);
                 this.getFontRenderer().drawString(this.field_175200_y,
-                        (float) (-this.getFontRenderer().getStringWidth(this.field_175200_y) / 2), 5.0F, 16777215 | j2,
+                        (float) (-this.getFontRenderer().getStringWidth(this.field_175200_y) / 2), 5.0F, new Color(255,255,255).getRGB() | j2,
                         true);
                 GlStateManager.popMatrix();
                 GlStateManager.disableBlend();
@@ -457,7 +460,7 @@ public class GuiIngame extends Gui {
                 GlStateManager.pushMatrix();
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                this.getFontRenderer().drawStringWithShadow(s, (float) i, (float) j - 12, 16777215 + (k << 24));
+                this.getFontRenderer().drawStringWithShadow(s, (float) i, (float) j - 12, new Color(255,255,255).getRGB() + (k << 24));
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }
@@ -478,7 +481,7 @@ public class GuiIngame extends Gui {
         }
 
         int i = this.getFontRenderer().getStringWidth(s);
-        this.getFontRenderer().drawStringWithShadow(s, (float) (p_175185_1_.getScaledWidth() - i - 10), 5.0F, 16777215);
+        this.getFontRenderer().drawStringWithShadow(s, (float) (p_175185_1_.getScaledWidth() - i - 10), 5.0F, new Color(255,255,255).getRGB());
         this.mc.mcProfiler.endSection();
     }
 
@@ -851,7 +854,7 @@ public class GuiIngame extends Gui {
             }
 
             String s = BossStatus.bossName;
-            int l = 16777215;
+            int l = new Color(255,255,255).getRGB();
 
             if (Config.isCustomColors()) {
                 l = CustomColors.getBossTextColor(l);
@@ -992,7 +995,7 @@ public class GuiIngame extends Gui {
                 GlStateManager.popMatrix();
             }
             GlStateManager.disableColorMaterial();
-            this.itemRenderer.renderItemOverlays(this.mc.fontRendererObj, itemstack, xPos, yPos);
+            this.itemRenderer.renderItemOverlayIntoGUI(this.mc.fontRendererObj, itemstack, xPos, yPos,null);
         }
     }
 
@@ -1131,8 +1134,8 @@ public class GuiIngame extends Gui {
         return Minecraft.getInstance().fontRendererObj;
     }
 
-    private cc.novoline.utils.fonts.api.FontRenderer getClientFont() {
-        return Fonts.SF.SF_18.SF_18;
+    private UFontRenderer getClientFont() {
+        return Novoline.getInstance().fontLoaders.PingFang18;
     }
 
 }

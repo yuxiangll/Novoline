@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.*;
+
 public class GuiStreamIndicator {
     private static final ResourceLocation locationStreamIndicator = new ResourceLocation("textures/gui/stream_indicator.png");
     private final Minecraft mc;
@@ -40,7 +42,7 @@ public class GuiStreamIndicator {
                 worldrenderer.pos(l, i1, 0.0D).endVertex();
                 tessellator.draw();
                 GlStateManager.enableTexture2D();
-                this.mc.fontRendererObj.drawString(s, p_152437_1_ - j, p_152437_2_ + 20, 16777215);
+                this.mc.fontRendererObj.drawString(s, p_152437_1_ - j, p_152437_2_ + 20, new Color(255,255,255).getRGB());
             }
 
             this.render(p_152437_1_, p_152437_2_, this.func_152440_b(), 0);

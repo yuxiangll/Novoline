@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.ChunkProviderSettings;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -100,7 +101,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_175311_g.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.field_175315_a, this.width / 2, 8, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_175315_a, this.width / 2, 8, new Color(255,255,255).getRGB());
         this.drawString(this.fontRendererObj, this.field_175313_s, 50, 30, 10526880);
         this.drawString(this.fontRendererObj, this.field_175312_t, 50, 70, 10526880);
         this.field_175317_i.drawTextBox();
@@ -206,7 +207,7 @@ public class GuiScreenCustomizePresets extends GuiScreen {
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             GuiScreenCustomizePresets.Info guiscreencustomizepresets$info = (GuiScreenCustomizePresets.Info) GuiScreenCustomizePresets.field_175310_f.get(entryID);
             this.func_178051_a(p_180791_2_, p_180791_3_, guiscreencustomizepresets$info.field_178953_b);
-            GuiScreenCustomizePresets.this.fontRendererObj.drawString(guiscreencustomizepresets$info.field_178955_a, p_180791_2_ + 32 + 10, p_180791_3_ + 14, 16777215);
+            GuiScreenCustomizePresets.this.fontRendererObj.drawString(guiscreencustomizepresets$info.field_178955_a, p_180791_2_ + 32 + 10, p_180791_3_ + 14, new Color(255,255,255).getRGB());
         }
     }
 }

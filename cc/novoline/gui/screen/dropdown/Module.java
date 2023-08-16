@@ -9,6 +9,7 @@ import cc.novoline.modules.visual.ClickGUI;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.Timer;
 import cc.novoline.utils.fonts.impl.Fonts;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -24,6 +25,8 @@ import java.util.stream.Collectors;
 public class Module {
 
     private final AbstractModule module;
+    private final UFontRenderer pingFang18 = Novoline.getInstance().fontLoaders.PingFang18;
+
     public int yPerModule, y;
     public Tab tab;
     public boolean opened;
@@ -99,7 +102,7 @@ public class Module {
         } else {
             Gui.drawRect(tab.getPosX(), y, tab.getPosX() + 100, y + 14, interpolateColor(new Color(40, 40, 40, 255), colorHUD, MathHelper.clamp_float(fraction, 0, 1)));
         }
-        Fonts.SF.SF_18.SF_18.drawString(module.getName(), tab.getPosX() + 2, (float) (y + 4), 0xffffffff, true);
+        pingFang18.drawString(module.getName(), tab.getPosX() + 2, (float) (y + 4), new Color(255,255,255).getRGB(), true);
 
         if (!settings.isEmpty()) {
             double val = debugFPS / 8.3;
@@ -113,7 +116,7 @@ public class Module {
             } else if (!opened && anim > 5) {
                 anim -= 3 / val;
             }
-            RenderUtils.drawArrow(tab.getPosX() + 92, y + anim, 2, 0xffffffff, length);
+            RenderUtils.drawArrow(tab.getPosX() + 92, y + anim, 2, new Color(255,255,255).getRGB(), length);
         }
         if (opened || yPerModule != 14) {
             ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getInstance());
@@ -141,7 +144,7 @@ public class Module {
         try {
             return new Color(red, green, blue, alpha).getRGB();
         } catch (Exception ex) {
-            return 0xffffffff;
+            return new Color(255,255,255).getRGB();
         }
     }
 

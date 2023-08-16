@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.LanServerDetector;
 import net.minecraft.client.resources.I18n;
 
+import java.awt.*;
+
 public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry {
     private final GuiMultiplayer field_148292_c;
     protected final Minecraft mc;
@@ -17,7 +19,7 @@ public class ServerListEntryLanDetected implements GuiListExtended.IGuiListEntry
     }
 
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
-        this.mc.fontRendererObj.drawString(I18n.format("lanServer.title", new Object[0]), x + 32 + 3, y + 1, 16777215);
+        this.mc.fontRendererObj.drawString(I18n.format("lanServer.title", new Object[0]), x + 32 + 3, y + 1, new Color(255,255,255).getRGB());
         this.mc.fontRendererObj.drawString(this.field_148291_b.getServerMotd(), x + 32 + 3, y + 12, 8421504);
 
         if (this.mc.gameSettings.hideServerAddress) {

@@ -114,6 +114,7 @@ public final class ClickGUI extends AbstractModule {
 
     @EventTarget
     public void onConnection(PacketEvent event) {
+        /*
         if (event.getState().equals(PacketEvent.State.OUTGOING)) {
             if (event.getPacket() instanceof C00Handshake) {
                 notify = !mc.isSingleplayer() && mc.getCurrentServerData().serverIP.toLowerCase().contains("hypixel");
@@ -132,6 +133,9 @@ public final class ClickGUI extends AbstractModule {
                 }
             }
         }
+
+         */
+
     }
 
     @EventTarget

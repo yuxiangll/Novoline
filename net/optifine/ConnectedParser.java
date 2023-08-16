@@ -1,5 +1,6 @@
 package net.optifine;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -594,7 +595,7 @@ public class ConnectedParser {
 			p_parseColor_0_ = p_parseColor_0_.trim();
 
 			try {
-				int i = Integer.parseInt(p_parseColor_0_, 16) & 16777215;
+				int i = Integer.parseInt(p_parseColor_0_, 16) & new Color(255,255,255).getRGB();
 				return i;
 			} catch(NumberFormatException var3) {
 				return p_parseColor_1_;

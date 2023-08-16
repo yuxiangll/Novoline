@@ -973,7 +973,7 @@
 //
 //            return j;
 //        } else {
-//            return 16777215;
+//            return new Color(255,255,255).getRGB();
 //        }
 //    }
 //
@@ -1029,6 +1029,7 @@ import net.optifine.FontUtils;
 import org.apache.commons.io.IOUtils;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1971,7 +1972,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
 
             return j;
         } else {
-            return 16777215;
+            return new Color(255,255,255).getRGB();
         }
     }
 

@@ -11,6 +11,7 @@ import cc.novoline.utils.fonts.api.FontManager;
 import cc.novoline.utils.fonts.impl.SimpleFontManager;
 import cc.novoline.utils.notifications.NotificationManager;
 import cc.novoline.utils.tasks.TaskManager;
+import cc.novoline.yuxiangll.fontRenderer.FontLoaders;
 import com.thealtening.api.response.Account;
 import com.thealtening.api.retriever.AsynchronousDataRetriever;
 import net.minecraft.client.Minecraft;
@@ -37,6 +38,8 @@ public final class Novoline {
     private final boolean BETA = false;
     private final boolean Special = true;
     private final boolean HOTFIX = false;
+    public final FontLoaders fontLoaders = new FontLoaders(); //更好的字体，支持中文
+
 
     private static Novoline INSTANCE;
     public static String UserID = "yuxiangll";

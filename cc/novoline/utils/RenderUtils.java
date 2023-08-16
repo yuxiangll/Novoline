@@ -5,6 +5,7 @@ import cc.novoline.modules.combat.KillAura;
 import cc.novoline.modules.visual.HUD;
 import cc.novoline.modules.visual.PlayerESP;
 import cc.novoline.utils.fonts.api.FontRenderer;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -324,7 +325,7 @@ public final class RenderUtils {
         }
     }
 
-    public static void drawHorizontal(FontRenderer font, String s, float x, float y) {
+    public static void drawHorizontal(UFontRenderer font, String s, float x, float y) {
         float posX = x;
         HUD hud = Novoline.getInstance().getModuleManager().getModule(HUD.class);
 
@@ -1104,9 +1105,9 @@ public final class RenderUtils {
         Gui.drawRect(i2 + 40 + percent * space, i1 + 16.5, i2 + 40 + percent * space + diffP * space, i1 + 27.3, new Color(hudColor).darker().getRGB());
         String text = String.format("%.1f", percent) + "%";
         mc.fontRendererCrack.drawString(text, i2 + 40 + 50 * space - mc.fontRendererCrack.getStringWidth(text) / 2,
-                i1 + 18f, 0xffffffff, true);
-        mc.fontRendererCrack.drawString(e.getName(), i2 + 40, i1 + 4, 0xffffffff, true);
-        //   mc.fontRendererCrack.drawString(String.format("%.1f", (e.getHealth() + e.getAbsorptionAmount()) / 2), i2 + 41, i1 + 27, 0xffffffff, true);
+                i1 + 18f, new Color(255,255,255).getRGB(), true);
+        mc.fontRendererCrack.drawString(e.getName(), i2 + 40, i1 + 4, new Color(255,255,255).getRGB(), true);
+        //   mc.fontRendererCrack.drawString(String.format("%.1f", (e.getHealth() + e.getAbsorptionAmount()) / 2), i2 + 41, i1 + 27, new Color(255,255,255).getRGB(), true);
         //   mc.fontRendererCrack.drawString(" \u2764", i2 + 40 + mc.fontRendererCrack.getStringWidth(String.format("%.1f", (e.getHealth() + e.getAbsorptionAmount()) / 2.0F)), i1 + 27, hudColor, true);
 
 
@@ -1161,7 +1162,7 @@ public final class RenderUtils {
         GL11.glPopMatrix();
     }
 
-    public static void drawStack(FontRenderer font, boolean renderOverlay, ItemStack stack, float x, float y) {
+    public static void drawStack(UFontRenderer font, boolean renderOverlay, ItemStack stack, float x, float y) {
         GL11.glPushMatrix();
 
         Minecraft mc = Minecraft.getInstance();

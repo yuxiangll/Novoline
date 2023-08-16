@@ -20,6 +20,7 @@ import net.minecraft.potion.PotionHelper;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -284,7 +285,7 @@ public class Item {
     }
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        return 16777215;
+        return new Color(255,255,255).getRGB();
     }
 
     /**

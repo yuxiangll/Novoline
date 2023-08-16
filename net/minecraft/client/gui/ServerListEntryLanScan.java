@@ -3,12 +3,14 @@ package net.minecraft.client.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 
+import java.awt.*;
+
 public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry {
     private final Minecraft mc = Minecraft.getInstance();
 
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
         int i = y + slotHeight / 2 - this.mc.fontRendererObj.getHeight() / 2;
-        this.mc.fontRendererObj.drawString(I18n.format("lanServer.scanning"), this.mc.currentScreen.width / 2 - this.mc.fontRendererObj.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
+        this.mc.fontRendererObj.drawString(I18n.format("lanServer.scanning"), this.mc.currentScreen.width / 2 - this.mc.fontRendererObj.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, new Color(255,255,255).getRGB());
         String s;
 
         switch ((int) (Minecraft.getSystemTime() / 300L % 4L)) {

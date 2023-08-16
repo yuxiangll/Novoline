@@ -10,6 +10,7 @@ import net.optifine.GuiScreenOF;
 import net.optifine.Lang;
 import net.optifine.StrUtils;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -213,9 +214,9 @@ public class GuiShaderOptions extends GuiScreenOF {
         this.drawDefaultBackground();
 
         if (this.screenText != null) {
-            this.drawCenteredString(this.fontRendererObj, this.screenText, this.width / 2, 15, 16777215);
+            this.drawCenteredString(this.fontRendererObj, this.screenText, this.width / 2, 15, new Color(255,255,255).getRGB());
         } else {
-            this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, 16777215);
+            this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, new Color(255,255,255).getRGB());
         }
 
         super.drawScreen(x, y, f);

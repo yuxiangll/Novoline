@@ -1,5 +1,6 @@
 package cc.novoline.gui.button;
 
+import cc.novoline.Novoline;
 import cc.novoline.utils.fonts.impl.Fonts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -21,7 +22,7 @@ public class HydraButton extends GuiButton {
         if (this.visible) {
             this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             Gui.drawRect(xPosition, yPosition, xPosition + width, yPosition + height, color);
-            Fonts.SF.SF_20.SF_20.drawString(displayString, (float) xPosition + width / 2 - Fonts.SF.SF_20.SF_20.stringWidth(displayString) / 2, (float) yPosition + height / 2 - Fonts.SF.SF_20.SF_20.getHeight() / 2, Color.WHITE.getRGB(), true);
+            Novoline.getInstance().fontLoaders.PingFang20.drawString(displayString, (float) xPosition + width / 2 - Novoline.getInstance().fontLoaders.PingFang20.stringWidth(displayString) / 2, (float) yPosition + height / 2 - Novoline.getInstance().fontLoaders.PingFang20.getHeight() / 2, Color.WHITE.getRGB(), true);
         }
     }
 

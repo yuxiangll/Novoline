@@ -7,6 +7,8 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.*;
+
 public class RenderCreeper extends RenderLiving<EntityCreeper> {
     private static final ResourceLocation creeperTextures = new ResourceLocation("textures/entity/creeper/creeper.png");
 
@@ -41,7 +43,7 @@ public class RenderCreeper extends RenderLiving<EntityCreeper> {
         } else {
             int i = (int) (f * 0.2F * 255.0F);
             i = MathHelper.clamp_int(i, 0, 255);
-            return i << 24 | 16777215;
+            return i << 24 | new Color(255,255,255).getRGB();
         }
     }
 

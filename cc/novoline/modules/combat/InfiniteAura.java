@@ -101,7 +101,7 @@ public class InfiniteAura extends AbstractModule {
     @Property("lag-check")
     private final BooleanProperty lagCheck = PropertyFactory.booleanFalse();
     @Property("color")
-    private final ColorProperty color = createColor(0xFFFFFFFF);
+    private final ColorProperty color = createColor(new Color(255,255,255).getRGB());
     @Property("th-x")
     private final IntProperty thx = PropertyFactory.createInt((int) screenSize.getWidth() / 4).minimum(1).maximum((int) screenSize.getWidth() / 2);
     @Property("th-y")

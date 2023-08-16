@@ -27,6 +27,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import viaversion.viafabric.ViaFabric;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -1371,15 +1372,15 @@ public class Block {
     }
 
     public int getBlockColor() {
-        return 16777215;
+        return new Color(255,255,255).getRGB();
     }
 
     public int getRenderColor(IBlockState state) {
-        return 16777215;
+        return new Color(255,255,255).getRGB();
     }
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-        return 16777215;
+        return new Color(255,255,255).getRGB();
     }
 
     public final int colorMultiplier(IBlockAccess worldIn, BlockPos pos) {

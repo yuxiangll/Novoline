@@ -4,6 +4,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.IDN;
 import java.util.function.Predicate;
@@ -125,7 +126,7 @@ public class GuiScreenAddServer extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.title"), this.width / 2, 17, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("addServer.title"), this.width / 2, 17, new Color(255,255,255).getRGB());
         this.drawString(this.fontRendererObj, I18n.format("addServer.enterName"), this.width / 2 - 100, 53, 10526880);
         this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp"), this.width / 2 - 100, 94, 10526880);
         this.serverNameField.drawTextBox();

@@ -326,10 +326,10 @@ public class Setting {
                     final boolean topHovered = isHovered(mouseX, mouseY);
                     final int col1 = topHovered ? oColor : 0x64000000;
 
-                    SFTHIN_17.drawString(this.displayName, this.x, this.y, 0xFFFFFFFF);
+                    SFTHIN_17.drawString(this.displayName, this.x, this.y, new Color(255,255,255).getRGB());
                     drawBorderedRect(this.widthm - 70, this.y - 2, this.widthm, this.y + 8, 1, col1,
                             isMaterial ? new Color(22, 23, 26).getRGB() : 0xFF2F2F2F);
-                    SFTHIN_16.drawCenteredString(this.comboBoxValue.get(), this.widthm - 35, this.y, 0xFFFFFFFF);
+                    SFTHIN_16.drawCenteredString(this.comboBoxValue.get(), this.widthm - 35, this.y, new Color(255,255,255).getRGB());
 
 
                     if (this.opened) {
@@ -342,7 +342,7 @@ public class Setting {
                         for (String option : acceptableValues) {
                             SFTHIN_16.drawCenteredString(option, this.widthm - 35,
                                     this.y + 13 + acceptableValues.indexOf(option) * 11,
-                                    getComboBoxValue().equalsIgnoreCase(option) ? oColor : 0xFFFFFFFF);
+                                    getComboBoxValue().equalsIgnoreCase(option) ? oColor : new Color(255,255,255).getRGB());
                         }
                     }
                     break;
@@ -351,16 +351,16 @@ public class Setting {
                     final boolean sTopHovered = isHovered(mouseX, mouseY);
                     final int col2 = sTopHovered ? oColor : 0x64000000;
 
-                    SFTHIN_17.drawString(this.displayName, this.x, this.y, 0xFFFFFFFF);
+                    SFTHIN_17.drawString(this.displayName, this.x, this.y, new Color(255,255,255).getRGB());
                     drawBorderedRect(this.widthm - 70, this.y - 2, this.widthm, this.y + 8, 1, col2,
                             isMaterial ? new Color(22, 23, 26).getRGB() : 0xFF2F2F2F);
 
                     if (this.selectBox.isEmpty()) {
-                        SFTHIN_16.drawCenteredString("...", this.widthm - 35, this.y, 0xFFFFFFFF);
+                        SFTHIN_16.drawCenteredString("...", this.widthm - 35, this.y, new Color(255,255,255).getRGB());
                     } else {
                         SFTHIN_16.drawCenteredString(
                                 this.selectBox.size() > 1 ? this.selectBox.get().get(0) + "..." :
-                                        this.selectBox.get().get(0), this.widthm - 35, this.y, 0xFFFFFFFF);
+                                        this.selectBox.get().get(0), this.widthm - 35, this.y, new Color(255,255,255).getRGB());
                     }
 
                     if (this.opened) {
@@ -372,7 +372,7 @@ public class Setting {
                         for (String option : acceptableValues) {
                             SFTHIN_16.drawCenteredString(option, this.widthm - 35,
                                     this.y + 13 + acceptableValues.indexOf(option) * 11,
-                                    this.selectBox.contains(option) ? oColor : 0xFFFFFFFF);
+                                    this.selectBox.contains(option) ? oColor : new Color(255,255,255).getRGB());
                         }
                     }
 
@@ -383,7 +383,7 @@ public class Setting {
                             isMaterial ? new Color(22, 23, 26).getRGB() : 0xFF2F2F2F);
                     if (checkBoxProperty.get())
                         RenderUtils.drawCheck(widthm - 8, y + 2, 2, oColor);
-                    SFTHIN_17.drawString(this.displayName, this.x, this.y, 0xFFFFFFFF);
+                    SFTHIN_17.drawString(this.displayName, this.x, this.y, new Color(255,255,255).getRGB());
                     break;
                 }
                 case SLIDER: {
@@ -393,13 +393,13 @@ public class Setting {
                     drawBorderedRect(this.widthm - 70, this.y + 2, this.widthm, this.y + 4, 1, 0x64000000,
                             isMaterial ? new Color(22, 23, 26).getRGB() : 0xFF2F2F2F);
                     Gui.drawRect(this.widthm - 70, this.y + 2, (int) (this.widthm - 70 + percentBar * this.width), this.y + 4, oColor);
-                    drawFilledCircle((int) (this.widthm - 70 + percentBar * this.width), this.y + 3, 2, 0xffffffff);
+                    drawFilledCircle((int) (this.widthm - 70 + percentBar * this.width), this.y + 3, 2, new Color(255,255,255).getRGB());
 
 
-                    SFTHIN_17.drawString(this.displayName, this.x, this.y, 0xFFFFFFFF);
+                    SFTHIN_17.drawString(this.displayName, this.x, this.y, new Color(255,255,255).getRGB());
                     SFTHIN_12
                             .drawCenteredString(getValue() + "", (float) (this.widthm - 70 + this.width * percentBar),
-                                    this.y - 5, 0xFFFFFFFF);
+                                    this.y - 5, new Color(255,255,255).getRGB());
 
                     if (this.dragging) {
                         final double difference = this.sliderNumber.getMaximum().doubleValue() - this.sliderNumber
@@ -423,7 +423,7 @@ public class Setting {
                         this.backspace.reset();
                     }
 
-                    SFTHIN_17.drawString(this.displayName, this.x, this.y, 0xFFFFFFFF);
+                    SFTHIN_17.drawString(this.displayName, this.x, this.y, new Color(255,255,255).getRGB());
                     drawBorderedRect(this.widthm - 70, this.y - 2, this.widthm, this.y + 8, 1,
                             isTextHovered() ? oColor : 0x64000000,
                             isMaterial ? new Color(22, 23, 26).getRGB() : 0xFF2F2F2F);
@@ -445,15 +445,15 @@ public class Setting {
                     if (SFTHIN_16.stringWidth(s) > 65) {
                         SFTHIN_16
                                 .drawString(SFTHIN_16.trimStringToWidth(s, 60, true), this.widthm - 68, this.y,
-                                        0xFFFFFFFF);
+                                        new Color(255,255,255).getRGB());
                     } else {
-                        SFTHIN_16.drawString(s, this.widthm - 68, this.y, 0xFFFFFFFF);
+                        SFTHIN_16.drawString(s, this.widthm - 68, this.y, new Color(255,255,255).getRGB());
                     }
 
                     break;
                 }
                 case COLOR_PICKER: {
-                    SFTHIN_17.drawString(this.displayName, this.x, this.y, 0xFFFFFFFF);
+                    SFTHIN_17.drawString(this.displayName, this.x, this.y, new Color(255,255,255).getRGB());
                     drawBorderedRect(this.widthm - 70, this.y - 2, this.widthm, this.y + 8, 1,
                             isTextHovered() ? oColor : 0x64000000,
                             isMaterial ? new Color(22, 23, 26).getRGB() : 0xFF2F2F2F);

@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import net.minecraft.client.main.Main;
+import net.minecraft.util.Session;
 
 public final class Start {
 

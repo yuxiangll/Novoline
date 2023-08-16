@@ -115,7 +115,7 @@ public class Module {
         }
 
         if (this.selected) {
-            SFTHIN_20.drawString(this.data.getName() + " Settings", discordGUI.getXCoordinate() + 165, discordGUI.getYCoordinate() + 6, 0xFFFFFFFF);
+            SFTHIN_20.drawString(this.data.getName() + " Settings", discordGUI.getXCoordinate() + 165, discordGUI.getYCoordinate() + 6, new Color(255,255,255).getRGB());
 
             if (settingsByMod == null || settingsByMod.isEmpty()) {
                 final String text = "NO SETTINGS ;(";
@@ -129,7 +129,7 @@ public class Module {
         }
 
         GL11.glPushMatrix();
-        //Gui.drawRect(0,discordGUI.sHeight() / 2 - discordGUI.getYCoordinate() - discordGUI.getHeight(),1920,discordGUI.sHeight() / 2,0xffffffff);
+        //Gui.drawRect(0,discordGUI.sHeight() / 2 - discordGUI.getYCoordinate() - discordGUI.getHeight(),1920,discordGUI.sHeight() / 2,new Color(255,255,255).getRGB());
         GL11.glScissor(0, discordGUI.sHeight() - discordGUI.getYCoordinate() * 2 - discordGUI.getHeight() * 2, 1920, discordGUI.getHeight() * 2 - 42);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
 

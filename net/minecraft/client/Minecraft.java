@@ -16,6 +16,7 @@ import cc.novoline.modules.misc.FastPlace;
 import cc.novoline.modules.misc.Killsults;
 import cc.novoline.modules.visual.XRay;
 import cc.novoline.utils.notifications.NotificationType;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import com.google.common.collect.*;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -109,9 +110,11 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.glu.GLU;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Proxy;
@@ -122,6 +125,7 @@ import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -208,7 +212,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * The font renderer used for displaying and measuring text
      */
-    public FontRenderer fontRendererObj;
+    public UFontRenderer fontRendererObj;
     public FontRenderer fontRendererCrack;
     public FontRenderer standardGalacticFontRenderer;
     /**
@@ -273,7 +277,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * The RenderEngine instance used by Minecraft
      */
-    private TextureManager renderEngine;
+    public TextureManager renderEngine;
     private boolean fullscreen;
     private boolean hasCrashed;
     /**
@@ -309,7 +313,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private long debugCrashKeyPressTime = -1L;
     private IReloadableResourceManager mcResourceManager;
     private ResourcePackRepository mcResourcePackRepository;
-    private LanguageManager mcLanguageManager;
+    public LanguageManager mcLanguageManager;
     private IStream stream;
     private Framebuffer framebufferMc;
     private TextureMap textureMapBlocks;
@@ -337,8 +341,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.field_181038_N = gameConfig.userInfo.field_181172_c;
         this.mcDefaultResourcePack = new DefaultResourcePack(new ResourceIndex(gameConfig.folderInfo.assetsDir, gameConfig.folderInfo.assetIndex).getResourceMap());
         this.proxy = gameConfig.userInfo.proxy == null ? Proxy.NO_PROXY : gameConfig.userInfo.proxy;
+        //this.session.
         this.sessionService = new YggdrasilAuthenticationService(gameConfig.userInfo.proxy, UUID.randomUUID().toString()).createMinecraftSessionService();
         this.session = gameConfig.userInfo.session;
+        getLogger().info("Session:"+session.getSessionType());
         getLogger().info("Setting user: " + session.getUsername());
         getLogger().info("(Session ID is " + session.getSessionID() + ")");
         this.isDemo = gameConfig.gameInfo.isDemo;
@@ -539,8 +545,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.mcSoundHandler = new SoundHandler(mcResourceManager, gameSettings);
         mcResourceManager.registerReloadListener(mcSoundHandler);
         this.mcMusicTicker = new MusicTicker(this);
-        this.fontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
-        this.fontRendererCrack = new FontRenderer(gameSettings, new ResourceLocation("textures/font/crack.png"), renderEngine, false);
+        this.fontRendererObj = Novoline.getInstance().fontLoaders.PingFangBold18;
+
+        //this.fontRendererObj = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
+        this.fontRendererCrack = new FontRenderer(gameSettings, new ResourceLocation("textures/font/ascii.png"), renderEngine, false);
 
         if (gameSettings.language != null) {
             fontRendererObj.setUnicodeFlag(isUnicode());
@@ -1449,7 +1457,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 s = s + profiler$result.field_76331_c + " ";
             }
 
-            final int l2 = 16777215;
+            final int l2 = new Color(255,255,255).getRGB();
             fontRendererObj.drawStringWithShadow(s, (float) (j - i), (float) (k - i / 2 - 16), l2);
             fontRendererObj.drawStringWithShadow(s = decimalformat.format(profiler$result.field_76330_b) + "%", (float) (j + i - fontRendererObj
                     .getStringWidth(s)), (float) (k - i / 2 - 16), l2);

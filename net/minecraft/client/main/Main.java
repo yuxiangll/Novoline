@@ -18,6 +18,9 @@ import java.net.Proxy.Type;
 import java.util.List;
 
 public class Main {
+    public static Session session=null;
+    //= new Session(optionspec9.value(optionset), s4, optionspec11.value(optionset), optionspec18.value(optionset));
+
 
     public static void addToClasspath(@NonNull final File file) {
         try {
@@ -52,7 +55,7 @@ public class Main {
         OptionSpec<Integer> optionspec6 = optionParser.accepts("proxyPort").withRequiredArg().defaultsTo("8080", new String[0]).ofType(Integer.class);
         OptionSpec<String> optionspec7 = optionParser.accepts("proxyUser").withRequiredArg();
         OptionSpec<String> optionspec8 = optionParser.accepts("proxyPass").withRequiredArg();
-        OptionSpec<String> optionspec9 = optionParser.accepts("username").withRequiredArg().defaultsTo("Player");
+        OptionSpec<String> optionspec9 = optionParser.accepts("username").withRequiredArg().defaultsTo("Player1234");
         OptionSpec<String> optionspec10 = optionParser.accepts("uuid").withRequiredArg();
         OptionSpec<String> optionspec11 = optionParser.accepts("accessToken").withRequiredArg().required();
         OptionSpec<String> optionspec12 = optionParser.accepts("version").withRequiredArg().required();
@@ -108,7 +111,9 @@ public class Main {
         String s5 = optionset.has(optionspec17) ? optionspec17.value(optionset) : null;
         String s6 = optionset.valueOf(optionspec);
         Integer integer = optionset.valueOf(optionspec1);
-        Session session = new Session(optionspec9.value(optionset), s4, optionspec11.value(optionset), optionspec18.value(optionset));
+        if (session == null){
+            session = new Session(optionspec9.value(optionset), s4, optionspec11.value(optionset), optionspec18.value(optionset));
+        }
         GameConfiguration gameconfiguration = new GameConfiguration(new GameConfiguration.UserInformation(session, propertymap, propertymap1, proxy), new GameConfiguration.DisplayInformation(i, j, flag, flag1), new GameConfiguration.FolderInformation(file1, file3, file2, s5), new GameConfiguration.GameInformation(flag2, s3), new GameConfiguration.ServerInformation(s6, integer));
 
         Runtime.getRuntime().addShutdownHook(new Thread("Client Shutdown Thread") {

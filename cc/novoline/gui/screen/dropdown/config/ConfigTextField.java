@@ -1,17 +1,20 @@
 package cc.novoline.gui.screen.dropdown.config;
 
+import cc.novoline.Novoline;
 import cc.novoline.utils.Timer;
 import cc.novoline.utils.fonts.impl.Fonts;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_16.SF_16;
 
 public class ConfigTextField extends Config {
 
     private String value;
+    private final UFontRenderer pingFang17 = Novoline.getInstance().fontLoaders.PingFang17;
+
     private final Timer backspace = new Timer();
 
     public ConfigTextField(String name, ConfigTab parent) {
@@ -45,14 +48,14 @@ public class ConfigTextField extends Config {
         Gui.drawRect(getParent().getPosX() + 2, y + 16, getParent().getPosX() + 101 - 6, y + 16.5,
                 new Color(195, 195, 195, 220).getRGB());
 
-        Fonts.SF.SF_17.SF_17.drawString(getName(), getParent().getPosX() + 2f, y + 2f,
+        pingFang17.drawString(getName(), getParent().getPosX() + 2f, y + 2f,
                 new Color(227, 227, 227, 255).getRGB());
 
-        if (Fonts.SF.SF_17.SF_17.stringWidth(s) > 65) {
-            Fonts.SF.SF_17.SF_17.drawString(Fonts.SF.SF_17.SF_17.trimStringToWidth(s, 78, true), getParent().getPosX() + 2, y + 10,
-                            0xFFFFFFFF);
+        if (pingFang17.stringWidth(s) > 65) {
+            pingFang17.drawString(pingFang17.trimStringToWidth(s, 78, true), getParent().getPosX() + 2, y + 10,
+                            new Color(255,255,255).getRGB());
         } else {
-            Fonts.SF.SF_17.SF_17.drawString(s, getParent().getPosX() + 2, y + 10, 0xFFFFFFFF);
+            pingFang17.drawString(s, getParent().getPosX() + 2, y + 10, new Color(255,255,255).getRGB());
         }
     }
 

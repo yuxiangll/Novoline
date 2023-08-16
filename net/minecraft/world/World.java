@@ -32,7 +32,9 @@ import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldInfo;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public abstract class World implements IBlockAccess {
 
@@ -51,7 +53,7 @@ public abstract class World implements IBlockAccess {
     private final List<TileEntity> addedTileEntityList = Lists.newArrayList();
     private final List<TileEntity> tileEntitiesToBeRemoved = Lists.newArrayList();
     protected final IntHashMap<Entity> entitiesById = new IntHashMap();
-    private long cloudColour = 16777215L;
+    private long cloudColour = new Color(255,255,255).getRGB();
 
     /**
      * How much light is subtracted from full daylight

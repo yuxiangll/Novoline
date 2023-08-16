@@ -12,6 +12,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 
+import java.awt.*;
 import java.util.Random;
 
 public abstract class BlockLiquid extends Block {
@@ -30,7 +31,7 @@ public abstract class BlockLiquid extends Block {
     }
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-        return this.blockMaterial == Material.water ? BiomeColorHelper.getWaterColorAtPos(worldIn, pos) : 16777215;
+        return this.blockMaterial == Material.water ? BiomeColorHelper.getWaterColorAtPos(worldIn, pos) : new Color(255,255,255).getRGB();
     }
 
     /**

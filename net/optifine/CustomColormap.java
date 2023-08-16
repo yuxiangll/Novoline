@@ -1,5 +1,6 @@
 package net.optifine;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -97,7 +98,7 @@ public class CustomColormap implements CustomColors.IColorizer
 
             if (this.color < 0)
             {
-                this.color = 16777215;
+                this.color = new Color(255,255,255).getRGB();
             }
         }
         else
@@ -329,14 +330,14 @@ public class CustomColormap implements CustomColors.IColorizer
     public int getColor(int p_getColor_1_)
     {
         p_getColor_1_ = Config.limit(p_getColor_1_, 0, this.colors.length - 1);
-        return this.colors[p_getColor_1_] & 16777215;
+        return this.colors[p_getColor_1_] & new Color(255,255,255).getRGB();
     }
 
     public int getColor(int p_getColor_1_, int p_getColor_2_)
     {
         p_getColor_1_ = Config.limit(p_getColor_1_, 0, this.width - 1);
         p_getColor_2_ = Config.limit(p_getColor_2_, 0, this.height - 1);
-        return this.colors[p_getColor_2_ * this.width + p_getColor_1_] & 16777215;
+        return this.colors[p_getColor_2_ * this.width + p_getColor_1_] & new Color(255,255,255).getRGB();
     }
 
     public float[][] getColorsRgb()

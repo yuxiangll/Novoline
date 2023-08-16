@@ -8,6 +8,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.EnumChatFormatting;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiStreamOptions extends GuiScreen {
@@ -105,11 +106,11 @@ public class GuiStreamOptions extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.field_152319_i, this.width / 2, 20, 16777215);
-        this.drawCenteredString(this.fontRendererObj, this.field_152313_r, this.width / 2, this.field_152314_s, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_152319_i, this.width / 2, 20, new Color(255,255,255).getRGB());
+        this.drawCenteredString(this.fontRendererObj, this.field_152313_r, this.width / 2, this.field_152314_s, new Color(255,255,255).getRGB());
 
         if (this.field_152315_t) {
-            this.drawCenteredString(this.fontRendererObj, EnumChatFormatting.RED + I18n.format("options.stream.changes", new Object[0]), this.width / 2, 20 + this.fontRendererObj.getHeight(), 16777215);
+            this.drawCenteredString(this.fontRendererObj, EnumChatFormatting.RED + I18n.format("options.stream.changes", new Object[0]), this.width / 2, 20 + this.fontRendererObj.getHeight(), new Color(255,255,255).getRGB());
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);

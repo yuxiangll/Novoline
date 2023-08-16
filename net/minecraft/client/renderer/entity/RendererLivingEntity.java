@@ -231,7 +231,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     }
 
     protected boolean setScoreTeamColor(EntityLivingBase entityLivingBaseIn) {
-        int i = 16777215;
+        int i = new Color(255,255,255).getRGB();
 
         if (entityLivingBaseIn instanceof EntityPlayer) {
             final ScorePlayerTeam scoreplayerteam = (ScorePlayerTeam) entityLivingBaseIn.getTeam();

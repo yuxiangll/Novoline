@@ -18,6 +18,7 @@ import net.minecraft.world.gen.FlatGeneratorInfo;
 import net.minecraft.world.gen.FlatLayerInfo;
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -110,7 +111,7 @@ public class GuiFlatPresets extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_146435_s.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.presetsTitle, this.width / 2, 8, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.presetsTitle, this.width / 2, 8, new Color(255,255,255).getRGB());
         this.drawString(this.fontRendererObj, this.presetsShare, 50, 30, 10526880);
         this.drawString(this.fontRendererObj, this.field_146436_r, 50, 70, 10526880);
         this.field_146433_u.drawTextBox();
@@ -243,7 +244,7 @@ public class GuiFlatPresets extends GuiScreen {
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
             GuiFlatPresets.LayerItem guiflatpresets$layeritem = (GuiFlatPresets.LayerItem) GuiFlatPresets.FLAT_WORLD_PRESETS.get(entryID);
             this.func_178054_a(p_180791_2_, p_180791_3_, guiflatpresets$layeritem.field_148234_a, guiflatpresets$layeritem.field_179037_b);
-            GuiFlatPresets.this.fontRendererObj.drawString(guiflatpresets$layeritem.field_148232_b, p_180791_2_ + 18 + 5, p_180791_3_ + 6, 16777215);
+            GuiFlatPresets.this.fontRendererObj.drawString(guiflatpresets$layeritem.field_148232_b, p_180791_2_ + 18 + 5, p_180791_3_ + 6, new Color(255,255,255).getRGB());
         }
     }
 }

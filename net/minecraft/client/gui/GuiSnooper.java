@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -94,7 +95,7 @@ public class GuiSnooper extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_146606_s.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.field_146610_i, this.width / 2, 8, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_146610_i, this.width / 2, 8, new Color(255,255,255).getRGB());
         int i = 22;
 
         for (String s : this.field_146607_r) {
@@ -125,8 +126,8 @@ public class GuiSnooper extends GuiScreen {
         }
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn) {
-            GuiSnooper.this.fontRendererObj.drawString(GuiSnooper.this.field_146604_g.get(entryID), 10, p_180791_3_, 16777215);
-            GuiSnooper.this.fontRendererObj.drawString(GuiSnooper.this.field_146609_h.get(entryID), 230, p_180791_3_, 16777215);
+            GuiSnooper.this.fontRendererObj.drawString(GuiSnooper.this.field_146604_g.get(entryID), 10, p_180791_3_, new Color(255,255,255).getRGB());
+            GuiSnooper.this.fontRendererObj.drawString(GuiSnooper.this.field_146609_h.get(entryID), 230, p_180791_3_, new Color(255,255,255).getRGB());
         }
 
         protected int getScrollBarX() {

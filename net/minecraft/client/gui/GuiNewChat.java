@@ -4,6 +4,7 @@ import cc.novoline.Novoline;
 import cc.novoline.modules.visual.HUD;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.fonts.impl.Fonts;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -98,7 +99,7 @@ public class GuiNewChat extends Gui {
                         String message = chatline.getChatComponent().getFormattedText();
                         GlStateManager.enableBlend();
 
-                        drawString(message, (float) left + 2, (float) (bottom - 8), 16777215 + (opacity << 24));
+                        drawString(message, (float) left + 2, (float) (bottom - 8), new Color(255,255,255).getRGB() + (opacity << 24));
                         GlStateManager.disableAlpha();
                         GlStateManager.disableBlend();
                     }
@@ -371,8 +372,8 @@ public class GuiNewChat extends Gui {
         return Minecraft.getInstance().fontRendererObj;
     }
 
-    private cc.novoline.utils.fonts.api.FontRenderer getClientFont() {
-        return Fonts.SF.SF_18.SF_18;
+    private UFontRenderer getClientFont() {
+        return Novoline.getInstance().fontLoaders.PingFang18;
     }
 
 }

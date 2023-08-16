@@ -20,6 +20,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -153,7 +154,7 @@ public class ItemPotion extends Item {
     }
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
-        return renderPass > 0 ? 16777215 : this.getColorFromDamage(stack.getMetadata());
+        return renderPass > 0 ? new Color(255,255,255).getRGB() : this.getColorFromDamage(stack.getMetadata());
     }
 
     public boolean isEffectInstant(int meta) {

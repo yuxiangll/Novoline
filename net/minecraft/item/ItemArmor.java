@@ -16,6 +16,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.List;
 
 public class ItemArmor extends Item {
@@ -87,12 +88,12 @@ public class ItemArmor extends Item {
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         if (renderPass > 0) {
-            return 16777215;
+            return new Color(255,255,255).getRGB();
         } else {
             int i = this.getColor(stack);
 
             if (i < 0) {
-                i = 16777215;
+                i = new Color(255,255,255).getRGB();
             }
 
             return i;

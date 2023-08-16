@@ -1,5 +1,6 @@
 package cc.novoline.modules.move;
 
+import cc.novoline.Novoline;
 import cc.novoline.events.EventTarget;
 import cc.novoline.events.events.*;
 import cc.novoline.gui.screen.setting.Manager;
@@ -14,6 +15,7 @@ import cc.novoline.utils.*;
 import cc.novoline.utils.Timer;
 import cc.novoline.utils.fonts.impl.Fonts;
 import cc.novoline.utils.notifications.NotificationType;
+import cc.novoline.yuxiangll.MutilLanguageUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSnow;
 import net.minecraft.client.gui.ScaledResolution;
@@ -480,7 +482,7 @@ public final class Scaffold extends AbstractModule {
     @EventTarget
     public void onUpdate(PlayerUpdateEvent event) {
         if (getBlockCount() == 0) {
-            novoline.getNotificationManager().pop("Scaffold warning", "No blocks in inventory", NotificationType.WARNING);
+            novoline.getNotificationManager().pop("Scaffold warning", MutilLanguageUtil.getString("没有方块","No Blocks"), NotificationType.WARNING);
             toggle();
         }
     }
@@ -493,11 +495,11 @@ public final class Scaffold extends AbstractModule {
 
         if (stack != null && stack.getItem() instanceof ItemBlock && isValid(stack.getItem())) {
             ScaledResolution sr = event.getResolution();
-            float width = Fonts.SF.SF_18.SF_18.stringWidth("/" + getBlockCount());
+            float width = Novoline.getInstance().fontLoaders.PingFang18.stringWidth("/" + getBlockCount());
             float x = sr.getScaledWidthStatic(mc) / 2 - width / 2, y = sr.getScaledHeightStatic(mc) / 2;
 
-            RenderUtils.drawStack(Fonts.SF.SF_18.SF_18, false, stack, x - 5.0F, y + 11);
-            Fonts.SF.SF_18.SF_18.drawString(Integer.toString(getBlockCount()), x + 11.0F, y + 16, 0xFFFFFF, true);
+            RenderUtils.drawStack(Novoline.getInstance().fontLoaders.PingFang18, false, stack, x - 5.0F, y + 11);
+            Novoline.getInstance().fontLoaders.PingFang18.drawString(Integer.toString(getBlockCount()), x + 11.0F, y + 16, 0xFFFFFF, true);
         }
 
         GL11.glPopMatrix();

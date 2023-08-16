@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiSlot;
 import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiProtocolSelector extends GuiScreen {
@@ -49,7 +50,7 @@ public class GuiProtocolSelector extends GuiScreen {
 
         GL11.glPushMatrix();
         GL11.glScalef(2.0F, 2.0F, 2.0F);
-        this.drawCenteredString(this.fontRendererObj, EnumChatFormatting.BOLD.toString() + "ViaMCP",this.width / 4, 6, 16777215);
+        this.drawCenteredString(this.fontRendererObj, EnumChatFormatting.BOLD.toString() + "ViaMCP",this.width / 4, 6, new Color(255,255,255).getRGB());
         GL11.glPopMatrix();
 
         super.drawScreen(drawScreen, mouseX, mouseY);

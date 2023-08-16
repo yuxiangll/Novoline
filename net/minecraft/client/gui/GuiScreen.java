@@ -4,6 +4,7 @@ import cc.novoline.Novoline;
 import cc.novoline.utils.notifications.NotificationRenderer;
 import cc.novoline.utils.shader.GLSLSandboxShader;
 import cc.novoline.yuxiangll.BackGround.BackGround;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -82,7 +83,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     /**
      * The FontRenderer used by GuiScreen
      */
-    protected FontRenderer fontRendererObj;
+    protected UFontRenderer fontRendererObj;
 
     /**
      * The button that was just pressed.
@@ -466,7 +467,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
     public void setWorldAndResolution(Minecraft mc, int width, int height) {
         this.mc = mc;
         this.itemRender = mc.getRenderItem();
-        this.fontRendererObj = mc.fontRendererObj;
+        this.fontRendererObj = Novoline.getInstance().fontLoaders.PingFangBold18;
         this.width = width;
         this.height = height;
         this.buttonList.clear();

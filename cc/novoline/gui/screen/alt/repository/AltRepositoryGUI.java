@@ -455,7 +455,7 @@ public class AltRepositoryGUI extends GuiScreen {
             }
 
             drawRect(0, 0, this.width, this.height,  new Color(0,0,0,100).getRGB()); // background
-            SFBOLD_28.drawString("N  O  V  O  L  I  N  E", HORIZONTAL_MARGIN, 5, 0xFFFFFFFF);
+            SFBOLD_28.drawString("N  O  V  O  L  I  N  E", HORIZONTAL_MARGIN, 5, new Color(255,255,255).getRGB());
             SFBOLD_28.drawString("N", HORIZONTAL_MARGIN, 5,
                     this.novoline.getModuleManager().getModule(HUD.class).getHUDColor());
 

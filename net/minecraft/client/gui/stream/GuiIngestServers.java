@@ -9,6 +9,7 @@ import net.minecraft.client.stream.IngestServerTester;
 import net.minecraft.util.EnumChatFormatting;
 import tv.twitch.broadcast.IngestServer;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiIngestServers extends GuiScreen {
@@ -73,7 +74,7 @@ public class GuiIngestServers extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_152311_g.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.field_152310_f, this.width / 2, 20, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_152310_f, this.width / 2, 20, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -129,7 +130,7 @@ public class GuiIngestServers extends GuiScreen {
                 s2 = EnumChatFormatting.GREEN + "(Default)";
             }
 
-            GuiIngestServers.this.drawString(GuiIngestServers.this.fontRendererObj, ingestserver.serverName, p_180791_2_ + 2, p_180791_3_ + 5, 16777215);
+            GuiIngestServers.this.drawString(GuiIngestServers.this.fontRendererObj, ingestserver.serverName, p_180791_2_ + 2, p_180791_3_ + 5, new Color(255,255,255).getRGB());
             GuiIngestServers.this.drawString(GuiIngestServers.this.fontRendererObj, s, p_180791_2_ + 2, p_180791_3_ + GuiIngestServers.this.fontRendererObj.getHeight() + 5 + 3, 3158064);
             GuiIngestServers.this.drawString(GuiIngestServers.this.fontRendererObj, s1, this.getScrollBarX() - 5 - GuiIngestServers.this.fontRendererObj.getStringWidth(s1), p_180791_3_ + 5, 8421504);
 

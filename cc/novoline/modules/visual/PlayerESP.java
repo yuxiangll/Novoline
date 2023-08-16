@@ -215,7 +215,7 @@ public final class PlayerESP extends AbstractModule {
                         float v = (float) (mc.fontRendererCrack.getHeight() * 2) - mc.fontRendererCrack.getHeight() / 2;
 
                         mc.fontRendererCrack.drawStringWithShadow("Target", (float) (scaledPositions[0] + _width / 2 -
-                                mc.fontRendererCrack.getStringWidth("Target") / 2), (float) scaledPositions[3] + mc.fontRendererCrack.getHeight() / 2, 0xffffffff);
+                                mc.fontRendererCrack.getStringWidth("Target") / 2), (float) scaledPositions[3] + mc.fontRendererCrack.getHeight() / 2, new Color(255,255,255).getRGB());
 
                         if (Mouse.isButtonDown(2)) {
                             if (tpTimer.delay(150)) {
@@ -244,7 +244,7 @@ public final class PlayerESP extends AbstractModule {
                                     scaledPositions[3] + v / 3f + mc.fontRendererCrack.getHeight() + 1,
                                     new Color(0, 0, 0, 255 - transparency.get()).getRGB());
                             mc.fontRendererCrack.drawStringWithShadow(entity.getHeldItem().getDisplayName(), (float) (scaledPositions[0] + _width / 2 -
-                                    mc.fontRendererCrack.getStringWidth(entity.getHeldItem().getDisplayName()) / 2), (float) scaledPositions[3] + v / 3f, 0xffffffff);
+                                    mc.fontRendererCrack.getStringWidth(entity.getHeldItem().getDisplayName()) / 2), (float) scaledPositions[3] + v / 3f, new Color(255,255,255).getRGB());
                             double newY = scaledPositions[3] + v / 3f + v;
                             if(entity.getHeldItem().getTagCompound() != null){
                                 if(entity.getHeldItem().getTagCompound().toString().contains("Lore:")) {
@@ -261,7 +261,7 @@ public final class PlayerESP extends AbstractModule {
                                                     newY + mc.fontRendererCrack.getHeight() + 1,
                                                     new Color(0, 0, 0, 255 - transparency.get()).getRGB());
                                             mc.fontRendererCrack.drawStringWithShadow(EnumChatFormatting.AQUA + s, (float) (scaledPositions[0] + _width / 2 -
-                                                    mc.fontRendererCrack.getStringWidth(s) / 2), (float) newY, 0xffffffff);
+                                                    mc.fontRendererCrack.getStringWidth(s) / 2), (float) newY, new Color(255,255,255).getRGB());
                                             newY+=v;
                                         }
                                     }
@@ -283,7 +283,7 @@ public final class PlayerESP extends AbstractModule {
                                                         newY + mc.fontRendererCrack.getHeight() + 1,
                                                         new Color(0, 0, 0, 255 - transparency.get()).getRGB());
                                                 mc.fontRendererCrack.drawStringWithShadow(EnumChatFormatting.GOLD + s, (float) (scaledPositions[0] + _width / 2 -
-                                                        mc.fontRendererCrack.getStringWidth(s) / 2), (float) newY, 0xffffffff);
+                                                        mc.fontRendererCrack.getStringWidth(s) / 2), (float) newY, new Color(255,255,255).getRGB());
                                                 newY+=v;
                                             }
                                         }
@@ -404,7 +404,7 @@ public final class PlayerESP extends AbstractModule {
                             mc.fontRendererCrack.drawString("" + hp,
                                     (float) newPos[0] - mc.fontRendererCrack.getStringWidth("a" + hp),
                                     (float) newPos[1],
-                                    0xffffffff, true);
+                                    new Color(255,255,255).getRGB(), true);
                         GL11.glPopMatrix();
                     }
 

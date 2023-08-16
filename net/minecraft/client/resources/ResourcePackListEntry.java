@@ -7,6 +7,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.*;
 import java.util.List;
 
 public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListEntry {
@@ -90,7 +91,7 @@ public abstract class ResourcePackListEntry implements GuiListExtended.IGuiListE
             s = this.mc.fontRendererObj.trimStringToWidth(s, 157 - this.mc.fontRendererObj.getStringWidth("...")) + "...";
         }
 
-        this.mc.fontRendererObj.drawStringWithShadow(s, (float) (x + 32 + 2), (float) (y + 1), 16777215);
+        this.mc.fontRendererObj.drawStringWithShadow(s, (float) (x + 32 + 2), (float) (y + 1), new Color(255,255,255).getRGB());
         List<String> list = this.mc.fontRendererObj.listFormattedStringToWidth(s1, 157);
 
         for (int l = 0; l < 2 && l < list.size(); ++l) {

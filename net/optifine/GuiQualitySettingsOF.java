@@ -7,6 +7,8 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 
+import java.awt.*;
+
 public class GuiQualitySettingsOF extends GuiScreen
 {
     private GuiScreen prevScreen;
@@ -82,7 +84,7 @@ public class GuiQualitySettingsOF extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 15, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.tooltipManager.drawTooltips(mouseX, mouseY, this.buttonList);
     }

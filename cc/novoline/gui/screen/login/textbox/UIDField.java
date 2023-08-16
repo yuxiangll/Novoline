@@ -1,5 +1,6 @@
 package cc.novoline.gui.screen.login.textbox;
 
+import cc.novoline.Novoline;
 import cc.novoline.utils.RenderUtils;
 import cc.novoline.utils.Timer;
 import cc.novoline.utils.fonts.impl.Fonts;
@@ -33,12 +34,12 @@ public class UIDField extends GuiTextField {
             final int mouseX = Mouse.getX() * lmx / Minecraft.getInstance().displayWidth;
             final int mouseY = imy - Mouse.getY() * imy / Minecraft.getInstance().displayHeight - 1;
             boolean hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-            RenderUtils.drawBorderedRect(xPosition, yPosition, xPosition + width, yPosition + height, 0.1f,color == 0xffffffff && (hovered || isFocused) ? new Color(0, 0, 0,100).getRGB() : new Color(0, 0, 0,50).getRGB(), new Color(0,0,0,50).getRGB());
-            Fonts.SF.SF_16.SF_16.drawString("User-ID", xPosition + 5, yPosition + 5, textColor);
+            RenderUtils.drawBorderedRect(xPosition, yPosition, xPosition + width, yPosition + height, 0.1f,color == new Color(255,255,255).getRGB() && (hovered || isFocused) ? new Color(0, 0, 0,100).getRGB() : new Color(0, 0, 0,50).getRGB(), new Color(0,0,0,50).getRGB());
+            Novoline.getInstance().fontLoaders.PingFang16.drawString("User-ID", xPosition + 5, yPosition + 5, textColor);
             int i = this.isEnabled ? this.enabledColor : this.disabledColor;
             int j = this.cursorPosition - this.lineScrollOffset;
             int k = this.selectionEnd - this.lineScrollOffset;
-            String s = Fonts.SF.SF_20.SF_20.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.getWidth());
+            String s = Novoline.getInstance().fontLoaders.PingFang20.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.getWidth());
             boolean flag = j >= 0 && j <= s.length();
             boolean flag1 = this.isFocused && this.cursorCounter / 6 % 2 == 0 && flag;
             int l = this.enableBackgroundDrawing ? (int) this.xPosition + 4 : (int) this.xPosition;
@@ -51,7 +52,7 @@ public class UIDField extends GuiTextField {
 
             if (!s.isEmpty()) {
                 String s1 = flag ? s.substring(0, j) : s;
-                j1 = (int) Fonts.SF.SF_20.SF_20.drawString(s1, xPosition + 5, yPosition + 17, textColor, color != 0xffffffff);
+                j1 = (int) Novoline.getInstance().fontLoaders.PingFang20.drawString(s1, xPosition + 5, yPosition + 17, textColor, color != new Color(255,255,255).getRGB());
             }
 
             boolean flag2 = this.cursorPosition < this.text.length() || this.text.length() >= this.getMaxStringLength();
@@ -65,19 +66,19 @@ public class UIDField extends GuiTextField {
             }
 
             if (!s.isEmpty() && flag && j < s.length()) {
-                Fonts.SF.SF_20.SF_20.drawString(s.substring(j), (float) j1, (float) i1, i, true);
+                Novoline.getInstance().fontLoaders.PingFang20.drawString(s.substring(j), (float) j1, (float) i1, i, true);
             }
 
             if (flag1) {
                 if (flag2) {
                     Gui.drawRect(k1, i1 - 1, k1 + 1, i1 + 1 + this.fontRendererInstance.getHeight(), -3092272);
                 } else {
-                    Fonts.SF.SF_20.SF_20.drawString("_", xPosition + 5 + (getText().isEmpty() ? 0 : Fonts.SF.SF_20.SF_20.stringWidth(getText()) + 1), yPosition + 17, i, true);
+                    Novoline.getInstance().fontLoaders.PingFang20.drawString("_", xPosition + 5 + (getText().isEmpty() ? 0 : Novoline.getInstance().fontLoaders.PingFang20.stringWidth(getText()) + 1), yPosition + 17, i, true);
                 }
             }
 
             if (k != j) {
-                int l1 = l + Fonts.SF.SF_20.SF_20.stringWidth(s.substring(0, k));
+                int l1 = l + Novoline.getInstance().fontLoaders.PingFang20.stringWidth(s.substring(0, k));
                 this.drawCursorVertical(k1, i1 - 1, l1 - 1, i1 + 1 + this.fontRendererInstance.getHeight());
             }
         }
@@ -106,8 +107,8 @@ public class UIDField extends GuiTextField {
                 i -= 4;
             }
 
-            final String s = Fonts.SF.SF_20.SF_20.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.getWidth());
-            setCursorPosition(Fonts.SF.SF_20.SF_20.trimStringToWidth(s, i).length() + this.lineScrollOffset);
+            final String s = Novoline.getInstance().fontLoaders.PingFang20.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.getWidth());
+            setCursorPosition(Novoline.getInstance().fontLoaders.PingFang20.trimStringToWidth(s, i).length() + this.lineScrollOffset);
         }
     }
 
@@ -125,11 +126,11 @@ public class UIDField extends GuiTextField {
         }
 
         final int j = getWidth();
-        final String s = Fonts.SF.SF_20.SF_20.trimStringToWidth(text.substring(lineScrollOffset), j);
+        final String s = Novoline.getInstance().fontLoaders.PingFang20.trimStringToWidth(text.substring(lineScrollOffset), j);
         final int k = s.length() + lineScrollOffset;
 
         if (p_146199_1_ == lineScrollOffset) {
-            this.lineScrollOffset -= Fonts.SF.SF_20.SF_20.trimStringToWidth(text, j, true).length();
+            this.lineScrollOffset -= Novoline.getInstance().fontLoaders.PingFang20.trimStringToWidth(text, j, true).length();
         }
 
         if (p_146199_1_ > k) {

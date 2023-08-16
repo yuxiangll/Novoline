@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.List;
 
 public class ItemMonsterPlacer extends Item {
@@ -35,7 +36,7 @@ public class ItemMonsterPlacer extends Item {
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(stack.getMetadata());
-        return entitylist$entityegginfo != null ? renderPass == 0 ? entitylist$entityegginfo.primaryColor : entitylist$entityegginfo.secondaryColor : 16777215;
+        return entitylist$entityegginfo != null ? renderPass == 0 ? entitylist$entityegginfo.primaryColor : entitylist$entityegginfo.secondaryColor : new Color(255,255,255).getRGB();
     }
 
     /**

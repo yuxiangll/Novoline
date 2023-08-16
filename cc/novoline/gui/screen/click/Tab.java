@@ -12,6 +12,8 @@ import static cc.novoline.utils.fonts.impl.Fonts.ICONFONT.ICONFONT_24.ICONFONT_2
 import static cc.novoline.utils.fonts.impl.Fonts.ICONFONT.ICONFONT_35.ICONFONT_35;
 import static cc.novoline.utils.fonts.impl.Fonts.SFTHIN.SFTHIN_16.SFTHIN_16;
 import static cc.novoline.utils.fonts.impl.Fonts.SFTHIN.SFTHIN_20.SFTHIN_20;
+
+import java.awt.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import net.minecraft.client.gui.Gui;
@@ -82,9 +84,9 @@ public class Tab {
 
         if (isHovered(mouseX, mouseY)) {
             if (selected) {
-                Gui.drawRect(xCoordinate, yCoordinate + y - block, xCoordinate + 2, yCoordinate + y + block, 0xFFFFFFFF);
+                Gui.drawRect(xCoordinate, yCoordinate + y - block, xCoordinate + 2, yCoordinate + y + block, new Color(255,255,255).getRGB());
             } else {
-                Gui.drawRect(xCoordinate, yCoordinate + y - 5, xCoordinate + 2, yCoordinate + y + 5, 0xFFFFFFFF);
+                Gui.drawRect(xCoordinate, yCoordinate + y - 5, xCoordinate + 2, yCoordinate + y + 5, new Color(255,255,255).getRGB());
             }
             RenderUtils.drawRoundedRect(xCoordinate - SFTHIN_16.stringWidth(
                     category.name().substring(0, 1).toUpperCase() + category.name().substring(1).toLowerCase()) - 12, yCoordinate + y - 6, SFTHIN_16.stringWidth(
@@ -92,10 +94,10 @@ public class Tab {
                     .name().substring(1).toLowerCase()) + 7, 11, 5, 0xFF2F2F2F);
             SFTHIN_16.drawString(category.name().substring(0, 1).toUpperCase() + category.name().substring(1).toLowerCase(), xCoordinate - SFTHIN_16.stringWidth(
                     category.name().substring(0, 1).toUpperCase() + category
-                    .name().substring(1).toLowerCase()) - 9, yCoordinate + y - 3, 0xFFFFFFFF);
+                    .name().substring(1).toLowerCase()) - 9, yCoordinate + y - 3, new Color(255,255,255).getRGB());
         } else {
             if (selected) {
-                Gui.drawRect(xCoordinate, yCoordinate + y - block, xCoordinate + 2, yCoordinate + y + block, 0xFFFFFFFF);
+                Gui.drawRect(xCoordinate, yCoordinate + y - block, xCoordinate + 2, yCoordinate + y + block, new Color(255,255,255).getRGB());
             }
         }
 
@@ -106,7 +108,7 @@ public class Tab {
         }
 
         RenderUtils.drawFilledCircle(xCoordinate + 22, yCoordinate + y, 15, 0xFF36393F);
-        ICONFONT_35.drawCenteredString(getLetterForTab(), (float) getCoords()[0], (float) getCoords()[1], isHovered(mouseX,mouseY) ? guiColor : 0xFFFFFFFF);
+        ICONFONT_35.drawCenteredString(getLetterForTab(), (float) getCoords()[0], (float) getCoords()[1], isHovered(mouseX,mouseY) ? guiColor : new Color(255,255,255).getRGB());
 
         if (selected) {
             ICONFONT_24.drawString(getLetterForTab(), xCoordinate + (getLetterForTab().equals("D") ? 49 : 50), yCoordinate + 7, 0xFFFFFBFF);

@@ -5,6 +5,8 @@ import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.resources.I18n;
 
+import java.awt.*;
+
 public class GuiIngameMenu extends GuiScreen {
     private int field_146445_a;
     private int field_146444_f;
@@ -97,7 +99,7 @@ public class GuiIngameMenu extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game"), this.width / 2, 40, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game"), this.width / 2, 40, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

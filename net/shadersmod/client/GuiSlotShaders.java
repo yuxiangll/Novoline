@@ -3,6 +3,7 @@ package net.shadersmod.client;
 import net.minecraft.client.gui.GuiSlot;
 import net.optifine.Lang;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 class GuiSlotShaders extends GuiSlot {
@@ -91,7 +92,7 @@ class GuiSlotShaders extends GuiSlot {
             s = Lang.get("of.options.shaders.packDefault");
         }
 
-        this.shadersGui.drawCenteredString(s, this.width / 2, posY + 1, 16777215);
+        this.shadersGui.drawCenteredString(s, this.width / 2, posY + 1, new Color(255,255,255).getRGB());
     }
 
     public int getSelectedIndex() {

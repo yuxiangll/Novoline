@@ -5,6 +5,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiControls extends GuiScreen {
@@ -132,7 +133,7 @@ public class GuiControls extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.keyBindingList.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 8, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 8, new Color(255,255,255).getRGB());
         boolean flag = true;
 
         for (KeyBinding keybinding : this.options.keyBindings) {

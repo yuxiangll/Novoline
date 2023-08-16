@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL12;
 import net.shadersmod.common.SMCLog;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -511,7 +512,7 @@ public class ShadersTex {
             for (int i3 = 0; i3 < h2; ++i3) {
                 for (int j3 = 0; j3 < w2; ++j3) {
                     if (aint[l2] == 0) {
-                        aint[l2] = aint[o1 + i3 / 2 * w1 + j3 / 2] & 16777215;
+                        aint[l2] = aint[o1 + i3 / 2 * w1 + j3 / 2] & new Color(255,255,255).getRGB();
                     }
 
                     ++l2;
@@ -562,7 +563,7 @@ public class ShadersTex {
             for (int i3 = 0; i3 < h2; ++i3) {
                 for (int j3 = 0; j3 < w2; ++j3) {
                     if (aint[l2] == 0) {
-                        aint[l2] = aint[o1 + i3 / 2 * w1 + j3 / 2] & 16777215;
+                        aint[l2] = aint[o1 + i3 / 2 * w1 + j3 / 2] & new Color(255,255,255).getRGB();
                     }
 
                     ++l2;

@@ -10,6 +10,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.ChunkProviderSettings;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -891,9 +892,9 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.field_175349_r.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.field_175341_a, this.width / 2, 2, 16777215);
-        this.drawCenteredString(this.fontRendererObj, this.field_175333_f, this.width / 2, 12, 16777215);
-        this.drawCenteredString(this.fontRendererObj, this.field_175335_g, this.width / 2, 22, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_175341_a, this.width / 2, 2, new Color(255,255,255).getRGB());
+        this.drawCenteredString(this.fontRendererObj, this.field_175333_f, this.width / 2, 12, new Color(255,255,255).getRGB());
+        this.drawCenteredString(this.fontRendererObj, this.field_175335_g, this.width / 2, 22, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
 
         if (this.field_175339_B != 0) {
@@ -917,9 +918,9 @@ public class GuiCustomizeWorldScreen extends GuiScreen implements GuiSlider.Form
             worldrenderer.pos(this.width / 2 + 90, 100.0D, 0.0D).tex(5.625D, 0.0D).color(64, 64, 64, 64).endVertex();
             worldrenderer.pos(this.width / 2 - 90, 100.0D, 0.0D).tex(0.0D, 0.0D).color(64, 64, 64, 64).endVertex();
             tessellator.draw();
-            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirmTitle"), this.width / 2, 105, 16777215);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirm1"), this.width / 2, 125, 16777215);
-            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirm2"), this.width / 2, 135, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirmTitle"), this.width / 2, 105, new Color(255,255,255).getRGB());
+            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirm1"), this.width / 2, 125, new Color(255,255,255).getRGB());
+            this.drawCenteredString(this.fontRendererObj, I18n.format("createWorld.customize.custom.confirm2"), this.width / 2, 135, new Color(255,255,255).getRGB());
             this.field_175352_x.drawButton(this.mc, mouseX, mouseY);
             this.field_175351_y.drawButton(this.mc, mouseX, mouseY);
         }

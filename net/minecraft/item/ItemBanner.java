@@ -15,6 +15,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.List;
 
 public class ItemBanner extends ItemBlock {
@@ -93,7 +94,7 @@ public class ItemBanner extends ItemBlock {
 
     public int getColorFromItemStack(ItemStack stack, int renderPass) {
         if (renderPass == 0) {
-            return 16777215;
+            return new Color(255,255,255).getRGB();
         } else {
             EnumDyeColor enumdyecolor = this.getBaseColor(stack);
             return enumdyecolor.getMapColor().colorValue;

@@ -11,7 +11,6 @@ import net.minecraft.util.MathHelper;
 import java.awt.*;
 import java.util.function.Consumer;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
 
 public class ConfigButton extends Config {
 
@@ -45,7 +44,7 @@ public class ConfigButton extends Config {
         fraction = MathHelper.clamp_float(fraction,0,1);
 
         Gui.drawRect(getParent().getPosX(), y,getParent().getPosX() + 100, y + getYPerConfig(), new Color(40, 40, 40, 255).getRGB());
-        Fonts.SF.SF_19.SF_19.drawString(getName(), getParent().getPosX() + 2, y + 4, OpenGLUtil.interpolateColor(new Color(255,255,255,255),new Color(hud.getColor().getRed(), hud.getColor().getGreen(), hud.getColor().getBlue(), 250),fraction));
+        Novoline.getInstance().fontLoaders.PingFang19.drawString(getName(), getParent().getPosX() + 2, y + 4, OpenGLUtil.interpolateColor(new Color(255,255,255,255),new Color(hud.getColor().getRed(), hud.getColor().getGreen(), hud.getColor().getBlue(), 250),fraction));
     }
 
 

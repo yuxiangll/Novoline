@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import net.minecraft.client.resources.I18n;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiErrorScreen extends GuiScreen {
@@ -27,8 +28,8 @@ public class GuiErrorScreen extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawGradientRect(0, 0, this.width, this.height, -12574688, -11530224);
-        this.drawCenteredString(this.fontRendererObj, this.field_146313_a, this.width / 2, 90, 16777215);
-        this.drawCenteredString(this.fontRendererObj, this.field_146312_f, this.width / 2, 110, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_146313_a, this.width / 2, 90, new Color(255,255,255).getRGB());
+        this.drawCenteredString(this.fontRendererObj, this.field_146312_f, this.width / 2, 110, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

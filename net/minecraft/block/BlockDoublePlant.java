@@ -20,6 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -123,7 +124,7 @@ public class BlockDoublePlant extends BlockBush implements IGrowable {
 
     public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
         final BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = this.getVariant(worldIn, pos);
-        return blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN ? 16777215 : BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
+        return blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN ? new Color(255,255,255).getRGB() : BiomeColorHelper.getGrassColorAtPos(worldIn, pos);
     }
 
     public void placeAt(World worldIn, BlockPos lowerPos, BlockDoublePlant.EnumPlantType variant, int flags) {

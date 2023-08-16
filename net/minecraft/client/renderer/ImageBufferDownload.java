@@ -73,7 +73,7 @@ public class ImageBufferDownload implements IImageBuffer {
         if (!this.hasTransparency(p_78434_1_, p_78434_2_, p_78434_3_, p_78434_4_)) {
             for (int i = p_78434_1_; i < p_78434_3_; ++i) {
                 for (int j = p_78434_2_; j < p_78434_4_; ++j) {
-                    this.imageData[i + j * this.imageWidth] &= 16777215;
+                    this.imageData[i + j * this.imageWidth] &= new Color(255,255,255).getRGB();
                 }
             }
         }

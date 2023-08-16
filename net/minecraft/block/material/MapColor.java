@@ -1,5 +1,7 @@
 package net.minecraft.block.material;
 
+import java.awt.*;
+
 public class MapColor {
 
     /**
@@ -14,7 +16,7 @@ public class MapColor {
     public static final MapColor iceColor = new MapColor(5, 10526975);
     public static final MapColor ironColor = new MapColor(6, 10987431);
     public static final MapColor foliageColor = new MapColor(7, 31744);
-    public static final MapColor snowColor = new MapColor(8, 16777215);
+    public static final MapColor snowColor = new MapColor(8, new Color(255,255,255).getRGB());
     public static final MapColor clayColor = new MapColor(9, 10791096);
     public static final MapColor dirtColor = new MapColor(10, 9923917);
     public static final MapColor stoneColor = new MapColor(11, 7368816);

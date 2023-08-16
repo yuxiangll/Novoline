@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -235,10 +236,10 @@ public class GuiConnecting extends GuiScreen {
 
         if (networkManager == null) {
             drawCenteredString(fontRendererObj, I18n.format("connect.connecting"), width / 2,
-                    height / 2 - 50, 16777215);
+                    height / 2 - 50, new Color(255,255,255).getRGB());
         } else {
             drawCenteredString(fontRendererObj, I18n.format("connect.authorizing"), width / 2,
-                    height / 2 - 50, 16777215);
+                    height / 2 - 50, new Color(255,255,255).getRGB());
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);

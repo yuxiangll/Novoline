@@ -18,6 +18,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import java.awt.*;
 import java.util.Random;
 
 public class BlockFlowerPot extends BlockContainer {
@@ -76,7 +77,7 @@ public class BlockFlowerPot extends BlockContainer {
             }
         }
 
-        return 16777215;
+        return new Color(255,255,255).getRGB();
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {

@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.FlatGeneratorInfo;
 import net.minecraft.world.gen.FlatLayerInfo;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiCreateFlatWorld extends GuiScreen {
@@ -114,10 +115,10 @@ public class GuiCreateFlatWorld extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
         this.createFlatWorldListSlotGui.drawScreen(mouseX, mouseY, partialTicks);
-        this.drawCenteredString(this.fontRendererObj, this.flatWorldTitle, this.width / 2, 8, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.flatWorldTitle, this.width / 2, 8, new Color(255,255,255).getRGB());
         int i = this.width / 2 - 92 - 16;
-        this.drawString(this.fontRendererObj, this.field_146394_i, i, 32, 16777215);
-        this.drawString(this.fontRendererObj, this.field_146391_r, i + 2 + 213 - this.fontRendererObj.getStringWidth(this.field_146391_r), 32, 16777215);
+        this.drawString(this.fontRendererObj, this.field_146394_i, i, 32, new Color(255,255,255).getRGB());
+        this.drawString(this.fontRendererObj, this.field_146391_r, i + 2 + 213 - this.fontRendererObj.getStringWidth(this.field_146391_r), 32, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -202,7 +203,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
             }
 
             this.func_148225_a(p_180791_2_, p_180791_3_, itemstack);
-            GuiCreateFlatWorld.this.fontRendererObj.drawString(s, p_180791_2_ + 18 + 5, p_180791_3_ + 3, 16777215);
+            GuiCreateFlatWorld.this.fontRendererObj.drawString(s, p_180791_2_ + 18 + 5, p_180791_3_ + 3, new Color(255,255,255).getRGB());
             String s1;
 
             if (entryID == 0) {
@@ -213,7 +214,7 @@ public class GuiCreateFlatWorld extends GuiScreen {
                 s1 = I18n.format("createWorld.customize.flat.layer", new Object[]{flatlayerinfo.getLayerCount()});
             }
 
-            GuiCreateFlatWorld.this.fontRendererObj.drawString(s1, p_180791_2_ + 2 + 213 - GuiCreateFlatWorld.this.fontRendererObj.getStringWidth(s1), p_180791_3_ + 3, 16777215);
+            GuiCreateFlatWorld.this.fontRendererObj.drawString(s1, p_180791_2_ + 2 + 213 - GuiCreateFlatWorld.this.fontRendererObj.getStringWidth(s1), p_180791_3_ + 3, new Color(255,255,255).getRGB());
         }
 
         protected int getScrollBarX() {

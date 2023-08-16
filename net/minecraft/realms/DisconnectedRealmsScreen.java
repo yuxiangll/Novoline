@@ -2,6 +2,7 @@ package net.minecraft.realms;
 
 import net.minecraft.util.IChatComponent;
 
+import java.awt.*;
 import java.util.List;
 
 public class DisconnectedRealmsScreen extends RealmsScreen {
@@ -44,7 +45,7 @@ public class DisconnectedRealmsScreen extends RealmsScreen {
 
         if (this.lines != null) {
             for (String s : this.lines) {
-                this.drawCenteredString(s, this.width() / 2, i, 16777215);
+                this.drawCenteredString(s, this.width() / 2, i, new Color(255,255,255).getRGB());
                 i += this.fontLineHeight();
             }
         }

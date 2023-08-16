@@ -644,6 +644,13 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient {
                     new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
         }
     }
+    public void addToSendQueue(Packet p_147297_1_) {
+        this.netManager.sendPacket(p_147297_1_);
+    }
+
+    public void addToSendQueueNoEvent(Packet p_147297_1_) {
+        this.netManager.sendPacketNoEvent(p_147297_1_);
+    }
 
     public void sendPacket(Packet p_147297_1_) {
         netManager.sendPacket(p_147297_1_);

@@ -25,25 +25,12 @@
 
 package viaversion.viafabric;
 
-import cc.novoline.viaversion.platform.ViaBackwardsPlatformImplementation;
-import cc.novoline.viaversion.platform.ViaRewindPlatformImplementation;
-import viaversion.viafabric.platform.VRInjector;
-import viaversion.viafabric.platform.VRLoader;
-import viaversion.viafabric.platform.VRPlatform;
 import viaversion.viafabric.util.JLoggerToLog4j;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import io.netty.channel.EventLoop;
 import io.netty.channel.local.LocalEventLoopGroup;
-import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
-import sun.misc.URLClassPath;
-import viaversion.viaversion.ViaManager;
-import viaversion.viaversion.api.Via;
-import viaversion.viaversion.api.data.MappingDataLoader;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,6 +38,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.logging.Logger;
 
 public class ViaFabric {
+    //useless
 
     public static int clientSideVersion = 47;
 
@@ -70,36 +58,4 @@ public class ViaFabric {
         return "1.0";
     }
 
-    public void onInitialize() throws IllegalAccessException, NoSuchFieldException, MalformedURLException {
-
-        loadVia();
-
-        Via.init(ViaManager.builder()
-                .injector(new VRInjector())
-                .loader(new VRLoader())
-                .platform(new VRPlatform()).build());
-
-        MappingDataLoader.enableMappingsCache();
-        new ViaBackwardsPlatformImplementation();
-        new ViaRewindPlatformImplementation();
-
-        Via.getManager().init();
-
-        INIT_FUTURE.complete(null);
-    }
-
-    public void loadVia() throws NoSuchFieldException, IllegalAccessException, MalformedURLException {
-        ClassLoader loader = ClassLoader.getSystemClassLoader();
-        Field addUrl = loader.getClass().getDeclaredField("ucp");
-        addUrl.setAccessible(true);
-        URLClassPath ucp = (URLClassPath) addUrl.get(loader);
-        final File[] files = new File(Minecraft.getInstance().mcDataDir, "mods").listFiles();
-        if (files != null) {
-            for (final File f : files) {
-                if (f.isFile() && f.getName().startsWith("Via") && f.getName().toLowerCase().endsWith(".jar")) {
-                    ucp.addURL(f.toURI().toURL());
-                }
-            }
-        }
-    }
 }

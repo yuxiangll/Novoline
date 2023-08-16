@@ -5,6 +5,8 @@ import cc.novoline.gui.screen.click.DiscordGUI;
 import cc.novoline.modules.configurations.ConfigManager;
 import static cc.novoline.utils.fonts.impl.Fonts.SFTHIN.SFTHIN_17.SFTHIN_17;
 import cc.novoline.utils.java.Checks;
+
+import java.awt.*;
 import java.nio.file.Path;
 import net.minecraft.client.gui.Gui;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +51,7 @@ public class GuiConfig {
 			Gui.drawRect(xCoordinate + 45 + 110, y - 6, xCoordinate + 45 + 105 + width, y + SFTHIN_17.getHeight() + 5, 0xFF2F3136);
 		}
 
-		SFTHIN_17.drawCenteredString(name.replace(".txt", ""), xCoordinate + 45 + 110 + width / 2F, y, selected ? 0xFFFFFFFF : 0xFF868386);
+		SFTHIN_17.drawCenteredString(name.replace(".txt", ""), xCoordinate + 45 + 110 + width / 2F, y, selected ? new Color(255,255,255).getRGB() : 0xFF868386);
 	}
 
 	public boolean isHovered(int mouseX, int mouseY) {

@@ -1,5 +1,6 @@
 package net.optifine;
 
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Map;
@@ -95,6 +96,6 @@ public class ReflectorForge
     public static boolean armorHasOverlay(ItemArmor p_armorHasOverlay_0_, ItemStack p_armorHasOverlay_1_)
     {
         int i = p_armorHasOverlay_0_.getColor(p_armorHasOverlay_1_);
-        return i != 16777215;
+        return i != new Color(255,255,255).getRGB();
     }
 }

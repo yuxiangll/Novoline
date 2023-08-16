@@ -5,15 +5,18 @@ import cc.novoline.commands.impl.ConfigCommand;
 import cc.novoline.modules.visual.HUD;
 import cc.novoline.utils.OpenGLUtil;
 import cc.novoline.utils.Timer;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.MathHelper;
 
 import java.awt.*;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
 
 public class Config {
+	private final UFontRenderer pingFang18 = Novoline.getInstance().fontLoaders.PingFang18;
+
 
 	public int y;
 
@@ -55,7 +58,7 @@ public class Config {
 		fraction = MathHelper.clamp_float(fraction,0,1);
 
 		Gui.drawRect(parent.getPosX(), y,parent.getPosX() + 100, y + getYPerConfig(), new Color(40, 40, 40, 255).getRGB());
-		SF_18.drawCenteredString(name, parent.getPosX() + 101 / 2, y + 4, OpenGLUtil.interpolateColor(WHITE,new Color(hud.getColor().getRed(), hud.getColor().getGreen(), hud.getColor().getBlue(), 250),fraction), true);
+		pingFang18.drawCenteredString(name, parent.getPosX() + 101 / 2, y + 4, OpenGLUtil.interpolateColor(WHITE,new Color(hud.getColor().getRed(), hud.getColor().getGreen(), hud.getColor().getBlue(), 250),fraction));
 	}
 
 	public void keyTyped(char typedChar, int keyCode) {

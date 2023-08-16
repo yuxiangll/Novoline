@@ -235,7 +235,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         try {
             return new Color(red, green, blue, alpha).getRGB();
         } catch (Exception ex) {
-            return 0xffffffff;
+            return new Color(255,255,255).getRGB();
         }
     }
 

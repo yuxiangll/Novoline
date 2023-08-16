@@ -141,7 +141,7 @@ public final class ItemESP extends AbstractModule {
                         GL11.glPushMatrix();
                         GL11.glScalef(0.5f * amp, 0.5f * amp, 0.5f * amp);
                         double _width = Math.abs(scaledPositions[2] - scaledPositions[0]);
-                        int color = 0xffffffff;
+                        int color = new Color(255,255,255).getRGB();
                         float v = (float) (mc.fontRendererCrack.getHeight() * 2) - mc.fontRendererCrack.getHeight() / 2;
 
                         mc.fontRendererCrack.drawStringWithShadow(((EntityItem) o).getEntityItem().getDisplayName(),

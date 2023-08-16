@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_20.SF_20;
 
 public class Tab {
 
@@ -49,8 +48,8 @@ public class Tab {
             l = "F";
         }
         Gui.drawRect(posX - 1, posY, posX + 101, posY + 15, new Color(29, 29, 29, 255).getRGB());
-        Fonts.ICONFONT.ICONFONT_24.ICONFONT_24.drawString(l, posX + 88, posY + 5, 0xffffffff);
-        SF_20.drawString(enumModuleType.name().charAt(0) + enumModuleType.name().substring(1).toLowerCase(), posX + 4, posY + 4, 0xffffffff, true);
+        Fonts.ICONFONT.ICONFONT_24.ICONFONT_24.drawString(l, posX + 88, posY + 5, new Color(255,255,255).getRGB());
+        Novoline.getInstance().fontLoaders.PingFang20.drawString(enumModuleType.name().charAt(0) + enumModuleType.name().substring(1).toLowerCase(), posX + 4, posY + 4, new Color(255,255,255).getRGB(), true);
         if (opened) {
             Gui.drawRect(posX - 1, posY + 15, posX + 101, posY + 15 + getTabHeight() + 1, new Color(29, 29, 29, 255).getRGB());
             modules.forEach(module -> module.drawScreen(mouseX, mouseY));

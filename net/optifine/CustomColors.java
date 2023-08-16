@@ -32,11 +32,13 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.List;
 
 public class CustomColors
 {
@@ -659,7 +661,7 @@ public class CustomColors
 
             try
             {
-                int i = Integer.parseInt(p_parseColor_0_, 16) & 16777215;
+                int i = Integer.parseInt(p_parseColor_0_, 16) & new Color(255,255,255).getRGB();
                 return i;
             }
             catch (NumberFormatException var2)

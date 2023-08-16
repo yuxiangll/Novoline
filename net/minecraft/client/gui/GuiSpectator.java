@@ -11,6 +11,8 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
+import java.awt.*;
+
 public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
     private static final ResourceLocation field_175267_f = new ResourceLocation("textures/gui/widgets.png");
     public static final ResourceLocation field_175269_a = new ResourceLocation("textures/gui/spectator_widgets.png");
@@ -92,7 +94,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
             String s = String.valueOf((Object) GameSettings.getKeyDisplayString(this.field_175268_g.gameSettings.keyBindsHotbar[p_175266_1_].getKeyCode()));
 
             if (i > 3 && p_175266_5_.func_178662_A_()) {
-                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, (float) (p_175266_2_ + 19 - 2 - this.field_175268_g.fontRendererObj.getStringWidth(s)), p_175266_3_ + 6.0F + 3.0F, 16777215 + (i << 24));
+                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, (float) (p_175266_2_ + 19 - 2 - this.field_175268_g.fontRendererObj.getStringWidth(s)), p_175266_3_ + 6.0F + 3.0F, new Color(255,255,255).getRGB() + (i << 24));
             }
         }
     }
@@ -110,7 +112,7 @@ public class GuiSpectator extends Gui implements ISpectatorMenuRecipient {
                 GlStateManager.pushMatrix();
                 GlStateManager.enableBlend();
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, (float) j, (float) k, 16777215 + (i << 24));
+                this.field_175268_g.fontRendererObj.drawStringWithShadow(s, (float) j, (float) k, new Color(255,255,255).getRGB() + (i << 24));
                 GlStateManager.disableBlend();
                 GlStateManager.popMatrix();
             }

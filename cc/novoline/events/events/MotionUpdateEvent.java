@@ -58,6 +58,12 @@ public class MotionUpdateEvent extends CancellableEvent {
     public State getState() {
         return state;
     }
+    public boolean isPre() {
+        return state.equals(State.PRE);
+    }
+    public boolean isPost() {
+        return state.equals(State.POST);
+    }
 
     public void setYaw(float yaw) {
         this.yaw = yaw;

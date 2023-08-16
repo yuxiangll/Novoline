@@ -1,6 +1,8 @@
 package net.optifine;
 
 import com.google.common.collect.Lists;
+
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import net.minecraft.client.gui.GuiButton;
@@ -50,12 +52,12 @@ public class GuiMessage extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.messageLine1, this.width / 2, 70, new Color(255,255,255).getRGB());
         int i = 90;
 
         for (Object s : this.listLines2)
         {
-            this.drawCenteredString(this.fontRendererObj, (String) s, this.width / 2, i, 16777215);
+            this.drawCenteredString(this.fontRendererObj, (String) s, this.width / 2, i, new Color(255,255,255).getRGB());
             i += this.fontRendererObj.getHeight();
         }
 

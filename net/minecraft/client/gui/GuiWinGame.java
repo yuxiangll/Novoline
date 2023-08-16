@@ -14,6 +14,7 @@ import org.apache.commons.io.Charsets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -192,10 +193,10 @@ public class GuiWinGame extends GuiScreen {
                 final String s = this.field_146582_i.get(i1);
 
                 if (s.startsWith("[C]")) {
-                    this.fontRendererObj.drawStringWithShadow(s.substring(3), (float) (j + (i - this.fontRendererObj.getStringWidth(s.substring(3))) / 2), (float) l, 16777215);
+                    this.fontRendererObj.drawStringWithShadow(s.substring(3), (float) (j + (i - this.fontRendererObj.getStringWidth(s.substring(3))) / 2), (float) l, new Color(255,255,255).getRGB());
                 } else {
                     this.fontRendererObj.fontRandom.setSeed((long) i1 * 4238972211L + (long) (this.field_146581_h / 4));
-                    this.fontRendererObj.drawStringWithShadow(s, (float) j, (float) l, 16777215);
+                    this.fontRendererObj.drawStringWithShadow(s, (float) j, (float) l, new Color(255,255,255).getRGB());
                 }
             }
 

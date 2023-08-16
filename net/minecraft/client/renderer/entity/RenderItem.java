@@ -1,9 +1,12 @@
 package net.minecraft.client.renderer.entity;
 
 import cc.novoline.Novoline;
+import cc.novoline.modules.combat.KillAura;
 import cc.novoline.modules.visual.GlintColorize;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -34,9 +37,11 @@ import net.optifine.Reflector;
 import net.shadersmod.client.Shaders;
 import net.shadersmod.client.ShadersRender;
 
+import java.awt.*;
 import java.util.List;
 
 public class RenderItem implements IResourceManagerReloadListener {
+    private EntityLivingBase lastEntityToRenderFor;
 
     private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     private boolean field_175058_l = true;
@@ -278,6 +283,8 @@ public class RenderItem implements IResourceManagerReloadListener {
 
     public void renderItemModelForEntity(ItemStack stack, EntityLivingBase entityToRenderFor, ItemCameraTransforms.TransformType cameraTransformType) {
         if (stack != null && entityToRenderFor != null) {
+            lastEntityToRenderFor = entityToRenderFor;
+
             IBakedModel ibakedmodel = this.itemModelMesher.getItemModel(stack);
 
             if (entityToRenderFor instanceof EntityPlayer) {
@@ -312,6 +319,11 @@ public class RenderItem implements IResourceManagerReloadListener {
             this.modelLocation = null;
         }
     }
+    private void doThirdPersonBlockTransformations() {
+        GlStateManager.translate(-0.15F, -0.2F, 0);
+        GlStateManager.rotate(70, 1, 0, 0);
+        GlStateManager.translate(0.119F, 0.2F, -0.024F);
+    }
 
     protected void renderItemModelTransform(ItemStack stack, IBakedModel model, ItemCameraTransforms.TransformType cameraTransformType) {
         this.textureManager.bindTexture(TextureMap.locationBlocksTexture);
@@ -333,6 +345,23 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.cullFace(1028);
             }
         }
+
+        // 1.7 third person block animations
+        // 1.7的第三人称格挡动画显示
+        if (cameraTransformType == ItemCameraTransforms.TransformType.THIRD_PERSON && lastEntityToRenderFor instanceof EntityPlayer p) {
+            ItemStack heldStack = p.getHeldItem();
+            if (heldStack != null) {
+                EntityPlayerSP player = Minecraft.getMinecraft().player;
+                if (lastEntityToRenderFor == player) {
+                    if (heldStack.getItem() instanceof ItemSword && (Novoline.getInstance().getModuleManager().getModule(KillAura.class).shouldBlock() || p.getItemInUseCount() > 0 ||  player.isBlocking())) {
+                        doThirdPersonBlockTransformations();
+                    }
+                } else if (p.getItemInUseCount() > 0 && heldStack.getItemUseAction() == EnumAction.BLOCK) {
+                    doThirdPersonBlockTransformations();
+                }
+            }
+        }
+
 
         this.renderItem(stack, model);
         GlStateManager.cullFace(1029);
@@ -415,22 +444,79 @@ public class RenderItem implements IResourceManagerReloadListener {
         }
     }
 
-    public void renderItemOverlaysCR(cc.novoline.utils.fonts.api.FontRenderer p_175030_1_, ItemStack p_175030_2_, int p_175030_3_, int p_175030_4_) {
+    public void renderItemOverlaysCR(UFontRenderer p_175030_1_, ItemStack p_175030_2_, int p_175030_3_, int p_175030_4_) {
         renderItemOverlayIntoGUI(p_175030_1_, p_175030_2_, p_175030_3_, p_175030_4_, null);
     }
 
-    public void renderItemOverlays(FontRenderer fr, ItemStack stack, int xPosition, int yPosition) {
+    public void renderItemOverlays(UFontRenderer fr, ItemStack stack, int xPosition, int yPosition) {
         this.renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, null);
     }
 
-    public void renderItemOverlays(FontRenderer fr, ItemStack stack, int xPosition, float yPosition) {
+    public void renderItemOverlays(UFontRenderer fr, ItemStack stack, int xPosition, float yPosition) {
         this.renderItemOverlayIntoGUI(fr, stack, xPosition, yPosition, null);
+    }
+
+
+    public void renderItemOverlayIntoGUIOLD(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text) {
+        if (stack != null) {
+            if (stack.stackSize != 1 || text != null) {
+                String s = text == null ? String.valueOf(stack.stackSize) : text;
+
+                if (text == null && stack.stackSize < 1) {
+                    s = EnumChatFormatting.RED + String.valueOf(stack.stackSize);
+                }
+
+                GlStateManager.disableLighting();
+                GlStateManager.disableDepth();
+                GlStateManager.disableBlend();
+                fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), new Color(255,255,255).getRGB());
+                GlStateManager.enableLighting();
+                GlStateManager.enableDepth();
+            }
+
+            boolean flag = stack.isItemDamaged();
+
+            if (Reflector.ForgeItem_showDurabilityBar.exists()) {
+                flag = Reflector.callBoolean(stack.getItem(), Reflector.ForgeItem_showDurabilityBar, stack);
+            }
+
+            if (flag) {
+                int i = (int) Math.round(13.0D - (double) stack.getItemDamage() * 13.0D / (double) stack.getMaxDamage());
+                int j = (int) Math.round(255.0D - (double) stack.getItemDamage() * 255.0D / (double) stack.getMaxDamage());
+
+                if (Reflector.ForgeItem_getDurabilityForDisplay.exists()) {
+                    double d0 = Reflector.callDouble(stack.getItem(), Reflector.ForgeItem_getDurabilityForDisplay, stack);
+                    i = (int) Math.round(13.0D - d0 * 13.0D);
+                    j = (int) Math.round(255.0D - d0 * 255.0D);
+                }
+
+                GlStateManager.disableLighting();
+                GlStateManager.disableDepth();
+                GlStateManager.disableTexture2D();
+                GlStateManager.disableAlpha();
+                GlStateManager.disableBlend();
+                Tessellator tessellator = Tessellator.getInstance();
+                WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+                this.func_181565_a(worldrenderer, xPosition + 2, yPosition + 13, 13, 2, 0, 0, 0, 255);
+                this.func_181565_a(worldrenderer, xPosition + 2, yPosition + 13, 12, 1, (255 - j) / 4, 64, 0, 255);
+                this.func_181565_a(worldrenderer, xPosition + 2, yPosition + 13, i, 1, 255 - j, j, 0, 255);
+
+                if (!Reflector.ForgeHooksClient.exists()) {
+                    GlStateManager.enableBlend();
+                }
+
+                GlStateManager.enableAlpha();
+                GlStateManager.enableTexture2D();
+                GlStateManager.enableLighting();
+                GlStateManager.enableDepth();
+            }
+        }
     }
 
     /**
      * Renders the stack size and/or damage bar for the given ItemStack.
      */
-    public void renderItemOverlayIntoGUI(FontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text) {
+    public void renderItemOverlayIntoGUI(UFontRenderer fr, ItemStack stack, int xPosition, int yPosition, String text) {
         if (stack != null) {
             if (stack.stackSize != 1 || text != null) {
                 String s = text == null ? String.valueOf(stack.stackSize) : text;
@@ -442,7 +528,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
                 GlStateManager.disableBlend();
-                fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), 16777215);
+                fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), new Color(255,255,255).getRGB());
                 GlStateManager.enableLighting();
                 GlStateManager.enableDepth();
             }
@@ -486,7 +572,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         }
     }
 
-    public void renderItemOverlayIntoGUI(FontRenderer fr, ItemStack stack, int xPosition, float yPosition, String text) {
+    public void renderItemOverlayIntoGUI(UFontRenderer fr, ItemStack stack, int xPosition, float yPosition, String text) {
         if (stack != null) {
             if (stack.stackSize != 1 || text != null) {
                 String s = text == null ? String.valueOf(stack.stackSize) : text;
@@ -498,7 +584,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
                 GlStateManager.disableBlend();
-                fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), 16777215);
+                fr.drawStringWithShadow(s, (float) (xPosition + 19 - 2 - fr.getStringWidth(s)), (float) (yPosition + 6 + 3), new Color(255,255,255).getRGB());
                 GlStateManager.enableLighting();
                 GlStateManager.enableDepth();
             }
@@ -542,7 +628,7 @@ public class RenderItem implements IResourceManagerReloadListener {
         }
     }
 
-    public void renderItemOverlayIntoGUI(cc.novoline.utils.fonts.api.FontRenderer cr, ItemStack stack, float xPosition, float yPosition, String text) {
+    public void renderItemOverlayIntoGUI(UFontRenderer cr, ItemStack stack, float xPosition, float yPosition, String text) {
         if (stack != null) {
             if (stack.stackSize != 1 || text != null) {
                 String s = text == null ? String.valueOf(stack.stackSize) : text;
@@ -554,7 +640,7 @@ public class RenderItem implements IResourceManagerReloadListener {
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
                 GlStateManager.disableBlend();
-                cr.drawString(s, (float) (xPosition + 19 - 2 - cr.stringWidth(s)), (float) (yPosition + 6 + 3), 16777215, true);
+                cr.drawString(s, (float) (xPosition + 19 - 2 - cr.stringWidth(s)), (float) (yPosition + 6 + 3), new Color(255,255,255).getRGB(), true);
                 GlStateManager.enableLighting();
                 GlStateManager.enableDepth();
             }

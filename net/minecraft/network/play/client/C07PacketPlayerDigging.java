@@ -43,6 +43,9 @@ public class C07PacketPlayerDigging implements Packet<INetHandlerPlayServer> {
         buf.writeBlockPos(this.position);
         buf.writeByte(this.facing.getIndex());
     }
+    public C07PacketPlayerDigging.Action func_180762_c() {
+        return this.status;
+    }
 
     /**
      * Passes this Packet on to the NetHandler for processing.

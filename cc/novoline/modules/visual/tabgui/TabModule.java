@@ -1,5 +1,6 @@
 package cc.novoline.modules.visual.tabgui;
 
+import cc.novoline.Novoline;
 import cc.novoline.gui.screen.setting.Manager;
 import cc.novoline.gui.screen.setting.SettingType;
 import cc.novoline.modules.AbstractModule;
@@ -12,7 +13,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.awt.*;
 import java.util.List;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
+//import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
 import static cc.novoline.utils.fonts.impl.Fonts.SFTHIN.SFTHIN_18.SFTHIN_18;
 
 public final class TabModule {
@@ -54,8 +55,8 @@ public final class TabModule {
         Gui.drawRect(66, y, 88 + getLongest(), eY,
                 new Color(20, 20, 20, 170).getRGB());
         if(isSelected()) Gui.drawRect(66, y, 88 + getLongest(), eY, type.getTabGUI().getColor());
-        SF_18.drawString(this.mod.getName(),69 + i, y + 3,
-                this.mod.isEnabled() ? 0xffffffff : new Color(163, 163, 163, 255).getRGB(),true);
+        Novoline.getInstance().fontLoaders.PingFang18.drawString(this.mod.getName(),69 + i, y + 3,
+                this.mod.isEnabled() ? new Color(255,255,255).getRGB() : new Color(163, 163, 163, 255).getRGB(),true);
 
         if (isOpened()) {
             this.settings.forEach(TabSetting::render);

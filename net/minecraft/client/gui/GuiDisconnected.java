@@ -12,6 +12,7 @@ import net.minecraft.util.IChatComponent;
 import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -71,6 +72,7 @@ public class GuiDisconnected extends GuiScreen {
         reconnectButton.enabled = lastServer != null;
 
         String banMessage = this.multilineMessage.get(0);
+        /*
         if (banMessage.startsWith("§r§cYou are temporarily banned for ")) {
             String[] firstSplit = banMessage.split("§r§cYou are temporarily banned for ");
             if (firstSplit.length > 1) {
@@ -87,9 +89,9 @@ public class GuiDisconnected extends GuiScreen {
                     long minutesMillis = TimeUnit.MINUTES.toMillis(Integer.parseInt(minutes));
 
                     long completeMillis = System.currentTimeMillis() + daysMillis + hoursMillis + minutesMillis;
-                    if (novoline.getAltRepositoryGUI().getCurrentAlt().getUnbanDate() == 0)
-                        novoline.getNotificationManager().pop("Alt banned!", "Marked " + novoline.getAltRepositoryGUI().getCurrentAlt().getPlayer().getName() + " as banned for " + complete, 3000, WARNING);
-                    novoline.getAltRepositoryGUI().getCurrentAlt().setUnbanDate(completeMillis);
+                    //if (novoline.getAltRepositoryGUI().getCurrentAlt().getUnbanDate() == 0)
+                        //novoline.getNotificationManager().pop("Alt banned!", "Marked " + novoline.getAltRepositoryGUI().getCurrentAlt().getPlayer().getName() + " as banned for " + complete, 3000, WARNING);
+                    //novoline.getAltRepositoryGUI().getCurrentAlt().setUnbanDate(completeMillis);
                 }
             }
         } else if (banMessage.startsWith("§r§cYou are permanently banned")) {
@@ -97,6 +99,8 @@ public class GuiDisconnected extends GuiScreen {
                 novoline.getNotificationManager().pop("Alt banned!", "Marked " + novoline.getAltRepositoryGUI().getCurrentAlt().getPlayer().getName() + " as permanently banned", 3000, WARNING);
             novoline.getAltRepositoryGUI().getCurrentAlt().setUnbanDate(-1);
         }
+
+         */
     }
 
     /**
@@ -217,7 +221,7 @@ public class GuiDisconnected extends GuiScreen {
 
         if (this.multilineMessage != null) {
             for (String s : this.multilineMessage) {
-                this.drawCenteredString(this.fontRendererObj, s, this.width / 2, i, 16777215);
+                this.drawCenteredString(this.fontRendererObj, s, this.width / 2, i, new Color(255,255,255).getRGB());
                 i += this.fontRendererObj.getHeight();
             }
         }
@@ -225,7 +229,7 @@ public class GuiDisconnected extends GuiScreen {
         final int y = this.height / 2 + this.field_175353_i / 2 + this.fontRendererObj.getHeight();
 
         if (mc.session != null && lastServer != null) {
-            this.fontRendererObj.drawString("Playing on: " + mc.session.getUsername() + " | " + lastServer.serverIP, this.width / 2 - fontRendererObj.getStringWidth("Playing on: " + mc.session.getUsername() + " | " + lastServer.serverIP) / 2, y + 85, 0xffffffff);
+            this.fontRendererObj.drawString("Playing on: " + mc.session.getUsername() + " | " + lastServer.serverIP, this.width / 2 - fontRendererObj.getStringWidth("Playing on: " + mc.session.getUsername() + " | " + lastServer.serverIP) / 2, y + 85, new Color(255,255,255).getRGB());
         }
 
 

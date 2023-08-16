@@ -11,6 +11,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiScreenOptionsSounds extends GuiScreen {
@@ -66,7 +67,7 @@ public class GuiScreenOptionsSounds extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.field_146507_a, this.width / 2, 15, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_146507_a, this.width / 2, 15, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

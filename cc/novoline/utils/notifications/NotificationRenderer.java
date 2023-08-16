@@ -4,6 +4,8 @@ import cc.novoline.Novoline;
 import cc.novoline.modules.visual.HUD;
 import cc.novoline.utils.OpenGLUtil;
 import cc.novoline.utils.fonts.impl.Fonts;
+import cc.novoline.yuxiangll.fontRenderer.FontLoaders;
+import cc.novoline.yuxiangll.fontRenderer.UFontRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -12,7 +14,6 @@ import org.lwjgl.opengl.OpenGLException;
 
 import java.awt.*;
 
-import static cc.novoline.utils.fonts.impl.Fonts.SF.SF_18.SF_18;
 
 public final class NotificationRenderer {
 
@@ -49,9 +50,9 @@ public final class NotificationRenderer {
                     resolution.getScaledWidthStatic(mc),
                     y + 24,
                     new Color(0, 0, 0,110).getRGB());
-
-            mc.fontRendererObj.drawString(callReason,resolution.getScaledWidthStatic(mc) - (float)x + 25,(float)y + 2,0xffffffff,true);
-            mc.fontRendererObj.drawString(message + " " + formatted,resolution.getScaledWidthStatic(mc) - (float)x + 25,(float)y + 12.5F,new Color(200,200,200,255).getRGB(),true);
+            // Novoline.getInstance().fontLoaders.PingFang18
+            Novoline.getInstance().fontLoaders.PingFang18.drawString(callReason,resolution.getScaledWidthStatic(mc) - (float)x + 25,(float)y + 2,new Color(255,255,255).getRGB(),true);
+            Novoline.getInstance().fontLoaders.PingFang18.drawString(message + " " + formatted,resolution.getScaledWidthStatic(mc) - (float)x + 25,(float)y + 12.5F,new Color(200,200,200,255).getRGB(),true);
             //endregion
 
             //region icon-rendering

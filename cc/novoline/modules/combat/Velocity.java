@@ -51,9 +51,13 @@ public final class Velocity extends AbstractModule {
     public boolean shouldCancel() {
         return isEnabled(Blink.class) || horizontal.get().equals(0) && vertical.get().equals(0) || isEnabled(Speed.class);
     }
+    @Override
+    public void onDisable(){
+        super.onDisable();
+    }
 
     @EventTarget
-    private void onVelocity(PacketEvent event) {
+    public void onVelocity(PacketEvent event) {
         if (event.getState().equals(PacketEvent.State.INCOMING)) {
             if (event.getPacket() instanceof S12PacketEntityVelocity) {
                 S12PacketEntityVelocity packet = (S12PacketEntityVelocity) event.getPacket();
@@ -113,5 +117,6 @@ public final class Velocity extends AbstractModule {
     @Override
     public void onEnable() {
         setSuffix(horizontal.get() + ".0%" + " " + vertical.get() + ".0%");
+        super.onEnable();
     }
 }

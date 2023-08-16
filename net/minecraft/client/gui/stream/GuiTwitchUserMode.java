@@ -13,6 +13,7 @@ import tv.twitch.chat.ChatUserInfo;
 import tv.twitch.chat.ChatUserMode;
 import tv.twitch.chat.ChatUserSubscription;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -175,11 +176,11 @@ public class GuiTwitchUserMode extends GuiScreen {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, this.field_152338_i.getUnformattedText(), this.width / 2, 70, 16777215);
+        this.drawCenteredString(this.fontRendererObj, this.field_152338_i.getUnformattedText(), this.width / 2, 70, new Color(255,255,255).getRGB());
         int i = 80;
 
         for (IChatComponent ichatcomponent : this.field_152332_r) {
-            this.drawString(this.fontRendererObj, ichatcomponent.getFormattedText(), this.field_152334_t, i, 16777215);
+            this.drawString(this.fontRendererObj, ichatcomponent.getFormattedText(), this.field_152334_t, i, new Color(255,255,255).getRGB());
             i += this.fontRendererObj.getHeight();
         }
 

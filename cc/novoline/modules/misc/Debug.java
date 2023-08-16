@@ -1,5 +1,6 @@
 package cc.novoline.modules.misc;
 
+import cc.novoline.Novoline;
 import cc.novoline.events.EventTarget;
 import cc.novoline.events.events.Render2DEvent;
 import cc.novoline.events.events.Render3DEvent;
@@ -22,8 +23,8 @@ public class Debug extends AbstractModule {
 
         try {
             for (Object debug : new Object[]{"timer speed: " + (isEnabled(Speed.class) ? 1.0 : mc.timer.timerSpeed)}) {
-                Fonts.SF.SF_20.SF_20.drawString(String.valueOf(debug), 1, y, 0xFFFFFF, true);
-                y += Fonts.SF.SF_20.SF_20.getHeight() + 2;
+                Novoline.getInstance().fontLoaders.PingFang20.drawString(String.valueOf(debug), 1, y, 0xFFFFFF, true);
+                y += Novoline.getInstance().fontLoaders.PingFang20.getHeight() + 2;
             }
 
         } catch (NullPointerException ignored) {

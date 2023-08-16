@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
@@ -89,14 +90,14 @@ public class GuiGameOver extends GuiScreen implements GuiYesNoCallback {
         GlStateManager.scale(2.0F, 2.0F, 2.0F);
         boolean flag = this.mc.world.getWorldInfo().isHardcoreModeEnabled();
         String s = flag ? I18n.format("deathScreen.title.hardcore", new Object[0]) : I18n.format("deathScreen.title", new Object[0]);
-        this.drawCenteredString(this.fontRendererObj, s, this.width / 2 / 2, 30, 16777215);
+        this.drawCenteredString(this.fontRendererObj, s, this.width / 2 / 2, 30, new Color(255,255,255).getRGB());
         GlStateManager.popMatrix();
 
         if (flag) {
-            this.drawCenteredString(this.fontRendererObj, I18n.format("deathScreen.hardcoreInfo", new Object[0]), this.width / 2, 144, 16777215);
+            this.drawCenteredString(this.fontRendererObj, I18n.format("deathScreen.hardcoreInfo", new Object[0]), this.width / 2, 144, new Color(255,255,255).getRGB());
         }
 
-        this.drawCenteredString(this.fontRendererObj, I18n.format("deathScreen.score", new Object[0]) + ": " + EnumChatFormatting.YELLOW + this.mc.player.getScore(), this.width / 2, 100, 16777215);
+        this.drawCenteredString(this.fontRendererObj, I18n.format("deathScreen.score", new Object[0]) + ": " + EnumChatFormatting.YELLOW + this.mc.player.getScore(), this.width / 2, 100, new Color(255,255,255).getRGB());
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

@@ -86,7 +86,7 @@ public final class Radar extends AbstractModule {
                 double z = Math.abs(mc.player.posZ - entity.posZ);
                 double distance = Math.sqrt(x * x + z * z) / scale.get();
 
-                int color = 0xffffffff;
+                int color = new Color(255,255,255).getRGB();
                 if (novoline.playerManager.hasType(entity.getName(), TARGET)) {
                     color = new Color(255, 59, 59, 255).getRGB();
                 } else if (novoline.playerManager.hasType(entity.getName(), TARGET)) {
